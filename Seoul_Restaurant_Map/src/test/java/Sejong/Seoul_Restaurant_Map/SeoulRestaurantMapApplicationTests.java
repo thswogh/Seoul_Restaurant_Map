@@ -17,7 +17,7 @@ class SeoulRestaurantMapApplicationTests {
 	@Test
 	void 회원가입() {
 		Member member = new Member();
-		member.setUser_name("skyepodium");
+		member.setUser_name("chiwon");
 		member.setUser_email("dh5277@naver.com");
 		memberRepository.save(member);
 
@@ -25,6 +25,6 @@ class SeoulRestaurantMapApplicationTests {
 		Assertions.assertThat(member.getUser_name()).isEqualTo(findMember.getUser_name());
 	}
 
-	
+
 }
 
