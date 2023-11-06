@@ -12,19 +12,18 @@ import java.util.Set;
 @Table(name="users")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private String user_id;
 
     private String user_name, user_email, user_password;
 
     @OneToMany(mappedBy = "member")
     private Set<PersonalPreferenceInfoList> infoList;
 
-    public Long getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
