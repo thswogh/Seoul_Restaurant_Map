@@ -82,7 +82,7 @@ const Header = () => {
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink to="/loing">
+                <NavLink to="/login">
                     Login
                 </NavLink>
             </MenuItem>

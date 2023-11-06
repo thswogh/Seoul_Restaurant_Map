@@ -11,8 +11,13 @@ const StyleFormBtn = styled.button`
 
 const FormBtn = (props) => {
     const [value, setValue] = props;
+    const onClickHandler = () => {
+        setValue(value);
+        console.log(value);
+    };
+
     return (
-        <StyleFormBtn onClick={setValue}> {value} </StyleFormBtn>
+        <StyleFormBtn onClick={onClickHandler}> {value} </StyleFormBtn>
     )
 };
 
