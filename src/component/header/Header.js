@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
@@ -34,26 +35,61 @@ const MenuItem = styled.div`
 `;
 
 const Header = () => {
-    const [menuIndex, setMenuIndex] = useState(0);
+    // const [menuIndex, setMenuIndex] = useState(0);
 
-    const handleMenuClick = (menuIndex) => {
-        setMenuIndex(menuIndex);
-    };
+    // const handleMenuClick = (menuIndex) => {
+    //     setMenuIndex(menuIndex);
+    // };
 
     return (
+        // <HeaderContainer>
+        //     <Logo>Mat Zip</Logo>
+        //     <MenuItem active={menuIndex === 0} onClick={() => handleMenuClick(0)}>
+        //         지도 홈
+        //     </MenuItem>
+        //     <MenuItem active={menuIndex === 1} onClick={() => handleMenuClick(1)}>
+        //         나의 Mat Zip
+        //     </MenuItem>
+        //     <MenuItem active={menuIndex === 2} onClick={() => handleMenuClick(2)}>
+        //         Mat Zip 요청
+        //     </MenuItem>
+        //     <MenuItem active={menuIndex === 3} onClick={() => handleMenuClick(3)}>
+        //         건의사항
+        //     </MenuItem>
+
+
+        // </HeaderContainer>
         <HeaderContainer>
             <Logo>Mat Zip</Logo>
-            <MenuItem active={menuIndex === 0} onClick={() => handleMenuClick(0)}>
-                지도 홈
+            <MenuItem>
+                <NavLink to="/">
+                    지도 홈
+                </NavLink>
             </MenuItem>
-            <MenuItem active={menuIndex === 1} onClick={() => handleMenuClick(1)}>
-                나의 Mat Zip
+            <MenuItem>
+                <NavLink to="/list">
+                    나의 Mat Zip
+                </NavLink>
             </MenuItem>
-            <MenuItem active={menuIndex === 2} onClick={() => handleMenuClick(2)}>
-                Mat Zip 요청
+            <MenuItem>
+                <NavLink to="/request">
+                    Mat Zip 요청
+                </NavLink>
             </MenuItem>
-            <MenuItem active={menuIndex === 3} onClick={() => handleMenuClick(3)}>
-                건의사항
+            <MenuItem>
+                <NavLink to="/question">
+                    건의사항
+                </NavLink>
+            </MenuItem>
+            <MenuItem>
+                <NavLink to="/loing">
+                    Login
+                </NavLink>
+            </MenuItem>
+            <MenuItem>
+                <NavLink to="/join">
+                    Join
+                </NavLink>
             </MenuItem>
         </HeaderContainer>
     );
