@@ -18,22 +18,27 @@ const StyleLoginForm = styled.form`
   }
 `;
 
-const StyleEmailConfirmBtn = styled.input.attrs({ type: "button" })`
+const StyleUserNameConfirmBtn = styled.input.attrs({ type: "button" })`
   width: 100px;
   height: 30px;
-  border: solid 1px #ebd500;
+  border: solid 1px #FF7A00;
   font-family: "Noto Sans KR", sans-serif;
   background-color: white;
-  color: #ebd500;
+  color: #FF7A00;
   border-radius: 10px;
   /* margin-bottom: 10px; */
-  :hover {
+  &:hover {
     cursor: pointer;
   }
   @media (max-width: 786px) {
     width: 50%;
     height: 70%;
   }
+`;
+
+const StyleErrorMessage = styled.div`
+    font-size: 0.5rem;
+    color: red;
 `;
 
 const StyleSubmitBtn = styled.button`
@@ -58,9 +63,17 @@ const StyleSubmitBtn = styled.button`
 const JoinForm = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
-    const [userName, setUserName] = useState("");
+    const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const [emailError, setEmailError] = useState("");
+    const [idError, setIdError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+    const [isIdCheck, setIsIdCheck] = useState(false); //아이디 중복검사 했는지
+    const [isIdAvailable, setIsIdAvailable] = useState(false); // 아이디 사용 가능한지 아닌지
 
     // const onSubmitHandler = async (e) => {
     //     e.preventDefault();
@@ -84,25 +97,70 @@ const JoinForm = () => {
     //     }
     // };
 
+    const onChangeEmailHandler = (e) => {
+        const emailValue = e.target.value;
+        setEmail(emailValue);
+        checkEmail(emailValue);
+    };
+
+    const onChangeIdHandler = (e) => {
+        const idValue = e.target.value;
+        setId(idValue);
+        // idCheckHandler(idValue);
+    };
+
+    const onChangePasswordHandler = (e) => {
+        const { name, value } = e.target;
+        if (name === 'password') {
+            setPassword(value);
+            passwordCheckHandler(value, confirmPassword);
+        } else {
+            setConfirmPassword(value);
+            passwordCheckHandler(password, value);
+        }
+    }
+
     const checkEmail = (email) => {
-        if (email !== "" && !email.includes("@") && !email.includes("."))
-            alert("올바르지 않은 이메일 형식입니다.");
+        if (!email.includes("@") || !email.includes(".")) {
+            setEmailError('올바르지 않은 이메일 형식입니다.');
+            return false;
+        }
+        setEmailError("");
+        return true;
     };
 
-    const checkPassword = (password) => {
-        const regexpPassword = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,}$/;
-        if (regexpPassword.test(password)) return true;
-        return false;
-    };
+    const passwordCheckHandler = (password, confirmPassword) => {
+        const passwordRegex = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,}$/;
+        if (password === '') {
+            setPasswordError('비밀번호를 입력해주세요.');
+            return false;
+        } else if (!passwordRegex.test(password)) {
+            setPasswordError('비밀번호는 8자 이상의 영소문자, 숫자, !@*&-_만 입력 가능합니다.');
+            return false;
+        } else if (confirmPassword !== password) {
+            setPasswordError('');
+            setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
+            return false;
+        } else {
+            setPasswordError('');
+            setConfirmPasswordError('');
+            return true;
+        }
+    }
 
-    // const checkUserName = async (e) => {
+    // const idCheckHandler = async (e) => {
     //     e.preventDefault();
     //     await axios
     //         .post("server url", {
-    //             userName: userName,
+    //             id: id,
     //         })
     //         .then((response) => {
     //             console.log(response);
+    //             if (response.status === 200) {
+    //                 setIdError("");
+    //             } else {
+    //                 setIdError("중복된 아이디입니다.");
+    //             }
     //         })
     // };
 
@@ -114,10 +172,10 @@ const JoinForm = () => {
             alert("비밀번호와 비밀번호 확인이 같지 않습니다.\n다시 입력해주세요.");
         else if (checkEmail(email) === false)
             alert("이메일 형식을 다시 확인해주세요.");
-        else if (checkPassword(password) === false)
-            alert(
-                "비밀번호는 영문자, 숫자, 특수문자를 포함한 8자리 이상이어야 합니다."
-            );
+        // else if (checkPassword(password) === false)
+        //     alert(
+        //         "비밀번호는 영문자, 숫자, 특수문자를 포함한 8자리 이상이어야 합니다."
+        //     );
         else return true;
     };
 
@@ -129,39 +187,39 @@ const JoinForm = () => {
                 placeholder="matzip@naver.com"
                 type="text"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onBlur={checkEmail(email)}
+                onChange={onChangeEmailHandler}
             />
-            <StyleEmailConfirmBtn onClick={checkUserName} value="닉네임 중복 검사" />
+            {<StyleErrorMessage>{emailError}</StyleErrorMessage>}
 
-            <label>닉네임</label>
+            <label>닉네임</label><StyleUserNameConfirmBtn value="닉네임 중복 검사" />
             <StyleInput
                 laebl="userName"
                 placeholder="홍박사"
                 type="text"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                value={id}
+                onChange={onChangeIdHandler}
             />
 
             <laebl>비밀번호</laebl>
             <StyleInput
-                laebl="password"
+                name="password"
                 placeholder="Password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={onChangePasswordHandler}
             />
-
-            <label>비밀번호 확인</label>
+            {<StyleErrorMessage>{passwordError}</StyleErrorMessage>}
             <StyleInput
-                laebl="password Confirm"
+                name="confirmPassword"
                 placeholder="Confrim Password"
                 type="password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={onChangePasswordHandler}
             />
+            {<StyleErrorMessage>{confirmPasswordError}</StyleErrorMessage>}
 
-            <StyleSubmitBtn onClick={onSubmitHandler}>회원가입</StyleSubmitBtn>
+            <StyleSubmitBtn>회원가입</StyleSubmitBtn>
+            {/* <StyleSubmitBtn onClick={onSubmitHandler}>회원가입</StyleSubmitBtn> */}
         </StyleLoginForm>
     );
 };
