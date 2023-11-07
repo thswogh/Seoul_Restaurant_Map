@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import '../../css/active.css'
 
 const HeaderContainer = styled.div`
     margin: 0;
@@ -24,71 +25,44 @@ const MenuItem = styled.div`
     margin-right: 20px;
     font-size: 15px;
     font-weight: bold;
-    cursor: pointer;
-    transition: color 0.3s;
-    ${(props) =>
-        props.active &&
-        `
-    color: #FF7A00;
-    transform: scale(1.01);
-    `}
 `;
 
+const isNavActive = ({ isActive }) =>
+    (isActive ? "active" : "inactive")
+    ;
+
 const Header = () => {
-    // const [menuIndex, setMenuIndex] = useState(0);
-
-    // const handleMenuClick = (menuIndex) => {
-    //     setMenuIndex(menuIndex);
-    // };
-
     return (
-        // <HeaderContainer>
-        //     <Logo>Mat Zip</Logo>
-        //     <MenuItem active={menuIndex === 0} onClick={() => handleMenuClick(0)}>
-        //         지도 홈
-        //     </MenuItem>
-        //     <MenuItem active={menuIndex === 1} onClick={() => handleMenuClick(1)}>
-        //         나의 Mat Zip
-        //     </MenuItem>
-        //     <MenuItem active={menuIndex === 2} onClick={() => handleMenuClick(2)}>
-        //         Mat Zip 요청
-        //     </MenuItem>
-        //     <MenuItem active={menuIndex === 3} onClick={() => handleMenuClick(3)}>
-        //         건의사항
-        //     </MenuItem>
-
-
-        // </HeaderContainer>
         <HeaderContainer>
             <Logo>Mat Zip</Logo>
             <MenuItem>
-                <NavLink to="/">
+                <NavLink className={isNavActive} to="/" >
                     지도 홈
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink to="/list">
+                <NavLink className={isNavActive} to="/list">
                     나의 Mat Zip
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink to="/request">
+                <NavLink className={isNavActive} to="/request">
                     Mat Zip 요청
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink to="/question">
+                <NavLink className={isNavActive} to="/question">
                     건의사항
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink to="/login">
-                    Login
+                <NavLink className={isNavActive} to="/login">
+                    로그인
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink to="/join">
-                    Join
+                <NavLink className={({ isActive }) => (isActive ? "active" : "inactive")} to="/join">
+                    회원가입
                 </NavLink>
             </MenuItem>
         </HeaderContainer>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
-const { kakao } = window; // 이걸 해줘야 카카오 api 에서 사용하는 변수들을 리엑트가 알 수 있다.
+const { kakao } = window; // kakao maps api를 심어서 가져오면 window전역 객체에 들어가게 됨. window객체에서 kakao를 뽑아야지 카카오 api 에서 사용하는 변수들을 리엑트가 알 수 있다. 
+
 
 const Map = () => {
 

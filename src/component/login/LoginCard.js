@@ -27,7 +27,7 @@ const LoginCard = () => {
     return (
         <StyleLoginCard>
             <StyleLoginTitle>Mat Zip 로그인</StyleLoginTitle>
-            {/* <LoginForm /> */}
+            <LoginForm />
         </StyleLoginCard>
     );
 };

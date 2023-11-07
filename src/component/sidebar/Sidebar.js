@@ -6,8 +6,21 @@ const SidebarWrapper = styled.div`
     width: 30%;
     background-color: aliceblue;
     display: flex;
+    overflow-y: scroll;
     flex-direction: column;
     padding: 20px;
+    
+    &::-webkit-scrollbar {
+    width: 12px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: black;
+        border-radius: 0px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: white;
+        border: 1px solid black;
+    }
 `;
 
 // const SidebarContent = styled.div`

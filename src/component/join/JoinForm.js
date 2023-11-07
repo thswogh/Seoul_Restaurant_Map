@@ -122,25 +122,25 @@ const JoinForm = () => {
             return false;
         }
 
-        try {
-            const response = await axios.get("server주소");
+        // try {
+        //     const response = await axios.get("server주소");
 
-            console.log(response);
-            if (response.status === 200 && response.data) {
-                setIdError('사용 가능한 아이디입니다.');
-                setIsIdCheck(true);
-                setIsIdAvailable(true);
-                return true;
-            } else {
-                setIdError('이미 사용중인 아이디입니다.');
-                setIsIdAvailable(false);
-                return false;
-            }
-        } catch (error) {
-            alert('서버 오류입니다. 관리자에게 문의하세요.');
-            console.error(error);
-            return false;
-        }
+        //     console.log(response);
+        //     if (response.status === 200 && response.data) {
+        //         setIdError('사용 가능한 아이디입니다.');
+        //         setIsIdCheck(true);
+        //         setIsIdAvailable(true);
+        //         return true;
+        //     } else {
+        //         setIdError('이미 사용중인 아이디입니다.');
+        //         setIsIdAvailable(false);
+        //         return false;
+        //     }
+        // } catch (error) {
+        //     alert('서버 오류입니다. 관리자에게 문의하세요.');
+        //     console.error(error);
+        //     return false;
+        // }
     }
 
     const passwordCheckHandler = (password) => {
@@ -167,22 +167,6 @@ const JoinForm = () => {
         }
     };
 
-    // const idCheckHandler = async (e) => {
-    //     e.preventDefault();
-    //     await axios
-    //         .post("server url", {
-    //             id: id,
-    //         })
-    //         .then((response) => {
-    //             console.log(response);
-    //             if (response.status === 200) {
-    //                 setIdError("");
-    //             } else {
-    //                 setIdError("중복된 아이디입니다.");
-    //             }
-    //         })
-    // };
-
     const finalValidation = () => {
         if (checkEmail(email) && isConfirmPasswordSame(password, confirmPassword)
             && passwordCheckHandler(password) && idCheckHandler(id))
@@ -190,33 +174,33 @@ const JoinForm = () => {
         return false;
     };
 
-    // const onSubmitHandler = async (e) => {
-    //     e.preventDefault();
-    //     if (finalValidation() === true) {
-    //         await axios
-    //             .post("server url", {
-    //                 email: email,
-    //                 password: password,
-    //                 id: id,
-    //             })
-    //             .then((response) => {
-    //                 console.log(response);
-    //                 if (response.status === 200) {
-    //                     alert("회원가입에 성공하셨습니다.");
-    //                     navigate("/login");
-    //                 }
-    //                 else {
-    //                     alert("이미 회원가입 완료한 이메일입니다.");
-    //                 }
-    //             })
-    //     }
-    // };
+    const onSubmitHandler = async (e) => {
+        e.preventDefault();
+        const joinData = {
+            email: email,
+            password: password,
+            id: id,
+        }
+        if (finalValidation() === true) {
+            await axios
+                .post("server url", joinData)
+                .then((response) => {
+                    console.log(response);
+                    if (response.status === 200) {
+                        alert("회원가입에 성공하셨습니다.");
+                        navigate("/login");
+                    }
+                    else {
+                        alert("이미 회원가입 완료한 이메일입니다.");
+                    }
+                })
+        }
+    };
 
     return (
         <StyleLoginForm>
-            <laebl>이메일</laebl>
             <StyleInput
-                laebl="email"
+                label="이메일"
                 placeholder="matzip@naver.com"
                 type="text"
                 value={email}
@@ -224,10 +208,9 @@ const JoinForm = () => {
             />
             {<StyleErrorMessage>{emailError}</StyleErrorMessage>}
 
-            <label>아이디</label>
             <StyleInput
                 name="id"
-                laebl="아이디"
+                label='아이디'
                 placeholder="홍박사"
                 type="text"
                 value={id}
