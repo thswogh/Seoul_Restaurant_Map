@@ -25,7 +25,6 @@ public class joinController {
     public boolean isValidName(@RequestParam("userName")String userName){
         return joinService.isValidId(userName);
     }
-
     @PostMapping(value = "/join")
     public boolean isValidEmail(@RequestParam("userEmail")String userEmail){
         return joinService.isValidId(userEmail);
