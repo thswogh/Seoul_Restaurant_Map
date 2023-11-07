@@ -39,6 +39,7 @@ const StyleUserNameConfirmBtn = styled.input.attrs({ type: "button" })`
 const StyleErrorMessage = styled.div`
     font-size: 0.5rem;
     color: red;
+    margin-bottom: 10px;
 `;
 
 const StyleSubmitBtn = styled.button`
@@ -75,27 +76,6 @@ const JoinForm = () => {
     const [isIdCheck, setIsIdCheck] = useState(false); //아이디 중복검사 했는지
     const [isIdAvailable, setIsIdAvailable] = useState(false); // 아이디 사용 가능한지 아닌지
 
-    // const onSubmitHandler = async (e) => {
-    //     e.preventDefault();
-    //     if (finalValidation() === true) {
-    //         await axios
-    //             .post("server url", {
-    //                 email: email,
-    //                 password: password,
-    //                 userName: userName,
-    //             })
-    //             .then((response) => {
-    //                 console.log(response);
-    //                 if (response.status === 200) {
-    //                     alert("회원가입에 성공하셨습니다.");
-    //                     navigate("/login");
-    //                 }
-    //                 else {
-    //                     alert("이미 회원가입 완료한 이메일입니다.");
-    //                 }
-    //             })
-    //     }
-    // };
 
     const onChangeEmailHandler = (e) => {
         const emailValue = e.target.value;
@@ -106,19 +86,20 @@ const JoinForm = () => {
     const onChangeIdHandler = (e) => {
         const idValue = e.target.value;
         setId(idValue);
-        // idCheckHandler(idValue);
+        idCheckHandler(idValue);
     };
 
     const onChangePasswordHandler = (e) => {
-        const { name, value } = e.target;
-        if (name === 'password') {
-            setPassword(value);
-            passwordCheckHandler(value, confirmPassword);
-        } else {
-            setConfirmPassword(value);
-            passwordCheckHandler(password, value);
-        }
+        const value = e.target.value;
+        setPassword(value);
+        passwordCheckHandler(value);
     }
+
+    const onChangeConfirmPasswordHandler = (e) => {
+        const confirmPasswordValue = e.target.value;
+        setConfirmPassword(confirmPasswordValue);
+        isConfirmPasswordSame(password, confirmPasswordValue);
+    };
 
     const checkEmail = (email) => {
         if (!email.includes("@") || !email.includes(".")) {
@@ -129,7 +110,40 @@ const JoinForm = () => {
         return true;
     };
 
-    const passwordCheckHandler = (password, confirmPassword) => {
+    const idCheckHandler = async (id) => {
+        const idRegex = /^[a-z\d]{5,10}$/;
+        if (id === '') {
+            setIdError('아이디를 입력해주세요.');
+            setIsIdAvailable(false);
+            return false;
+        } else if (!idRegex.test(id)) {
+            setIdError('아이디는 5~10자의 영소문자, 숫자만 입력 가능합니다.');
+            setIsIdAvailable(false);
+            return false;
+        }
+
+        try {
+            const response = await axios.get("server주소");
+
+            console.log(response);
+            if (response.status === 200 && response.data) {
+                setIdError('사용 가능한 아이디입니다.');
+                setIsIdCheck(true);
+                setIsIdAvailable(true);
+                return true;
+            } else {
+                setIdError('이미 사용중인 아이디입니다.');
+                setIsIdAvailable(false);
+                return false;
+            }
+        } catch (error) {
+            alert('서버 오류입니다. 관리자에게 문의하세요.');
+            console.error(error);
+            return false;
+        }
+    }
+
+    const passwordCheckHandler = (password) => {
         const passwordRegex = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,}$/;
         if (password === '') {
             setPasswordError('비밀번호를 입력해주세요.');
@@ -137,16 +151,21 @@ const JoinForm = () => {
         } else if (!passwordRegex.test(password)) {
             setPasswordError('비밀번호는 8자 이상의 영소문자, 숫자, !@*&-_만 입력 가능합니다.');
             return false;
-        } else if (confirmPassword !== password) {
-            setPasswordError('');
-            setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
-            return false;
         } else {
             setPasswordError('');
-            setConfirmPasswordError('');
             return true;
         }
     }
+
+    const isConfirmPasswordSame = (password, confirmPassword) => {
+        if (confirmPassword !== password) {
+            setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
+            return false;
+        } else {
+            setConfirmPasswordError('');
+            return true;
+        }
+    };
 
     // const idCheckHandler = async (e) => {
     //     e.preventDefault();
@@ -165,19 +184,33 @@ const JoinForm = () => {
     // };
 
     const finalValidation = () => {
-        if (email === "") alert("이메일을 입력해주세요.");
-        else if (password === "") alert("비밀번호를 입력해주세요.");
-        else if (confirmPassword === "") alert("비밀번호 확인을 입력해주세요");
-        else if (password !== confirmPassword)
-            alert("비밀번호와 비밀번호 확인이 같지 않습니다.\n다시 입력해주세요.");
-        else if (checkEmail(email) === false)
-            alert("이메일 형식을 다시 확인해주세요.");
-        // else if (checkPassword(password) === false)
-        //     alert(
-        //         "비밀번호는 영문자, 숫자, 특수문자를 포함한 8자리 이상이어야 합니다."
-        //     );
-        else return true;
+        if (checkEmail(email) && isConfirmPasswordSame(password, confirmPassword)
+            && passwordCheckHandler(password) && idCheckHandler(id))
+            return true;
+        return false;
     };
+
+    // const onSubmitHandler = async (e) => {
+    //     e.preventDefault();
+    //     if (finalValidation() === true) {
+    //         await axios
+    //             .post("server url", {
+    //                 email: email,
+    //                 password: password,
+    //                 id: id,
+    //             })
+    //             .then((response) => {
+    //                 console.log(response);
+    //                 if (response.status === 200) {
+    //                     alert("회원가입에 성공하셨습니다.");
+    //                     navigate("/login");
+    //                 }
+    //                 else {
+    //                     alert("이미 회원가입 완료한 이메일입니다.");
+    //                 }
+    //             })
+    //     }
+    // };
 
     return (
         <StyleLoginForm>
@@ -191,18 +224,20 @@ const JoinForm = () => {
             />
             {<StyleErrorMessage>{emailError}</StyleErrorMessage>}
 
-            <label>닉네임</label><StyleUserNameConfirmBtn value="닉네임 중복 검사" />
+            <label>아이디</label>
             <StyleInput
-                laebl="userName"
+                name="id"
+                laebl="아이디"
                 placeholder="홍박사"
                 type="text"
                 value={id}
                 onChange={onChangeIdHandler}
             />
+            <StyleErrorMessage>{idError}</StyleErrorMessage>
 
-            <laebl>비밀번호</laebl>
             <StyleInput
                 name="password"
+                label="비밀번호"
                 placeholder="Password"
                 type="password"
                 value={password}
@@ -211,10 +246,11 @@ const JoinForm = () => {
             {<StyleErrorMessage>{passwordError}</StyleErrorMessage>}
             <StyleInput
                 name="confirmPassword"
+                label="비밀번호 확인"
                 placeholder="Confrim Password"
                 type="password"
                 value={confirmPassword}
-                onChange={onChangePasswordHandler}
+                onChange={onChangeConfirmPasswordHandler}
             />
             {<StyleErrorMessage>{confirmPasswordError}</StyleErrorMessage>}
 
