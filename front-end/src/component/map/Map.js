@@ -4,8 +4,6 @@ import { marker, overlay } from './Marker';
 const { kakao } = window; // kakao maps api를 심어서 가져오면 window전역 객체에 들어가게 됨. window객체에서 kakao를 뽑아야지 카카오 api 에서 사용하는 변수들을 리엑트가 알 수 있다. 
 
 const Map = () => {
-    console.log(marker);
-    console.log("overlay", overlay);
     //지도 위치
     const [position, setPosition] = useState({
         x: 37.549186395087,
@@ -43,12 +41,13 @@ const Map = () => {
     }
 
     // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-    function closeOverlay() {
+    const closeOverlay = () => {
         overlay.setMap(null);
+        console.log("overlay", overlay);
     }
 
     const overlayControl = (map) => {
-        // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+        // 마커를 클릭했을 때 커스텀 오버레이를 표시
         kakao.maps.event.addListener(marker, 'click', function () {
             overlay.setMap(map);
         });

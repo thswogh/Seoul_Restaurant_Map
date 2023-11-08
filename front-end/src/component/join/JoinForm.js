@@ -73,14 +73,15 @@ const JoinForm = () => {
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
-    const [isIdCheck, setIsIdCheck] = useState(false); //아이디 중복검사 했는지
     const [isIdAvailable, setIsIdAvailable] = useState(false); // 아이디 사용 가능한지 아닌지
+    const [isEmailAvailable, setIsEmailAvailable] = useState(false); // 이메일 사용 가능한지 아닌지
+
 
 
     const onChangeEmailHandler = (e) => {
         const emailValue = e.target.value;
         setEmail(emailValue);
-        checkEmail(emailValue);
+        emailCheckHandler(emailValue);
     };
 
     const onChangeIdHandler = (e) => {
@@ -101,13 +102,35 @@ const JoinForm = () => {
         isConfirmPasswordSame(password, confirmPasswordValue);
     };
 
-    const checkEmail = (email) => {
-        if (!email.includes("@") || !email.includes(".")) {
+    const emailCheckHandler = async (email) => {
+        if (email === ' ') {
+            setEmailError('이메일을 입력해주세요.');
+            setIsEmailAvailable(false);
+            return false;
+        } else if (!email.includes("@") || !email.includes(".")) {
             setEmailError('올바르지 않은 이메일 형식입니다.');
+            setIsEmailAvailable(false);
             return false;
         }
-        setEmailError("");
-        return true;
+        try {
+            const emailData = { email: email };
+            const response = await axios.post('http://35.216.106.118:8080/join/validEmail', emailData);
+
+            if (response) {
+                setEmailError('사용 가능한 이메일입니다.');
+                setIsEmailAvailable(true);
+                return true;
+            } else {
+                setEmailError('이미 사용중인 이메일입니다.');
+                setIsEmailAvailable(false);
+                return false;
+            }
+
+        } catch (error) {
+            alert('서버 오류입니다. 관리자에게 문의하세요.');
+            console.error(error);
+            return false;
+        }
     };
 
     const idCheckHandler = async (id) => {
@@ -121,29 +144,29 @@ const JoinForm = () => {
             setIdError('아이디는 5~10자의 영소문자, 숫자만 입력 가능합니다.');
             setIsIdAvailable(false);
             return false;
-        } else {
-            setIdError('');
         }
 
-        // try {
-        //     const response = await axios.get("server주소");
+        try {
+            const idData = {
+                id: id,
+            }
+            const response = await axios.post('http://35.216.106.118:8080/join/validId', idData);
 
-        //     console.log(response);
-        //     if (response.status === 200 && response.data) {
-        //         setIdError('사용 가능한 아이디입니다.');
-        //         setIsIdCheck(true);
-        //         setIsIdAvailable(true);
-        //         return true;
-        //     } else {
-        //         setIdError('이미 사용중인 아이디입니다.');
-        //         setIsIdAvailable(false);
-        //         return false;
-        //     }
-        // } catch (error) {
-        //     alert('서버 오류입니다. 관리자에게 문의하세요.');
-        //     console.error(error);
-        //     return false;
-        // }
+            console.log(response);
+            if (response) {
+                setIdError('사용 가능한 아이디입니다.');
+                setIsIdAvailable(true);
+                return true;
+            } else {
+                setIdError('이미 사용중인 아이디입니다.');
+                setIsIdAvailable(false);
+                return false;
+            }
+        } catch (error) {
+            alert('서버 오류입니다. 관리자에게 문의하세요.');
+            console.error(error);
+            return false;
+        }
     }
 
     const passwordCheckHandler = (password) => {
@@ -171,7 +194,7 @@ const JoinForm = () => {
     };
 
     const finalValidation = () => {
-        if (checkEmail(email) && isConfirmPasswordSame(password, confirmPassword)
+        if (emailCheckHandler(email) && isConfirmPasswordSame(password, confirmPassword)
             && passwordCheckHandler(password) && idCheckHandler(id))
             return true;
         return false;
