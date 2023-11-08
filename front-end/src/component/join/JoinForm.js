@@ -111,19 +111,18 @@ const JoinForm = () => {
     };
 
     const idCheckHandler = async (id) => {
-        const idRegex = /^[a-z]+[a-z0-9]{4,9}$/g;
-        console.log(!(idRegex.test(id)));
+        const idRegex = /^[a-z]+[a-z0-9]{4,9}$/;
+
         if (id === '') {
             setIdError('아이디를 입력해주세요.');
             setIsIdAvailable(false);
             return false;
-        } else if (!(idRegex.test(id))) {
-            setIdError(() => '아이디는 5~10자의 영소문자, 숫자만 입력 가능합니다.');
+        } else if (!idRegex.test(id)) {
+            setIdError('아이디는 5~10자의 영소문자, 숫자만 입력 가능합니다.');
             setIsIdAvailable(false);
             return false;
         } else {
-            setIdError(() => "");
-            setIsIdAvailable(true);
+            setIdError('');
         }
 
         // try {
