@@ -38,11 +38,11 @@ const isNavActive = ({ isActive }) =>
     ;
 
 const Header = () => {
-    let [isLogin, setIsLogin] = useState();
-    useEffect(() => {
-        setIsLogin(localStorage.getItem("loginState"));
-    }, [isLogin]);
-
+    let [isLogin, setIsLogin] = useState(false);
+    // useEffect(() => {
+    //     setIsLogin(localStorage.getItem("loginState"));
+    // }, [isLogin]);
+    console.log(isLogin);
     return (
         <HeaderContainer>
             <Logo>Mat Zip</Logo>
@@ -76,11 +76,16 @@ const Header = () => {
                     회원가입
                 </NavLink>
             </MenuItem> */}
+            {isLogin === false ? (
+                <MyInfoItem>
+                    <HeaderLoginBtn />
+                    <HeaderJoinBtn />
+                </MyInfoItem>
+            )
+                :
+                (<div>지섭 님, 오늘도 Mat Zip과 좋은하루 보내세요!</div>)
+            }
 
-            <MyInfoItem>
-                <HeaderLoginBtn />
-                <HeaderJoinBtn />
-            </MyInfoItem>
         </HeaderContainer>
     );
 };
