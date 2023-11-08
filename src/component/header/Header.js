@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import HeaderJoinBtn from './HeaderJoinBtn';
+import HeaderLoginBtn from './HeaderLoginBtn';
 import styled from 'styled-components';
 import '../../css/active.css'
 
@@ -9,7 +11,6 @@ const HeaderContainer = styled.div`
     padding-top: 10px;
     height: 50px;
     align-items: center;
-    /* background-color: gainsboro; */
 `;
 
 const Logo = styled.div`
@@ -27,11 +28,21 @@ const MenuItem = styled.div`
     font-weight: bold;
 `;
 
+const MyInfoItem = styled.div`
+    position: absolute;
+    right: 3%;
+`;
+
 const isNavActive = ({ isActive }) =>
     (isActive ? "active" : "inactive")
     ;
 
 const Header = () => {
+    let [isLogin, setIsLogin] = useState();
+    useEffect(() => {
+        setIsLogin(localStorage.getItem("loginState"));
+    }, [isLogin]);
+
     return (
         <HeaderContainer>
             <Logo>Mat Zip</Logo>
@@ -55,16 +66,21 @@ const Header = () => {
                     건의사항
                 </NavLink>
             </MenuItem>
-            <MenuItem>
+            {/* <MenuItem>
                 <NavLink className={isNavActive} to="/login">
                     로그인
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink className={({ isActive }) => (isActive ? "active" : "inactive")} to="/join">
+                <NavLink className={isNavActive} to="/join">
                     회원가입
                 </NavLink>
-            </MenuItem>
+            </MenuItem> */}
+
+            <MyInfoItem>
+                <HeaderLoginBtn />
+                <HeaderJoinBtn />
+            </MyInfoItem>
         </HeaderContainer>
     );
 };

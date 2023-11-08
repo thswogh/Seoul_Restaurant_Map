@@ -15,7 +15,7 @@ const SidebarWrapper = styled.div`
     }
     &::-webkit-scrollbar-thumb {
         background-color: black;
-        border-radius: 0px;
+        height: auto;
     }
     &::-webkit-scrollbar-track {
         background-color: white;
@@ -28,11 +28,16 @@ const SidebarWrapper = styled.div`
 //     display: flex;
 //     flex-direction: column;
 // `;
+const divs = [];
+
+for (let i = 0; i < 100; i++) {
+    divs.push(<SelectedTag text="seoul" />);
+}
 
 const Sidebar = () => {
     return (
         <SidebarWrapper>
-            <SelectedTag text="seoul" />
+            {divs}
         </SidebarWrapper>
     );
 };
