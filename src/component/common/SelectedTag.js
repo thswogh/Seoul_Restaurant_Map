@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const selectedTag = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
     padding: 5px 10px;
-    border-radius: 15px;
+    border-radius: 14px;
     color: black;
     margin-right: 10px;
     margin-bottom: 7px;       
