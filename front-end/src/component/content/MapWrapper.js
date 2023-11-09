@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import Map from './map/Map';
+import Map from '../map/Map';
 
 const MainContentWrapper = styled.div`
     flex: 1;
     background-color: #f0f0f0; /* 예시로 배경색 추가 */
 `;
 
-const MainContent = () => {
+const MapWrapper = () => {
     return (
         <MainContentWrapper>
             <Map />
@@ -15,4 +15,4 @@ const MainContent = () => {
     );
 };
 
-export default MainContent;
+export default MapWrapper;

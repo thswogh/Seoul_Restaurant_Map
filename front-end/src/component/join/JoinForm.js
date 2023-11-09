@@ -76,6 +76,11 @@ const JoinForm = () => {
     const [isIdAvailable, setIsIdAvailable] = useState(false); // 아이디 사용 가능한지 아닌지
     const [isEmailAvailable, setIsEmailAvailable] = useState(false); // 이메일 사용 가능한지 아닌지
 
+    const config = {
+        headers: {
+            'Content-Type': 'application/json', // 예시로 Content-Type 헤더를 추가했습니다.
+        },
+    };
 
 
     const onChangeEmailHandler = (e) => {
@@ -114,7 +119,7 @@ const JoinForm = () => {
         }
         try {
             const emailData = { email: email };
-            const response = await axios.post('http://35.216.106.118:8080/join/validEmail', emailData);
+            const response = await axios.post('http://35.216.106.118:8080/join/validEmail', emailData, config);
 
             if (response) {
                 setEmailError('사용 가능한 이메일입니다.');
@@ -150,9 +155,9 @@ const JoinForm = () => {
             const idData = {
                 id: id,
             }
-            const response = await axios.post('http://35.216.106.118:8080/join/validId', idData);
 
-            console.log(response);
+            const response = await axios.post('http://35.216.106.118:8080/join/validId', idData, config);
+
             if (response) {
                 setIdError('사용 가능한 아이디입니다.');
                 setIsIdAvailable(true);
@@ -209,10 +214,10 @@ const JoinForm = () => {
         }
         if (finalValidation() === true) {
             await axios
-                .post("server url", joinData)
+                .post("server url", joinData, config)
                 .then((response) => {
                     console.log(response);
-                    if (response.status === 200) {
+                    if (response === 1) {
                         alert("회원가입에 성공하셨습니다.");
                         navigate("/login");
                     }
@@ -253,6 +258,7 @@ const JoinForm = () => {
                 onChange={onChangePasswordHandler}
             />
             {<StyleErrorMessage>{passwordError}</StyleErrorMessage>}
+
             <StyleInput
                 name="confirmPassword"
                 label="비밀번호 확인"
@@ -263,8 +269,7 @@ const JoinForm = () => {
             />
             {<StyleErrorMessage>{confirmPasswordError}</StyleErrorMessage>}
 
-            <StyleSubmitBtn>회원가입</StyleSubmitBtn>
-            {/* <StyleSubmitBtn onClick={onSubmitHandler}>회원가입</StyleSubmitBtn> */}
+            <StyleSubmitBtn onClick={onSubmitHandler}>회원가입</StyleSubmitBtn>
         </StyleLoginForm>
     );
 };

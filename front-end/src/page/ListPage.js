@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-
+import ListContent from '../component/content/ListContent';
 const List = () => {
     return (
-        <div>List page</div>
+        <ListContent />
     )
 };
 

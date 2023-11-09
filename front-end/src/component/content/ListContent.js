@@ -1,6 +1,6 @@
 import React from 'react';
-import Sidebar from './sidebar/Sidebar';
-import MainContent from './MainContent';
+import ListSidebar from '../sidebar/ListSidebar';
+import MapWrapper from './MapWrapper';
 import styled from 'styled-components';
 
 const AppWrapper = styled.div`
@@ -8,13 +8,13 @@ const AppWrapper = styled.div`
     height: 100vh;
 `;
 
-const WrapContent = () => {
+const ListContent = () => {
     return (
         <AppWrapper>
-            <Sidebar />
-            <MainContent />
+            <ListSidebar />
+            <MapWrapper />
         </AppWrapper>
     );
 };
 
-export default WrapContent;
+export default ListContent;
