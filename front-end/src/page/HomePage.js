@@ -1,9 +1,9 @@
-import WrapContent from "../component/WrapContent";
+import MainContent from "../component/content/MainContent";
 
 const Home = () => {
     return (
         <div>
-            <WrapContent />
+            <MainContent />
         </div>
     )
 };

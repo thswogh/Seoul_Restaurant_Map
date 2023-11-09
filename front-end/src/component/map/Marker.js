@@ -1,5 +1,6 @@
 import markerImagePng from '../../img/marker.png'
 import '../../css/overlay.css'
+import { createElement } from 'react';
 
 const { kakao } = window;
 
@@ -18,14 +19,15 @@ const markerInfo = [
 ];
 
 // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-function closeOverlay() {
+const closeOverlay = () => {
     overlay.setMap(null);
 }
 
-const markerContent = '<div class="wrap">' +
+
+var markerContent = '<div class="wrap">' +
     '    <div class="info">' +
     '        <div class="title">' +
-    '            카카오 스페이스닷원' +
+    '            세종대학교 학식' +
     '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
     '        </div>' +
     '        <div class="body">' +
@@ -40,6 +42,26 @@ const markerContent = '<div class="wrap">' +
     '        </div>' +
     '    </div>' +
     '</div>';
+
+// const markerContent = () => {
+//     const wrap = createElement('div');
+//     wrap.classList("wrap");
+//     const info = createElement('div');
+//     info.classList("info");
+//     const title = createElement('div');
+//     title.classList("title");
+//     const close = createElement('div');
+//     close.classList("close");
+
+//     const body = createElement('div');
+//     body.classList("body");
+//     const img = createElement('div');
+//     img.classList("img");
+//     const desc = createElement('div');
+//     desc.classList("desc");
+//     const ellipsis = createElement('div');
+//     ellipsis.classList("ellipsis");
+// }
 
 
 // 마커를 생성합니다
@@ -57,3 +79,6 @@ export const overlay = new kakao.maps.CustomOverlay({
 });
 
 //marker를 하나의 함수로 만들어서, 
+
+
+

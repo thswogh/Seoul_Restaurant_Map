@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SelectedTag from '../common/SelectedTag';
 
 const SidebarWrapper = styled.div`
+    min-width: 400px;
     width: 30%;
     background-color: aliceblue;
     display: flex;
@@ -34,7 +35,7 @@ for (let i = 0; i < 100; i++) {
     divs.push(<SelectedTag text="seoul" />);
 }
 
-const Sidebar = () => {
+const ListSidebar = () => {
     return (
         <SidebarWrapper>
             {divs}
@@ -42,4 +43,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default ListSidebar;
