@@ -36,7 +36,7 @@ const ViewBar = () => {
                 value={value}
                 onChange={handleChange}
             />
-            <p>현재 조회수: {value >= 1000000 ? `${value}+` : value}</p>
+            <p>현재 조회수: {value >= 1000000 ? `${value / 10000}만+` : `${value / 10000} 만`}</p>
         </div>
     );
 };

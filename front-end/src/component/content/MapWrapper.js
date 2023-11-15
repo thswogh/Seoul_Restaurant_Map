@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Map from '../map/Map';
+import BasicMap from '../map/Map';
 
 const MainContentWrapper = styled.div`
     flex: 1;
@@ -10,7 +10,7 @@ const MainContentWrapper = styled.div`
 const MapWrapper = () => {
     return (
         <MainContentWrapper>
-            <Map />
+            <BasicMap />
         </MainContentWrapper>
     );
 };
