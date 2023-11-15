@@ -17,14 +17,10 @@ const OrangeButton = styled.button`
     }
 `;
 
-const OrangeBtn = () => {
-    const handleClick = () => {
-        console.log('Button clicked!');
-    };
-
+const OrangeBtn = ({ onClick }) => {
     return (
         <div>
-            <OrangeButton onClick={handleClick}>맛집 재검색</OrangeButton>
+            <OrangeButton onClick={onClick}>맛집 재검색</OrangeButton>
         </div>
     );
 };
