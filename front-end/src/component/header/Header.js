@@ -83,7 +83,7 @@ const Header = () => {
                 </MyInfoItem>
             )
                 :
-                (<div>지섭 님, 오늘도 Mat Zip과 좋은하루 보내세요!</div>)
+                (<span>지섭 님, 오늘도 Mat Zip과 좋은하루 보내세요!</span>)
             }
 
         </HeaderContainer>

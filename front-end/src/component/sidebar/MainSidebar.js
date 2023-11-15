@@ -1,16 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import SelectedTag from '../common/SelectedTag';
+import ChannelWrapper from '../Channel';
+import FoodWrapper from '../Food';
+import ViewBar from '../ViewBar';
+import RegionDropdown from '../Region';
+import { OrangeCircle } from '../common/OrangeCircle';
+
 
 const SidebarWrapper = styled.div`
     min-width: 400px;
     width: 30%;
-    background-color: aliceblue;
+    background-color: white;
     display: flex;
     overflow-y: scroll;
     flex-direction: column;
-    padding: 20px;
-    
+    padding: 40px;
+
     &::-webkit-scrollbar {
     width: 12px;
     }
@@ -29,16 +34,37 @@ const SidebarWrapper = styled.div`
 //     display: flex;
 //     flex-direction: column;
 // `;
-const divs = [];
 
-for (let i = 0; i < 100; i++) {
-    divs.push(<SelectedTag text="seoul" />);
-}
+const StyleTitleWrapper = styled.div`
+    margin-bottom: 10px;
+`;
+
+const StyledTitle = styled.span`
+    font-size: 18px;
+    font-weight: 800;
+    color: black;
+    margin-right: 10px;
+`;
+
+const StyledSubTitle = styled.span`
+    font-size: 16px;
+    font-weight: 600;
+    color: #BBBBBB; 
+`;
+
 
 const MainSidebar = () => {
     return (
         <SidebarWrapper>
-            {divs}
+            <h2 style={{ marginTop: "0" }}>나에게 딱 맞는 맛집!</h2>
+            <StyleTitleWrapper> <OrangeCircle /><StyledTitle>CHANNEL</StyledTitle><StyledSubTitle>채널</StyledSubTitle></StyleTitleWrapper>
+            <ChannelWrapper />
+            <StyleTitleWrapper> <OrangeCircle /><StyledTitle>FOOD</StyledTitle><StyledSubTitle>음식</StyledSubTitle></StyleTitleWrapper>
+            <FoodWrapper />
+            <StyleTitleWrapper> <OrangeCircle /><StyledTitle>REGION</StyledTitle><StyledSubTitle>지역</StyledSubTitle></StyleTitleWrapper>
+            <RegionDropdown />
+            <StyleTitleWrapper> <OrangeCircle /><StyledTitle>VIEWS</StyledTitle><StyledSubTitle>조회수</StyledSubTitle></StyleTitleWrapper>
+            <ViewBar />
         </SidebarWrapper>
     );
 };

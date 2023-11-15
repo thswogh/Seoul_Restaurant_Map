@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { marker, overlay } from './Marker';
+import OrangeBtn from '../common/OrangeBtn';
+import '../../css/map.css'
 
 const { kakao } = window; // kakao maps api를 심어서 가져오면 window전역 객체에 들어가게 됨. window객체에서 kakao를 뽑아야지 카카오 api 에서 사용하는 변수들을 리엑트가 알 수 있다. 
 
@@ -53,10 +55,15 @@ const Map = () => {
         });
     };
 
-    const isChangeMap = (map) => {
-        kakao.maps.event.addListener(map, 'center_changed', function () {
-            alert('center changed!');
-        });
+
+    const getMapBound = (map) => {
+        // 지도의 현재 영역을 얻어옵니다
+        const bounds = map.getBounds();
+        // 영역의 남서쪽 좌표를 얻어옵니다
+        const swLatLng = bounds.getSouthWest();
+        // 영역의 북동쪽 좌표를 얻어옵니다
+        const neLatLng = bounds.getNorthEast();
+        console.log(swLatLng, neLatLng);
     };
 
 
@@ -74,11 +81,15 @@ const Map = () => {
     }, []);
 
     return (
-        <div id='myMap' style={{
-            width: '100%',
-            height: '100%'
-        }}></div>
+        // <div id="myMap" className={"mapContainer"} ></div >
+        <div className={"mapContainer"}>
+            <div id="myMap" style={{ width: '100%', height: '100%' }}></div>
+
+            <div className={"RightDown"}>
+                <OrangeBtn onClick={getMapBound} />
+            </div>
+        </div>
     );
 }
 
-export default Map; 
+export default React.memo(Map); 
