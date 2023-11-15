@@ -199,8 +199,7 @@ const JoinForm = () => {
     };
 
     const finalValidation = () => {
-        if (emailCheckHandler(email) && isConfirmPasswordSame(password, confirmPassword)
-            && passwordCheckHandler(password) && idCheckHandler(id))
+        if (isIdAvailable && isEmailAvailable)
             return true;
         return false;
     };
@@ -214,9 +213,9 @@ const JoinForm = () => {
         }
         if (finalValidation() === true) {
             await axios
-                .post("server url", joinData, config)
+                .post("http://35.216.106.118:8080/join/joinNewUser", joinData, config)
                 .then((response) => {
-                    console.log(response);
+                    console.log("response", response);
                     if (response === 1) {
                         alert("회원가입에 성공하셨습니다.");
                         navigate("/login");
@@ -226,10 +225,13 @@ const JoinForm = () => {
                     }
                 })
         }
+        else {
+            alert("아이디와 비밀번호를 확인해주세요.");
+        }
     };
 
     return (
-        <StyleLoginForm>
+        <StyleLoginForm onSubmit={onSubmitHandler}>
             <StyleInput
                 label="이메일"
                 placeholder="matzip@naver.com"
@@ -269,7 +271,7 @@ const JoinForm = () => {
             />
             {<StyleErrorMessage>{confirmPasswordError}</StyleErrorMessage>}
 
-            <StyleSubmitBtn onClick={onSubmitHandler}>회원가입</StyleSubmitBtn>
+            <StyleSubmitBtn>회원가입</StyleSubmitBtn>
         </StyleLoginForm>
     );
 };

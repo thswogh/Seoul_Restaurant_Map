@@ -1,4 +1,3 @@
-import React from 'react';
 import MainSidebar from '../sidebar/MainSidebar';
 import MapWrapper from './MapWrapper';
 import styled from 'styled-components';
