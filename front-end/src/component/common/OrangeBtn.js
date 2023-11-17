@@ -20,7 +20,7 @@ const OrangeButton = styled.button`
 const OrangeBtn = ({ onClick }) => {
     return (
         <div>
-            <OrangeButton onClick={onClick}>맛집 재검색</OrangeButton>
+            <OrangeButton onClick={onClick}>지도 내 검색</OrangeButton>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ChannelTags from "./HandleChannels";
+import { useState } from "react";
 
 const StyleChannelWrapper = styled.div`
     height: 20vh;
@@ -23,10 +24,17 @@ const StyleChannelWrapper = styled.div`
 `;
 
 
-const ChannelWrapper = () => {
+const ChannelWrapper = ({ onTagArrayChange }) => {
+    const [selectedChannelTagArray, setSelectedChannelTagArray] = useState([]);
+
+    const handleTagSelectionChange = (selectedTags) => {
+        const newTagArray = Object.keys(selectedTags).filter(tagName => selectedTags[tagName]);
+        setSelectedChannelTagArray(newTagArray);
+        onTagArrayChange(newTagArray); // 여기서 onTagArrayChange를 호출하고 newTagArray를 전달
+    };
     return (
         <StyleChannelWrapper>
-            <ChannelTags />
+            <ChannelTags onTagSelectionChange={handleTagSelectionChange} />
         </StyleChannelWrapper>
     )
 };

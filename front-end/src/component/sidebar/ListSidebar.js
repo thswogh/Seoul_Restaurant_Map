@@ -5,7 +5,7 @@ import FriendList from '../listComponent/FriendList';
 
 const SidebarWrapper = styled.div`
     min-width: 400px;
-    width: 30%;
+    width: 25%;
     background-color: white;
     display: flex;
     overflow-y: scroll;
