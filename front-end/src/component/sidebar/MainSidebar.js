@@ -5,6 +5,8 @@ import FoodWrapper from '../Food';
 import ViewBar from '../ViewBar';
 import RegionDropdown from '../Region';
 import { OrangeCircle } from '../common/OrangeCircle';
+import OrangeBtn from '../common/OrangeBtn';
+import { json } from 'react-router-dom';
 
 
 const SidebarWrapper = styled.div`
@@ -52,6 +54,16 @@ const StyledSubTitle = styled.span`
     color: #BBBBBB; 
 `;
 
+const StyledTItleContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+const StyledMainTitle = styled.h2`
+    margin-top: 0;
+    display: inline-block;
+`
+
 
 const MainSidebar = () => {
     const [grandParentChannelTagArray, setGrandParentChannelTagArray] = useState([]);
@@ -64,9 +76,16 @@ const MainSidebar = () => {
         console.log("channel", grandParentChannelTagArray);
     }, [grandParentChannelTagArray])
 
+    const onClickSearchHandler = () => {
+        console.log(grandParentChannelTagArray);
+    };
+
     return (
         <SidebarWrapper>
-            <h2 style={{ marginTop: "0" }}>나에게 딱 맞는 맛집!</h2>
+            <StyledTItleContainer>
+                <StyledMainTitle>나에게 딱 맞는 맛집!</StyledMainTitle>
+                <OrangeBtn onClick={onClickSearchHandler} text="검색" />
+            </StyledTItleContainer>
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>CHANNEL</StyledTitle><StyledSubTitle>채널</StyledSubTitle></StyleTitleWrapper>
             <ChannelWrapper onTagArrayChange={handleTagArrayChange} />
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>FOOD</StyledTitle><StyledSubTitle>음식</StyledSubTitle></StyleTitleWrapper>

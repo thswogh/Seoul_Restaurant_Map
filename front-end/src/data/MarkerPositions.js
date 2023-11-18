@@ -1,27 +1,27 @@
-export const MarkerPosition = [
+export const MarkersInfo = [
     {
         restaurant_name: "카카오",
-        latlng: { lat: 33.450705, lng: 126.570677 },
+        latlng: { lat: 37.548893758706, lng: 127.07541602235 },
         categoryList: ['hi', 'bye', 'why'],
         address: "제주도 제주시 어디어디",
         placeUrl: "https://www.kakaocorp.com/ir/wayToCome",
-        videoData: {
+        videoData: [{
             thumb: "//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005",
             view: 900000,
-        },
-        channel: ['성시경', '히밥', '하빕'],
+            channel: ['성시경', '히밥', '하빕'],
+        },]
     },
     {
         restaurant_name: "생태연못",
-        latlng: { lat: 33.450936, lng: 126.569477 },
+        latlng: { lat: 37.549186395087, lng: 127.07505567648 },
         categoryList: ['hi', 'bye', 'why'],
         address: "제주도 제주시 어디어디",
         placeUrl: "https://www.kakaocorp.com/ir/wayToCome",
-        videoData: {
+        videoData: [{
             thumb: "//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005",
             view: 900000,
-        },
-        channel: ['성시경', '히밥', '하빕'],
+            channel: ['성시경', '히밥', '하빕'],
+        },]
     },
     {
         restaurant_name: "텃밭",
@@ -29,11 +29,11 @@ export const MarkerPosition = [
         categoryList: ['hi', 'bye', 'why'],
         address: "제주도 제주시 어디어디",
         placeUrl: "https://www.kakaocorp.com/ir/wayToCome",
-        videoData: {
+        videoData: [{
             thumb: "//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005",
             view: 900000,
-        },
-        channel: ['성시경', '히밥', '하빕'],
+            channel: ['성시경', '히밥', '하빕'],
+        },]
     },
     {
         restaurant_name: "근린공원",
@@ -41,11 +41,12 @@ export const MarkerPosition = [
         categoryList: ['hi', 'bye', 'why'],
         address: "제주도 제주시 어디어디",
         placeUrl: "https://www.kakaocorp.com/ir/wayToCome",
-        videoData: {
+        videoData: [{
             thumb: "//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005",
             view: 900000,
-        },
-        channel: ['성시경', '히밥', '하빕'],
+            channel: ['성시경', '히밥', '하빕'],
+        },]
+
     }
 ]
 

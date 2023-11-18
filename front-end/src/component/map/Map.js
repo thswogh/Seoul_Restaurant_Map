@@ -1,18 +1,17 @@
-import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk"
-import React, { useEffect, useRef, useState } from 'react';
-import { MarkerPosition } from "../../data/MarkerPositions";
+import { Map } from "react-kakao-maps-sdk"
+import { useEffect, useRef, useState } from 'react';
+import { MarkersInfo } from "../../data/MarkerPositions";
 import axios from 'axios';
 import OrangeBtn from '../common/OrangeBtn';
-import markerImagePng from '../../img/marker.png'
 import '../../css/map.css'
-import '../../css/overlay.css'
+import MapMarkerContainer from "./MarkerOverlay";
 import { joinPaths } from "@remix-run/router";
 
 
 const BasicMap = () => {
     const [coordinates, setCoordinates] = useState(null); // 현재 위치의 좌표값을 저장할 상태
     const mapRef = useRef();
-    const [markers, setMarkers] = useState(MarkerPosition);
+    const [markers, setMarkers] = useState(MarkersInfo);
     const [renderedContent, setRenderedContent] = useState(null);
     const config = {
         headers: {
@@ -57,63 +56,6 @@ const BasicMap = () => {
         };
     }
 
-    // useEffect(() => {
-    //     const newRenderedContent = markers.map((marker, index) => (
-    //         <div key={index}>
-    //             <MapMarker position={marker.latlng} onClick={() => handleMarkerClick(index)} />
-    //             {markerStates[index] && (
-    //                 <CustomOverlayMap position={marker.latlng}>
-    //                     <div className="wrap">
-    //                         <div className="info">
-    //                             <div className="title">
-    //                                 {marker.restaurant_name}
-    //                                 <div
-    //                                     className="close"
-    //                                     onClick={() => handleMarkerClick(index)}
-    //                                     title="닫기"
-    //                                 ></div>
-    //                             </div>
-    //                             <div className="body">
-    //                                 <div className="img">
-    //                                     <img
-    //                                         src={marker.thumbnail}
-    //                                         width="73"
-    //                                         height="70"
-    //                                         alt="카카오 스페이스닷원"
-    //                                     />
-    //                                 </div>
-    //                                 <div className="desc">
-    //                                     <div className="ellipsis">
-    //                                         {marker.address}
-    //                                     </div>
-    //                                     <div className="jibun ellipsis">
-    //                                         {marker.view / 10000}만 VIEWS
-    //                                     </div>
-    //                                     <div>
-    //                                         <a
-    //                                             href={marker.placeUrl}
-    //                                             target="_blank"
-    //                                             className="link"
-    //                                             rel="noreferrer"
-    //                                         >
-    //                                             주소 바로가기
-    //                                         </a>
-    //                                     </div>
-    //                                 </div>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 </CustomOverlayMap>
-    //             )}
-    //         </div>
-    //     ));
-
-    //     // renderedContent 업데이트
-    //     console.log("markers", markers);
-    //     setRenderedContent(newRenderedContent);
-    // }, [markers]);
-
-
     return (
         <div div className={"mapContainer"} >
             <Map id="map" center={{ lat: 37.549186395087, lng: 127.07505567644, }}
@@ -121,65 +63,19 @@ const BasicMap = () => {
                 level={3}
                 ref={mapRef}
             >
-                {/* {renderedContent} */}
                 {markers.map((marker, index) => (
-                    <div key={index}>
-                        <MapMarker position={marker.latlng} onClick={() => handleMarkerClick(index)} />
-                        {markerStates[index] && (
-                            <CustomOverlayMap position={marker.latlng}>
-                                <div className="wrap">
-                                    <div className="info">
-                                        <div className="title">
-                                            {marker.restaurant_name}
-                                            <div
-                                                className="close"
-                                                onClick={() => handleMarkerClick(index)}
-                                                title="닫기"
-                                            ></div>
-                                        </div>
-                                        <div className="body">
-                                            <div className="img">
-                                                <a href={marker.placeUrl} target="_blank" rel="noreferrer">
-                                                    <img
-                                                        src={marker.videoData[0].thumb}
-                                                        width="73"
-                                                        height="70"
-                                                        alt="카카오 스페이스닷원"
-                                                    />
-                                                </a>
-                                            </div>
-                                            <div className="desc">
-                                                <div className="ellipsis">
-                                                    {marker.videoData[0].channel}
-                                                </div>
-                                                <div className="ellipsis">
-                                                    {Math.round(marker.videoData[0].view / 10000 * 10) / 10}만 VIEWS
-                                                </div>
-                                                <div className="jibun ellipsis">
-                                                    {marker.address}
-                                                </div>
-                                                <div>
-                                                    <a
-                                                        href={marker.placeUrl}
-                                                        target="_blank"
-                                                        className="link"
-                                                        rel="noreferrer"
-                                                    >
-                                                        주소 바로가기
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </CustomOverlayMap>
-                        )}
-                    </div>
+                    <MapMarkerContainer
+                        marker={marker}
+                        index={index}
+                        markerStates={markerStates}
+                        handleMarkerClick={handleMarkerClick}
+                    />
+                    // 
                 ))};
             </Map>
             {console.log("markers", markers)};
             <div className={"RightDown"}>
-                <OrangeBtn onClick={GetMapBound} />
+                <OrangeBtn onClick={GetMapBound} text="지도 내 검색" />
             </div>
         </div>
     )

@@ -17,11 +17,11 @@ const OrangeButton = styled.button`
     }
 `;
 
-const OrangeBtn = ({ onClick }) => {
+const OrangeBtn = ({ onClick, text }) => {
     return (
-        <div>
-            <OrangeButton onClick={onClick}>지도 내 검색</OrangeButton>
-        </div>
+        <span>
+            <OrangeButton onClick={onClick}>{text}</OrangeButton>
+        </span>
     );
 };
 
