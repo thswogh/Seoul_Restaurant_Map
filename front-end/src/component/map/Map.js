@@ -1,6 +1,6 @@
 import { Map, MarkerClusterer, MapMarker } from "react-kakao-maps-sdk"
 import { useEffect, useRef, useState } from 'react';
-import { MarkersInfo } from "../../data/MarkerPositions";
+import { useMarkers } from "../util/MarkersContext";
 import axios from 'axios';
 import OrangeBtn from '../common/OrangeBtn';
 import '../../css/map.css'
@@ -11,13 +11,13 @@ import { joinPaths } from "@remix-run/router";
 const BasicMap = () => {
     const [coordinates, setCoordinates] = useState(null); // 현재 위치의 좌표값을 저장할 상태
     const mapRef = useRef();
-    const [markers, setMarkers] = useState(MarkersInfo);
+    // const [markers, setMarkers] = useState(MarkersInfo);
+    const { markers, setMarkers } = useMarkers();
     const [mapInfo, setMapInfo] = useState({
         lat: 37.549186395087,
         lng: 127.07505567644,
         level: 4
     })
-    const [renderedContent, setRenderedContent] = useState(null);
     const config = {
         headers: {
             "Content-Type": "application/json", // 예시로 Content-Type 헤더를 추가했습니다.

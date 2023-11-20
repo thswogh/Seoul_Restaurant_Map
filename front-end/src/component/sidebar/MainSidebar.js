@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useMarkers } from '../util/MarkersContext';
 import styled from 'styled-components';
 import ChannelWrapper from '../Channel';
 import FoodWrapper from '../Food';
@@ -6,7 +7,6 @@ import ViewBar from '../ViewBar';
 import RegionDropdown from '../Region';
 import { OrangeCircle } from '../common/OrangeCircle';
 import OrangeBtn from '../common/OrangeBtn';
-import { json } from 'react-router-dom';
 
 
 const SidebarWrapper = styled.div`
@@ -67,6 +67,7 @@ const StyledMainTitle = styled.h2`
 
 const MainSidebar = () => {
     const [grandParentChannelTagArray, setGrandParentChannelTagArray] = useState([]);
+    const { markers, setMarkers } = useMarkers();
 
     // 부모의 부모 컴포넌트에서 사용하려는 selectedChannelTagArray 값 감지
     const handleTagArrayChange = (newTagArray) => {

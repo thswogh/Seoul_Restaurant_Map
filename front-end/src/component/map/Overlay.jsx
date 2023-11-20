@@ -13,14 +13,20 @@ const Overlay = ({ marker, handleMarkerClick }) => {
     const handlePrevVideo = () => {
         setCurVideoIdx((prevIdx) => (prevIdx - 1 + marker.videoData.length) % marker.videoData.length);
     }
+    const playVideo = () => {
+        const videoLink = marker.videoData[curVideoIdx].url;
+        window.open(videoLink, '_blank');
+    }
 
     return (
         <div className='wrap'>
+
             <div className='top'
                 style={{
                     backgroundImage: `url(${marker.videoData[curVideoIdx].thumb})`,
                     backgroundSize: '100% 100%'
-                }}>
+                }}
+            >
                 <div
                     className="close"
                     onClick={handleMarkerClick}
@@ -34,6 +40,8 @@ const Overlay = ({ marker, handleMarkerClick }) => {
                     <img onClick={handlePrevVideo} src={PngLeftArrow} alt="이전" title='이전' />
                     <img onClick={handleNextVideo} src={PngRightArrow} alt="다음" title='다음' />
                 </div>
+                <div><button onClick={playVideo}>영상 시청</button></div>
+
             </div>
 
             <div className='bottom'>
