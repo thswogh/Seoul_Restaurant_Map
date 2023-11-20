@@ -1,27 +1,40 @@
 export const MarkersInfo = [
     {
-        restaurant_name: "카카오",
+        restaurant_name: "서울포차",
         latlng: { lat: 37.548893758706, lng: 127.07541602235 },
         categoryList: ['hi', 'bye', 'why'],
         address: "제주도 제주시 어디어디",
         placeUrl: "https://www.kakaocorp.com/ir/wayToCome",
         videoData: [{
-            thumb: "//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005",
+            channel: '성시경',
+            thumb: "https://i.ytimg.com/vi/3tc3F4M607s/mqdefault.jpg",
+            url: "https://www.youtube.com/watch?v=3tc3F4M607s&ab_channel=%EC%84%B1%EC%8B%9C%EA%B2%BDSUNGSIKYUNG",
             view: 900000,
-            channel: ['성시경', '히밥', '하빕'],
-        },]
+        }, {
+            channel: '백종원',
+            thumb: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcA2d0Ga-h7C6KQ2tSTrtb_C7zjQxp0uJSag&usqp=CAU",
+            url: "https://www.youtube.com/watch?v=3tc3F4M607s&ab_channel=%EC%84%B1%EC%8B%9C%EA%B2%BDSUNGSIKYUNG",
+            view: 830000,
+        }]
+
     },
     {
         restaurant_name: "생태연못",
-        latlng: { lat: 37.549186395087, lng: 127.07505567648 },
+        latlng: { lat: 37.54662892259587, lng: 127.0750929875345 },
         categoryList: ['hi', 'bye', 'why'],
         address: "제주도 제주시 어디어디",
         placeUrl: "https://www.kakaocorp.com/ir/wayToCome",
         videoData: [{
-            thumb: "//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005",
+            channel: '성시경',
+            thumb: "https://i.ytimg.com/vi/3tc3F4M607s/mqdefault.jpg",
+            url: "https://www.youtube.com/watch?v=3tc3F4M607s&ab_channel=%EC%84%B1%EC%8B%9C%EA%B2%BDSUNGSIKYUNG",
             view: 900000,
-            channel: ['성시경', '히밥', '하빕'],
-        },]
+        }, {
+            channel: '백종원',
+            thumb: "https://i.ytimg.com/vi/3tc3F4M607s/mqdefault.jpg",
+            url: "https://www.youtube.com/watch?v=3tc3F4M607s&ab_channel=%EC%84%B1%EC%8B%9C%EA%B2%BDSUNGSIKYUNG",
+            view: 830000,
+        }]
     },
     {
         restaurant_name: "텃밭",
@@ -30,10 +43,16 @@ export const MarkersInfo = [
         address: "제주도 제주시 어디어디",
         placeUrl: "https://www.kakaocorp.com/ir/wayToCome",
         videoData: [{
-            thumb: "//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005",
+            channel: '성시경',
+            thumb: "https://i.ytimg.com/vi/3tc3F4M607s/mqdefault.jpg",
+            url: "https://www.youtube.com/watch?v=3tc3F4M607s&ab_channel=%EC%84%B1%EC%8B%9C%EA%B2%BDSUNGSIKYUNG",
             view: 900000,
-            channel: ['성시경', '히밥', '하빕'],
-        },]
+        }, {
+            channel: '백종원',
+            thumb: "https://i.ytimg.com/vi/3tc3F4M607s/mqdefault.jpg",
+            url: "https://www.youtube.com/watch?v=3tc3F4M607s&ab_channel=%EC%84%B1%EC%8B%9C%EA%B2%BDSUNGSIKYUNG",
+            view: 830000,
+        }]
     },
     {
         restaurant_name: "근린공원",
@@ -42,10 +61,16 @@ export const MarkersInfo = [
         address: "제주도 제주시 어디어디",
         placeUrl: "https://www.kakaocorp.com/ir/wayToCome",
         videoData: [{
-            thumb: "//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005",
+            channel: '성시경',
+            thumb: "https://i.ytimg.com/vi/3tc3F4M607s/mqdefault.jpg",
+            url: "https://www.youtube.com/watch?v=3tc3F4M607s&ab_channel=%EC%84%B1%EC%8B%9C%EA%B2%BDSUNGSIKYUNG",
             view: 900000,
-            channel: ['성시경', '히밥', '하빕'],
-        },]
+        }, {
+            channel: '백종원',
+            thumb: "https://i.ytimg.com/vi/3tc3F4M607s/mqdefault.jpg",
+            url: "https://www.youtube.com/watch?v=3tc3F4M607s&ab_channel=%EC%84%B1%EC%8B%9C%EA%B2%BDSUNGSIKYUNG",
+            view: 830000,
+        }]
 
     }
 ]

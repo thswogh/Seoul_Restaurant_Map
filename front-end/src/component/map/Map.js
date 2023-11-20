@@ -1,10 +1,10 @@
-import { Map } from "react-kakao-maps-sdk"
+import { Map, MarkerClusterer, MapMarker } from "react-kakao-maps-sdk"
 import { useEffect, useRef, useState } from 'react';
 import { MarkersInfo } from "../../data/MarkerPositions";
 import axios from 'axios';
 import OrangeBtn from '../common/OrangeBtn';
 import '../../css/map.css'
-import MapMarkerContainer from "./MarkerOverlay";
+import MapMarkerContainer from "./Markers";
 import { joinPaths } from "@remix-run/router";
 
 
@@ -12,20 +12,17 @@ const BasicMap = () => {
     const [coordinates, setCoordinates] = useState(null); // 현재 위치의 좌표값을 저장할 상태
     const mapRef = useRef();
     const [markers, setMarkers] = useState(MarkersInfo);
+    const [mapInfo, setMapInfo] = useState({
+        lat: 37.549186395087,
+        lng: 127.07505567644,
+        level: 4
+    })
     const [renderedContent, setRenderedContent] = useState(null);
     const config = {
         headers: {
             "Content-Type": "application/json", // 예시로 Content-Type 헤더를 추가했습니다.
         },
     };
-
-    const [markerStates, setMarkerStates] = useState([]); //마커들의 상태 관리
-    const handleMarkerClick = (index) => { //마커 오버레이 관리 누르고 닫기
-        const newMarkerStates = [...markerStates];
-        newMarkerStates[index] = !newMarkerStates[index];
-        setMarkerStates(newMarkerStates);
-    };
-
 
     //현재 지도 영역 얻어와서, 서버에 보내 지도 내에 marker 찍는 함수
     const GetMapBound = async () => {
@@ -58,20 +55,31 @@ const BasicMap = () => {
 
     return (
         <div div className={"mapContainer"} >
-            <Map id="map" center={{ lat: 37.549186395087, lng: 127.07505567644, }}
+            <Map id="map" center={{ lat: mapInfo.lat, lng: mapInfo.lng }}
                 style={{ width: "100%", height: "100%", }}
-                level={3}
+                level={mapInfo.level}
                 ref={mapRef}
             >
+                {/* <MarkerClusterer //마커들이 지도 상에서 많아지면 마커 대신 마커의 수를 나타냄
+                    averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+                    minLevel={10} // 클러스터 할 최소 지도 레벨
+                    gridSize={70}
+                    minClusterSize={1}
+                >
+                    {markers.map((marker) => (
+                        <MapMarker
+                            key={`${marker.latlng.lat}-${marker.latlng.lng}`}
+                            position={marker.latlng}
+                        />
+                    ))}
+                </MarkerClusterer> */}
                 {markers.map((marker, index) => (
                     <MapMarkerContainer
                         marker={marker}
                         index={index}
-                        markerStates={markerStates}
-                        handleMarkerClick={handleMarkerClick}
                     />
-                    // 
                 ))};
+
             </Map>
             {console.log("markers", markers)};
             <div className={"RightDown"}>

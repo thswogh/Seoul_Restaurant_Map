@@ -1,22 +1,81 @@
 .wrap {
     position: absolute;
-    left: 0;
-    bottom: 40px;
-    width: 288px;
-    height: 132px;
+    bottom: 20px;
+    width: 290px;
+    height: 223px;
     margin-left: -144px;
-    text-align: left;
-    overflow: hidden;
     font-size: 12px;
-    border: 3px solid #FF7A00;
-    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
     line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #FF7A00;
 }
 
-.wrap * {
-    padding: 0;
-    margin: 0;
+.wrap .top {
+    flex: 1;
 }
+
+.bottom {
+    height: 80px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stick {
+    width: 100%;
+    height: 3px;
+    background-color: #FF7A00;
+}
+
+.wrap .restaurantName {
+    font-size: 20px;
+    font-weight: 600;
+    padding-top: 5px;
+    margin-bottom: 3px;
+}
+
+.bottom img {
+    width: 118px;
+}
+
+.close {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 15px;
+    height: 15px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+.nextPrevContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+h3 {
+    background-color: black;
+    color: white;
+    display: inline-block;
+}
+
+.info-title {
+    display: block;
+    background: #50627F;
+    color: #fff;
+    text-align: center;
+    height: 24px;
+    line-height: 22px;
+    border-radius: 4px;
+    padding: 0px 10px;
+}
+
+/* 
 
 .wrap .info {
     width: 286px;
@@ -52,7 +111,7 @@
     background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
 }
 
-.info .close:hover {
+.close:hover {
     cursor: pointer;
 }
 
@@ -104,3 +163,5 @@
 .info .link {
     color: #5085BB;
 }
+
+*/

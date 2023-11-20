@@ -4,6 +4,7 @@ import React from 'react';
 const OrangeButton = styled.button`
     background-color: #FFA500; /* 주황색 */
     color: white;
+    font-weight: 700;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
