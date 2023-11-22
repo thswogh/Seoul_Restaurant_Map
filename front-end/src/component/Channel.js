@@ -24,13 +24,9 @@ const StyleChannelWrapper = styled.div`
 `;
 
 
-const ChannelWrapper = ({ onTagArrayChange }) => {
-    const [selectedChannelTagArray, setSelectedChannelTagArray] = useState([]);
-
+const ChannelWrapper = ({ onChannelTagsChange }) => {
     const handleTagSelectionChange = (selectedTags) => {
-        const newTagArray = Object.keys(selectedTags).filter(tagName => selectedTags[tagName]);
-        setSelectedChannelTagArray(newTagArray);
-        onTagArrayChange(newTagArray); // 여기서 onTagArrayChange를 호출하고 newTagArray를 전달
+        onChannelTagsChange(selectedTags);
     };
     return (
         <StyleChannelWrapper>

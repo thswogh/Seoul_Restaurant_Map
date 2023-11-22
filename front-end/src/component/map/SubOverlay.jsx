@@ -6,6 +6,7 @@ const StyleSubOverlay = styled.div`
     height: 30px;
     padding: 3px 10px;
     margin-left: -75px;
+    border-radius: 1px;
     width: 130px;
     background-color: white;
     border: 2px solid black;

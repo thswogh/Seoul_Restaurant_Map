@@ -1,5 +1,5 @@
 import { ChannelNames } from "../data/ChannelName";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SelectedTag from "./common/SelectedTag";
 
 const ChannelTags = ({ onTagSelectionChange }) => {
@@ -12,7 +12,11 @@ const ChannelTags = ({ onTagSelectionChange }) => {
         }));
         onTagSelectionChange(selectedTags);
     };
-    // const selectedChannelTagArray = Object.keys(selectedTags).filter(tagName => selectedTags[tagName]);
+
+    useEffect(() => {
+        const selectedChannelTagArray = Object.keys(selectedTags).filter(tagName => selectedTags[tagName]);
+        onTagSelectionChange(selectedChannelTagArray);
+    }, [selectedTags])
 
     return (
         <div>

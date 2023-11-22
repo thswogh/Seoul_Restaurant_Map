@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 import FoodTags from "./HandleFoods";
 
 const StyleFoodWrapper = styled.div`
@@ -22,10 +23,14 @@ const StyleFoodWrapper = styled.div`
     }
 `;
 
-const FoodWrapper = () => {
+const FoodWrapper = ({ onFoodTagsChange }) => {
+
+    const handleSelectedTagsChange = (tags) => {
+        onFoodTagsChange(tags);
+    };
     return (
         <StyleFoodWrapper>
-            <FoodTags />
+            <FoodTags onSelectedTagsChange={handleSelectedTagsChange} />
         </StyleFoodWrapper>
     )
 };

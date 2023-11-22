@@ -36,6 +36,10 @@
     margin-bottom: 3px;
 }
 
+/* h3 {
+    position: absolute;
+} */
+
 .bottom img {
     width: 118px;
 }
@@ -46,7 +50,7 @@
     right: 7px;
     width: 15px;
     height: 15px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+    background: url('http://maps.gstatic.com/mapfiles/markers2/drag_cross_67_16.png');
 }
 
 .close:hover {

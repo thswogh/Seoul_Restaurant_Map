@@ -1,4 +1,4 @@
-import { Map, MarkerClusterer, MapMarker } from "react-kakao-maps-sdk"
+import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk"
 import { useEffect, useRef, useState } from 'react';
 import { useMarkers } from "../util/MarkersContext";
 import axios from 'axios';
@@ -11,8 +11,8 @@ import { joinPaths } from "@remix-run/router";
 const BasicMap = () => {
     const [coordinates, setCoordinates] = useState(null); // 현재 위치의 좌표값을 저장할 상태
     const mapRef = useRef();
-    // const [markers, setMarkers] = useState(MarkersInfo);
     const { markers, setMarkers } = useMarkers();
+    const [triggerEffect, setTriggerEffect] = useState(true);
     const [mapInfo, setMapInfo] = useState({
         lat: 37.549186395087,
         lng: 127.07505567644,
@@ -46,12 +46,28 @@ const BasicMap = () => {
                 }
             }, config);
             setMarkers(response.data);
+            setTriggerEffect(false);
         } catch (error) {
             alert('서버 오류입니다. 관리자에게 문의하세요.');
             console.error(error);
             return false;
         };
     }
+
+    //markers가 바뀌면 지도의 중앙 위치 수정. 단, getMapBound함수가 실행되어 markers가 바뀌었으면 실행하지 않게 triggerEffect로 필터링
+    useEffect(() => {
+        if (triggerEffect) {
+            if (markers.length > 0) {
+                const firstMarker = markers[0];
+                setMapInfo({
+                    lat: firstMarker.latlng.lat,
+                    lng: firstMarker.latlng.lng,
+                    level: 5,
+                });
+            }
+        }
+        setTriggerEffect(true);
+    }, [markers]);
 
     return (
         <div div className={"mapContainer"} >
@@ -60,35 +76,33 @@ const BasicMap = () => {
                 level={mapInfo.level}
                 ref={mapRef}
             >
-                {/* <MarkerClusterer //마커들이 지도 상에서 많아지면 마커 대신 마커의 수를 나타냄
+                <MarkerClusterer //마커들이 지도 상에서 많아지면 마커 대신 마커의 수를 나타냄
                     averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-                    minLevel={10} // 클러스터 할 최소 지도 레벨
-                    gridSize={70}
-                    minClusterSize={1}
+                    minLevel={8} // 클러스터링 할 최소 마커 수
                 >
-                    {markers.map((marker) => (
-                        <MapMarker
-                            key={`${marker.latlng.lat}-${marker.latlng.lng}`}
-                            position={marker.latlng}
+                    {markers.map((marker, index) => (
+                        <MapMarkerContainer
+                            marker={marker}
+                            index={index}
                         />
-                    ))}
-                </MarkerClusterer> */}
-                {markers.map((marker, index) => (
+                    ))};
+                </MarkerClusterer>
+
+
+                {/* {markers.map((marker, index) => (
                     <MapMarkerContainer
+                        key={marker.latlng.lat - marker.latlng.lng}
                         marker={marker}
                         index={index}
                     />
-                ))};
-
+                ))}; */}
             </Map>
             {console.log("markers", markers)};
             <div className={"RightDown"}>
                 <OrangeBtn onClick={GetMapBound} text="지도 내 검색" />
             </div>
-        </div>
+        </div >
     )
-
-
 }
 
 export default BasicMap;

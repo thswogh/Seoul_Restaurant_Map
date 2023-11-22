@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMarkers } from '../util/MarkersContext';
+import axios from 'axios';
 import styled from 'styled-components';
 import ChannelWrapper from '../Channel';
 import FoodWrapper from '../Food';
@@ -66,19 +67,45 @@ const StyledMainTitle = styled.h2`
 
 
 const MainSidebar = () => {
-    const [grandParentChannelTagArray, setGrandParentChannelTagArray] = useState([]);
+    const [channelTags, setChannelTags] = useState([]);
+    const [foodTags, setFoodTags] = useState([]);
+    const [viewValue, setViewValue] = useState();
     const { markers, setMarkers } = useMarkers();
-
-    // 부모의 부모 컴포넌트에서 사용하려는 selectedChannelTagArray 값 감지
-    const handleTagArrayChange = (newTagArray) => {
-        setGrandParentChannelTagArray(newTagArray);
+    const config = {
+        headers: {
+            "Content-Type": "application/json", // 예시로 Content-Type 헤더를 추가했습니다.
+        },
     };
-    useEffect(() => {
-        console.log("channel", grandParentChannelTagArray);
-    }, [grandParentChannelTagArray])
+    // channel
+    const handleTagArrayChange = (newTagArray) => {
+        setChannelTags(newTagArray);
+    };
+    //food
+    const handleFoodTagChange = (newTagArray) => {
+        setFoodTags(newTagArray);
+    };
 
-    const onClickSearchHandler = () => {
-        console.log(grandParentChannelTagArray);
+    //view
+    const handleViewChange = (value) => {
+        setViewValue(value);
+    };
+    //search
+    const onClickSearchHandler = async () => {
+        try {
+            const response = await axios.get('http://35.216.106.118:8080/home/advancedSearch', {
+                params: {
+                    channel: channelTags.join(','),
+                    tag: foodTags.join(','),
+                    views: viewValue,
+                }
+            }, config);
+            setMarkers(response.data);
+            console.log(response.data);
+        } catch (error) {
+            alert('서버 오류입니다. 관리자에게 문의하세요.');
+            console.error(error);
+            return false;
+        }
     };
 
     return (
@@ -88,13 +115,13 @@ const MainSidebar = () => {
                 <OrangeBtn onClick={onClickSearchHandler} text="검색" />
             </StyledTItleContainer>
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>CHANNEL</StyledTitle><StyledSubTitle>채널</StyledSubTitle></StyleTitleWrapper>
-            <ChannelWrapper onTagArrayChange={handleTagArrayChange} />
+            <ChannelWrapper onChannelTagsChange={handleTagArrayChange} />
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>FOOD</StyledTitle><StyledSubTitle>음식</StyledSubTitle></StyleTitleWrapper>
-            <FoodWrapper />
+            <FoodWrapper onFoodTagsChange={handleFoodTagChange} />
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>REGION</StyledTitle><StyledSubTitle>지역</StyledSubTitle></StyleTitleWrapper>
             <RegionDropdown />
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>VIEWS</StyledTitle><StyledSubTitle>조회수</StyledSubTitle></StyleTitleWrapper>
-            <ViewBar />
+            <ViewBar onViewChange={handleViewChange} />
         </SidebarWrapper>
     );
 };
