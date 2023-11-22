@@ -70,7 +70,7 @@ const BasicMap = () => {
     }, [markers]);
 
     return (
-        <div div className={"mapContainer"} >
+        <div className={"mapContainer"} >
             <Map id="map" center={{ lat: mapInfo.lat, lng: mapInfo.lng }}
                 style={{ width: "100%", height: "100%", }}
                 level={mapInfo.level}
@@ -82,6 +82,7 @@ const BasicMap = () => {
                 >
                     {markers.map((marker, index) => (
                         <MapMarkerContainer
+                            key={marker.latlng.lat - marker.latlng.lng}
                             marker={marker}
                             index={index}
                         />

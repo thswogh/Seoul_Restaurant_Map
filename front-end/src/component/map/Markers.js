@@ -60,7 +60,6 @@ const MapMarkerContainer = ({ marker, index }) => {
                 onMouseOver={() => handleMouseOver(index)}
                 onMouseOut={() => handleMouseOut(index)}
                 image={isClick ? ImgSelectedMarker : ImgMarker}
-
             >
                 {
                     (isOver && !isClick) && (

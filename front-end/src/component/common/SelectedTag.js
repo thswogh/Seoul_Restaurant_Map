@@ -34,7 +34,7 @@ const StyledTag = styled.div`
 
 const SelectedTag = ({ text, isSelected, onClick }) => {
     return (
-        <StyledTag isSelected={isSelected} onClick={onClick}>{text}</StyledTag>
+        <StyledTag $isSelected={isSelected} onClick={onClick}>{text}</StyledTag>
     )
 }
 
