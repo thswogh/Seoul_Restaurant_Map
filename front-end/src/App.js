@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { MarkersProvider } from "./component/util/MarkersContext";
+import { MapProvider } from "./component/util/MyContext";
 import Home from "./page/HomePage";
 import JoinPage from "./page/JoinPage";
 import List from "./page/ListPage";
@@ -10,7 +10,7 @@ import Header from "./component/header/Header";
 
 function App() {
   return (
-    <MarkersProvider>
+    <MapProvider>
       <div>
         <Header />
         <Routes>
@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/join" Component={JoinPage} />
         </Routes>
       </div>
-    </MarkersProvider>
+    </MapProvider>
   )
 }
 

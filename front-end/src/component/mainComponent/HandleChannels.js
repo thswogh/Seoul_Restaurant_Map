@@ -1,6 +1,6 @@
-import { ChannelNames } from "../data/ChannelName";
+import { ChannelNames } from "../../data/ChannelName"
 import React, { useEffect, useState } from 'react';
-import SelectedTag from "./common/SelectedTag";
+import SelectedTag from "../common/SelectedTag";
 
 const ChannelTags = ({ onTagSelectionChange }) => {
     const [selectedTags, setSelectedTags] = useState({});

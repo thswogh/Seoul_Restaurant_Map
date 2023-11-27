@@ -1,6 +1,6 @@
-import { FoodDatas } from "../data/FoodType";
+import { FoodDatas } from "../../data/FoodType";
 import React, { useState, useEffect } from 'react';
-import SelectedTag from "./common/SelectedTag";
+import SelectedTag from "../common/SelectedTag";
 
 const FoodTags = ({ onSelectedTagsChange }) => {
     const [selectedTags, setSelectedTags] = useState({});

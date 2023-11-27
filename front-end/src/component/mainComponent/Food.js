@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import ChannelTags from "./HandleChannels";
-import { useState } from "react";
+import FoodTags from "./HandleFoods";
 
-const StyleChannelWrapper = styled.div`
+const StyleFoodWrapper = styled.div`
     height: 20vh;
     border: black solid 1px;
     display: inline-block;
@@ -23,16 +22,16 @@ const StyleChannelWrapper = styled.div`
     }
 `;
 
+const FoodWrapper = ({ onFoodTagsChange }) => {
 
-const ChannelWrapper = ({ onChannelTagsChange }) => {
-    const handleTagSelectionChange = (selectedTags) => {
-        onChannelTagsChange(selectedTags);
+    const handleSelectedTagsChange = (tags) => {
+        onFoodTagsChange(tags);
     };
     return (
-        <StyleChannelWrapper>
-            <ChannelTags onTagSelectionChange={handleTagSelectionChange} />
-        </StyleChannelWrapper>
+        <StyleFoodWrapper>
+            <FoodTags onSelectedTagsChange={handleSelectedTagsChange} />
+        </StyleFoodWrapper>
     )
 };
 
-export default ChannelWrapper;
+export default FoodWrapper;

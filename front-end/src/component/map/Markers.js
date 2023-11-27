@@ -60,29 +60,21 @@ const MapMarkerContainer = ({ marker, index }) => {
                 onMouseOver={() => handleMouseOver(index)}
                 onMouseOut={() => handleMouseOut(index)}
                 image={isClick ? ImgSelectedMarker : ImgMarker}
-            >
-                {
-                    (isOver && !isClick) && (
-                        <CustomOverlayMap position={marker.latlng}>
-                            <SubOverlay marker={marker} />
-                        </CustomOverlayMap>
-                    )
-                }
-                {/* {
-                    !isClick && (
-                        <CustomOverlayMap zIndex={1} position={marker.latlng}>
-                            <SubOverlay marker={marker} />
-                        </CustomOverlayMap>
-                    )
-                } */}
-                {
-                    isClick && (
-                        <CustomOverlayMap zIndex={1} position={marker.latlng} >
-                            <Overlay marker={marker} handleMarkerClick={handleMarkerClick} />
-                        </CustomOverlayMap>
-                    )
-                }
-            </MapMarker>
+            />
+            {
+                (isOver && !isClick) && (
+                    <CustomOverlayMap position={marker.latlng}>
+                        <SubOverlay marker={marker} />
+                    </CustomOverlayMap>
+                )
+            }
+            {
+                isClick && (
+                    <CustomOverlayMap zIndex={1} position={marker.latlng} >
+                        <Overlay marker={marker} handleMarkerClick={handleMarkerClick} />
+                    </CustomOverlayMap>
+                )
+            }
         </div >
     )
 };

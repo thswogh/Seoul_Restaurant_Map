@@ -1,6 +1,6 @@
-import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk"
+import { Map, MarkerClusterer } from "react-kakao-maps-sdk"
 import { useEffect, useRef, useState } from 'react';
-import { useMarkers } from "../util/MarkersContext";
+import { useMarkers } from "../util/MyContext";
 import axios from 'axios';
 import OrangeBtn from '../common/OrangeBtn';
 import '../../css/map.css'
@@ -11,13 +11,8 @@ import { joinPaths } from "@remix-run/router";
 const BasicMap = () => {
     const [coordinates, setCoordinates] = useState(null); // 현재 위치의 좌표값을 저장할 상태
     const mapRef = useRef();
-    const { markers, setMarkers } = useMarkers();
+    const { markers, setMarkers, mapInfo, setMapInfo } = useMarkers();
     const [triggerEffect, setTriggerEffect] = useState(true);
-    const [mapInfo, setMapInfo] = useState({
-        lat: 37.549186395087,
-        lng: 127.07505567644,
-        level: 4
-    })
     const config = {
         headers: {
             "Content-Type": "application/json", // 예시로 Content-Type 헤더를 추가했습니다.
@@ -76,27 +71,26 @@ const BasicMap = () => {
                 level={mapInfo.level}
                 ref={mapRef}
             >
-                <MarkerClusterer //마커들이 지도 상에서 많아지면 마커 대신 마커의 수를 나타냄
+                {/* <MarkerClusterer //마커들이 지도 상에서 많아지면 마커 대신 마커의 수를 나타냄
                     averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
                     minLevel={8} // 클러스터링 할 최소 마커 수
                 >
                     {markers.map((marker, index) => (
                         <MapMarkerContainer
-                            key={marker.latlng.lat - marker.latlng.lng}
+                            key={index}
                             marker={marker}
                             index={index}
                         />
                     ))};
-                </MarkerClusterer>
+                </MarkerClusterer> */}
 
-
-                {/* {markers.map((marker, index) => (
+                {markers.map((marker, index) => (
                     <MapMarkerContainer
-                        key={marker.latlng.lat - marker.latlng.lng}
+                        key={index}
                         marker={marker}
                         index={index}
                     />
-                ))}; */}
+                ))};
             </Map>
             {console.log("markers", markers)};
             <div className={"RightDown"}>

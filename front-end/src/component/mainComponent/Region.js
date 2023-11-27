@@ -1,7 +1,10 @@
 import React from "react";
-import { RegionData } from "../data/RegionData";
+import { RegionData } from "../../data/RegionData";
+import { useMarkers } from "../util/MyContext";
 
 const SelectBox = (props) => {
+    const { markers, setMarkers, mapInfo, setMapInfo } = useMarkers();
+
     return (
         <select style={{ marginBottom: "5vh", fontSize: "1rem" }}>
             {props.options.map((option) => (

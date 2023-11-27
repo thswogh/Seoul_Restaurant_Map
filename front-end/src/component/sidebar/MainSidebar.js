@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useMarkers } from '../util/MarkersContext';
+import { useMarkers } from '../util/MyContext';
 import axios from 'axios';
 import styled from 'styled-components';
-import ChannelWrapper from '../Channel';
-import FoodWrapper from '../Food';
-import ViewBar from '../ViewBar';
-import RegionDropdown from '../Region';
+import ChannelWrapper from '../mainComponent/Channel'
+import FoodWrapper from '../mainComponent/Food';
+import ViewBar from '../mainComponent/ViewBar';
+import RegionDropdown from '../mainComponent/Region';
 import { OrangeCircle } from '../common/OrangeCircle';
 import OrangeBtn from '../common/OrangeBtn';
 
