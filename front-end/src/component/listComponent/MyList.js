@@ -58,20 +58,20 @@ const ToggleList = ({ list, getMyList }) => {
                     getMyList();
                     break;
                 case 1:
-                    console.error("사용자 ID 오류입니다.");
+                    alert("사용자 ID 오류입니다.");
                     break;
                 case 3:
-                    console.error("세션이 만료되었습니다.");
+                    alert("세션이 만료되었습니다.");
                     break;
                 case 4:
-                    console.error("리스트 이름 오류입니다.");
+                    alert("리스트 이름 오류입니다.");
                     break;
                 default:
-                    console.error("알 수 없는 상태 코드입니다:", response.data);
+                    alert("알 수 없는 상태 코드입니다:", response.data);
                     break;
             }
         } catch (error) {
-            console.error("Error fetching data:", error.response.data);
+            alert("Error fetching data:", error.response.data);
         }
     };
     const onClickDeleteListElement = async ({ listName, restaurantName }) => {
@@ -86,23 +86,23 @@ const ToggleList = ({ list, getMyList }) => {
                     getMyList();
                     break;
                 case 1:
-                    console.error("사용자 ID 오류입니다.");
+                    alert("사용자 ID 오류입니다.");
                     break;
                 case 2:
-                    console.error("리스트 이름 오류입니다.");
+                    alert("리스트 이름 오류입니다.");
                     break;
                 case 3:
-                    console.error("세션이 만료되었습니다.");
+                    alert("세션이 만료되었습니다.");
                     break;
                 case 4:
-                    console.error("레스토랑 이름이 유효하지 않습니다.");
+                    alert("레스토랑 이름이 유효하지 않습니다.");
                     break;
                 default:
-                    console.error("알 수 없는 상태 코드입니다:", response.data);
+                    alert("알 수 없는 상태 코드입니다:", response.data);
                     break;
             }
         } catch (error) {
-            console.error("Error fetching data:", error.response.data);
+            alert("Error fetching data:", error.response.data);
         }
     };
 
@@ -152,7 +152,7 @@ const MyList = () => {
             const resultCode = response.data; // 서버에서 전달받은 상태 코드
             switch (resultCode) {
                 case 0:
-                    alert("성공하였습니다.");
+                    console.log("성공하였습니다.");
                     setInputValue('');
                     setShowInput(false);
                     getMyList();
