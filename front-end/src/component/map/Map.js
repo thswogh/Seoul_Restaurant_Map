@@ -5,7 +5,6 @@ import axios from 'axios';
 import OrangeBtn from '../common/OrangeBtn';
 import '../../css/map.css'
 import MapMarkerContainer from "./Markers";
-import { joinPaths } from "@remix-run/router";
 
 
 const BasicMap = () => {

@@ -1,4 +1,5 @@
 export const RegionData = [
+    { value: "현재 지도", name: "현재 지도", },
     { value: "서울", name: "서울", lat: 37.56100278, lng: 126.9996417, level: 8 },
     { value: "경기도", name: "경기도", lat: 37.65590833, lng: 126.7770556, level: 8 },
     { value: "대구", name: "대구", lat: 35.86952722, lng: 128.6061745, level: 9 },

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import MyList from '../listComponent/MyList';
 import FriendList from '../listComponent/FriendList';
+import axios from 'axios';
 
 const SidebarWrapper = styled.div`
     min-width: 400px;

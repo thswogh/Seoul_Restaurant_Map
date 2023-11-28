@@ -3,6 +3,7 @@ import StyleInput from "../common/Input"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useMarkers } from "../util/MyContext";
 
 const StyleLoginForm = styled.form`
     display: flex;
@@ -40,8 +41,10 @@ const LoginForm = () => {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const [idError, setIdError] = useState("");
+    const { isLogin, setIsLogin } = useMarkers();
 
     const config = {
+        withCredentials: true,
         headers: {
             'Content-Type': 'application/json', // 예시로 Content-Type 헤더를 추가했습니다.
         },
@@ -73,17 +76,16 @@ const LoginForm = () => {
         const [id, password] = event.target;
         let body = { id: id.value, password: password.value };
         await axios
-            .post("http://35.216.106.118:8080/login", body, config)
+            .post("/login", body, config)
             .then((response) => {
                 if (response.data === 'ID_ERROR') {
                     alert("일치하는 아이디가 없습니다.");
                 } else if (response.data === 'PASSWORD_ERROR') {
                     alert("일치하는 패스워드가 없습니다.");
-                }
-                // else if (response.data === 'NO_ERROR') {
-                //     alert("일치하는 회원이 없습니다. 먼저 회원가입을 진행해주세요!");
-                // } 
-                else {
+                } else {
+                    sessionStorage.clear();
+                    sessionStorage.setItem("userId", id.value);
+                    setIsLogin(true);
                     alert("로그인 성공! 환영합니다");
                     navigate("/");
                 }

@@ -13,6 +13,7 @@ export const useMarkers = () => {
 
 export const MapProvider = ({ children }) => {
     const [markers, setMarkers] = useState([]);
+    const [isLogin, setIsLogin] = useState(false);
     const [mapInfo, setMapInfo] = useState({
         lat: 37.549186395087,
         lng: 127.07505567644,
@@ -23,6 +24,8 @@ export const MapProvider = ({ children }) => {
         setMarkers,
         mapInfo,
         setMapInfo,
+        isLogin,
+        setIsLogin,
     };
 
     return (

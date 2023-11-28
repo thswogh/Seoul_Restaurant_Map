@@ -46,10 +46,13 @@ const Overlay = ({ marker, handleMarkerClick }) => {
 
             <div className='bottom'>
                 <div className='stick'></div>
+                <h3 style={{ marginTop: "2px" }}>{marker.videoData[curVideoIdx].channel} |
+                    {Math.round(marker.videoData[curVideoIdx].view / 10000 * 10) / 10}만 VIEWS</h3>
                 <div className='restaurantName'>{marker.restaurant_name}</div>
                 <a href={marker.placeUrl} target="_blank" >
                     <img src={ShortcutBtn} />
                 </a>
+                <div>리스트에 추가</div>
             </div>
         </div >
     );

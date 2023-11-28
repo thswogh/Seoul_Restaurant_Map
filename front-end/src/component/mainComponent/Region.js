@@ -10,7 +10,8 @@ const SelectBox = (props) => {
         // 선택된 옵션의 데이터 찾기
         const selectedOption = props.options.find(option => option.value === selectedValue);
         // selectedOption에서 lat 및 lng 변수에 접근
-        if (selectedOption) {
+        if (selectedOption && selectedOption.value !== '현재 지도') {
+            console.log("asdf");
             const { lat, lng, level } = selectedOption;
             setMapInfo({
                 lat: lat,
