@@ -1,4 +1,3 @@
-// import { myListData } from "../../data/myListData";
 import { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import axios from "axios";
@@ -7,6 +6,7 @@ import InvertedOrangeTriangle from "../common/InvertedOrangeTrianlge";
 import ListFoodTag from "../common/ListFoodTag";
 import DeleteListBtn from "../common/DeleteListBtn";
 import DeleteListElementBtn from "../common/DeleteListElementBtn";
+import { useMarkers } from "../util/MyContext";
 
 const AddBtn = styled.div`
     font-size: 1.1rem;
@@ -45,6 +45,8 @@ const InputContainer = styled.div`
 
 const ToggleList = ({ list, getMyList }) => {
     const [isListOpen, setIsListOpen] = useState(false);
+    const { markers, setMarkers, mapInfo, setMapInfo } = useMarkers();
+
     const handleToggle = () => { setIsListOpen(!isListOpen) };
 
     const onClickDeleteList = async ({ listName }) => {
@@ -105,6 +107,22 @@ const ToggleList = ({ list, getMyList }) => {
         }
     };
 
+    const OnClickShowToMap = async ({ restaurantName }) => {
+        function convertObjectToArray(obj) {
+            return [obj];
+        }
+        try {
+            const response = await axios.get("/list/returnListElement", {
+                params: {
+                    restaurantName: restaurantName,
+                }
+            });
+            console.log("asdf", response.data);
+            setMarkers(convertObjectToArray(response.data));
+        } catch (error) {
+            alert("Error fetching data:", error.response.data);
+        }
+    };
     return (
         <div>
             <h3 onClick={handleToggle} style={{ display: 'flex', alignItems: 'center', color: "black", backgroundColor: "white" }}>
@@ -117,7 +135,10 @@ const ToggleList = ({ list, getMyList }) => {
                     {list.restaurantInfo.map((info, index) => (
                         <li key={index}>
                             <div style={{ marginTop: "1vh", marginBottom: "0.4vh" }}>
-                                <span style={{ fontWeight: 700, color: "#FF7A00", fontSize: "1.1rem" }}>{info.restaurantName}</span>
+                                <span onClick={() => OnClickShowToMap({ restaurantName: info.restaurantName })}
+                                    style={{ fontWeight: 700, color: "#FF7A00", fontSize: "1.1rem", cursor: "pointer" }}>
+                                    {info.restaurantName}
+                                </span>
                                 <DeleteListElementBtn onClick={() => onClickDeleteListElement({ listName: list.listName, restaurantName: info.restaurantName })} />
                             </div>
                             {info.tagList.map((tag, tagIndex) => (

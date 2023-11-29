@@ -52,9 +52,14 @@ const PageNumber = styled.span`
     color: ${(props) => (props.active ? "#FF7A00" : "inherit")};
 `;
 
-const onClickDeleteRequest = async ({ requestId, fetchData }) => {
+const onClickDeleteRequest = async ({ requestId, fetchData, isMine }) => {
     const userId = sessionStorage.getItem("userId");
     let body = { userId: userId, requestId: requestId };
+    console.log("isMine", isMine);
+    if (isMine === false) {
+        alert("사용자의 게시글이 아닙니다.");
+        return;
+    }
     try {
         const response = await axios.post("/requestBoard/deleteMyRequestElement", body);
         switch (response.data) {
@@ -79,20 +84,23 @@ const onClickDeleteRequest = async ({ requestId, fetchData }) => {
         alert("Error fetching data:", error.response.data);
     }
 };
-const TableRow = ({ requestData, fetchData }) => (
-    <tr>
-        <StyledTd>{requestData.userId}</StyledTd>
-        <StyledTd>{requestData.channelName}</StyledTd>
-        <StyledTd>{requestData.restaurantName}</StyledTd>
-        <StyledTd>
-            <StyledLink href={requestData.videoUrl} target="_blank" rel="noopener noreferrer">
-                {requestData.videoUrl}
-            </StyledLink>
-        </StyledTd>
-        <StyledTd>{requestData.status}</StyledTd>
-        <DeleteListElementBtn onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })} />
-    </tr>
-);
+
+const TableRow = ({ requestData, fetchData }) => {
+    return (
+        <tr>
+            <StyledTd>{requestData.userId}</StyledTd>
+            <StyledTd>{requestData.channelName}</StyledTd>
+            <StyledTd>{requestData.restaurantName}</StyledTd>
+            <StyledTd>
+                <StyledLink href={requestData.videoUrl} target="_blank" rel="noopener noreferrer">
+                    {requestData.videoUrl}
+                </StyledLink>
+            </StyledTd>
+            <StyledTd>{requestData.status}</StyledTd>
+            <DeleteListElementBtn onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData, isMine: requestData.mine })} />
+        </tr>
+    );
+};
 
 const ITEMS_PER_PAGE = 5; // 페이지당 보여줄 아이템 수
 const RequestMatzipBoard = () => {
@@ -113,7 +121,6 @@ const RequestMatzipBoard = () => {
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
             const endIndex = startIndex + ITEMS_PER_PAGE;
             const currentItems = response.data.slice(startIndex, endIndex);
-
             setRequestList(currentItems);
         } catch (error) {
             console.error("Error fetching data:", error);
