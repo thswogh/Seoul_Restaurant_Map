@@ -13,6 +13,7 @@
 
 .wrap .top {
     flex: 1;
+    background: 'rgba(0, 0, 0, 0.5)'
 }
 
 .bottom {
@@ -60,6 +61,7 @@
 .nextPrevContainer {
     display: flex;
     justify-content: space-between;
+    height: 30px;
 }
 
 h3 {

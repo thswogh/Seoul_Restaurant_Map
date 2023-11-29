@@ -6,8 +6,7 @@ const StyleRequestWrapper = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding: 10vh 10vw;
-    background-color: beige;
+    padding:5vh 15vw;
 `;
 
 

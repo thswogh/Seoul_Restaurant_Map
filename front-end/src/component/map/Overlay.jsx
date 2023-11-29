@@ -3,6 +3,7 @@ import '../../css/overlay.css'
 import PngLeftArrow from '../../img/LeftArrow.png'
 import PngRightArrow from '../../img/RightArrow.png'
 import ShortcutBtn from '../../img/shortcutBtn.png'
+import PlayBtn from '../../img/PlayBtn.png'
 import axios from 'axios';
 
 const Overlay = ({ marker, handleMarkerClick }) => {
@@ -74,7 +75,7 @@ const Overlay = ({ marker, handleMarkerClick }) => {
             <div className='top'
                 style={{
                     backgroundImage: `url(${marker.videoData[curVideoIdx].thumb})`,
-                    backgroundSize: '100% 100%'
+                    backgroundSize: '100% 100%',
                 }}
             >
                 <div
@@ -88,9 +89,9 @@ const Overlay = ({ marker, handleMarkerClick }) => {
                     {Math.round(marker.videoData[curVideoIdx].view / 10000 * 10) / 10}만 VIEWS</h3>
                 <div className='nextPrevContainer'>
                     <img onClick={handlePrevVideo} src={PngLeftArrow} alt="이전" title='이전' />
+                    <img onClick={playVideo} style={{ cursor: "pointer" }} src={PlayBtn} />
                     <img onClick={handleNextVideo} src={PngRightArrow} alt="다음" title='다음' />
                 </div>
-                <div><button onClick={playVideo}>영상 시청</button></div>
 
             </div>
 

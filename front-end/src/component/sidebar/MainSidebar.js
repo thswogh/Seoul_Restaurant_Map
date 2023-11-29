@@ -116,7 +116,7 @@ const MainSidebar = () => {
             </StyledTItleContainer>
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>CHANNEL</StyledTitle><StyledSubTitle>채널</StyledSubTitle></StyleTitleWrapper>
             <ChannelWrapper onChannelTagsChange={handleTagArrayChange} />
-            <StyleTitleWrapper> <OrangeCircle /><StyledTitle>FOOD</StyledTitle><StyledSubTitle>음식</StyledSubTitle></StyleTitleWrapper>
+            <StyleTitleWrapper> <OrangeCircle /><StyledTitle>TAG</StyledTitle><StyledSubTitle>태그</StyledSubTitle></StyleTitleWrapper>
             <FoodWrapper onFoodTagsChange={handleFoodTagChange} />
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>REGION</StyledTitle><StyledSubTitle>지역</StyledSubTitle></StyleTitleWrapper>
             <RegionDropdown />
