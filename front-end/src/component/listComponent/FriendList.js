@@ -1,8 +1,9 @@
-import { FriendListData } from "../../data/friendListData";
 import { useState } from "react";
 import { styled } from "styled-components";
 import OrangeTriangle from "../common/OrangeTriangle";
 import InvertedOrangeTriangle from "../common/InvertedOrangeTrianlge";
+import ListFoodTag from "../common/ListFoodTag";
+import CopyListBtn from "../common/CopyListBtn";
 import PngSearch from '../../img/Search.png'
 import axios from "axios";
 
@@ -43,6 +44,19 @@ const InputContainer = styled.div`
     }
 `;
 
+const StyledSubmitBtn = styled.div`
+    padding:1px 3px;
+    border-radius: 8px;
+    color: orange;
+    font-size: 0.8rem;
+    border: orange 1px solid;
+    margin-left: 10px;
+    width: fit-content;
+    display: inline-block;
+    align-items: center;
+    cursor: pointer;
+`;
+
 const SmallOrangeTriangle = () => (
     <span style={{ color: '#FFA500', marginRight: '5px' }}>▼</span>
 );
@@ -51,20 +65,84 @@ const SmallInvertedOrangeTriangle = () => (
     <span style={{ color: '#FFA500', marginRight: '5px' }}>▲</span>
 );
 
-const ToggleList = ({ friend }) => {
-    const [isFriendOpen, setIsFriendOpen] = useState(false);
+const ToggleListItems = ({ list, friendId }) => {
+    const [isListOpen, setIsListOpen] = useState(false);
+    const [isCopyInputOpen, setIsCopyInputOpen] = useState(false);
+    const [newListName, setNewListName] = useState('');
 
-    const handleFriendToggle = () => setIsFriendOpen(!isFriendOpen);
+    const handleListToggle = () => setIsListOpen(!isListOpen);
+    const handleCopyInput = (e) => {
+        setIsCopyInputOpen(!isCopyInputOpen)
+        // 클릭 이벤트의 전파 막기
+        e.stopPropagation();
+    }
+    const handleSubmitNewList = async ({ srcListName }) => {
+        const userId = sessionStorage.getItem("userId");
+        let body = {
+            friendId: friendId,
+            userId: userId,
+            srcListName: srcListName,
+            destListName: newListName,
+        }
+        try {
+            const response = await axios.post("/list/copyFriendList", body);
+            switch (response.data) {
+                case 0:
+                    alert("등록 성공");
+                    break;
+                case 1:
+                    alert("친구 아이디가 존재하지 않습니다.");
+                    break;
+                case 2:
+                    alert("원본 리스트가 존재하지 않습니다.");
+                    break;
+                case 3:
+                    alert("사용자 ID가 존재하지 않습니다.");
+                    break;
+                case 4:
+                    alert("세션이 만료되었습니다.");
+                    break;
+                default:
+                    alert("알 수 없는 상태 코드입니다:", response.data);
+                    break;
+            }
+        } catch (error) {
+            alert("Error fetching data:", error.response.data);
+        }
+    }
 
     return (
         <div>
-            <h3 onClick={handleFriendToggle} style={{ display: 'flex', alignItems: 'center', color: "black", backgroundColor: "white" }}>
-                {isFriendOpen ? <OrangeTriangle /> : <InvertedOrangeTriangle />} {friend.friendId}
-            </h3>
-            {isFriendOpen && (
-                <ul style={{ listStyle: 'none', }}>
-                    {friend.listInfo.map((list, index) => (
-                        <ToggleListItems key={index} list={list} />
+            <div>
+                <h3 onClick={handleListToggle} style={{ display: 'flex', alignItems: 'center', color: "black", backgroundColor: "white" }}>
+                    {isListOpen ? <OrangeTriangle /> : <InvertedOrangeTriangle />}
+                    {list.listName}
+                    <CopyListBtn onClick={(e) => { handleCopyInput(e) }} />
+                </h3>
+                {isCopyInputOpen && (
+                    <div>
+                        <input style={{ paddingLeft: "3px", marginLeft: "25px", width: "200px" }}
+                            placeholder="만들고 싶은 리스트 이름을 입력하세요."
+                            value={newListName}
+                            onChange={(e) => setNewListName(e.target.value)}
+                        />
+                        <StyledSubmitBtn onClick={() => handleSubmitNewList({ srcListName: list.listName })} >등록</StyledSubmitBtn>
+                    </div>
+                )}
+            </div>
+
+            {isListOpen && (
+                <ul style={{ listStyleType: "none" }}>
+                    {list.restaurantInfo.map((info, index) => (
+                        <li key={index}>
+                            <div style={{ marginTop: "1vh", marginBottom: "0.4vh" }}>
+                                <span style={{ fontWeight: 700, color: "#FF7A00", fontSize: "1.1rem" }}>{info.restaurantName}</span>
+                            </div>
+                            {info.tagList.map((tag, tagIndex) => (
+                                // <li key={tagIndex}>{tag}</li>
+                                <ListFoodTag key={tagIndex} text={tag} />
+                            ))}
+                        </li>
                     ))}
                 </ul>
             )}
@@ -72,48 +150,22 @@ const ToggleList = ({ friend }) => {
     );
 };
 
-const ToggleListItems = ({ list }) => {
-    const [isListOpen, setIsListOpen] = useState(false);
-
-    const handleListToggle = () => {
-        setIsListOpen(!isListOpen);
-    };
-
-    return (
-        <li>
-            <h4 onClick={handleListToggle} style={{ display: 'flex', alignItems: 'center' }}>
-                {isListOpen ? <SmallOrangeTriangle /> : <SmallInvertedOrangeTriangle />} {list.listName}
-            </h4>
-            {isListOpen && (
-                <ul>
-                    {list.restaurantInfo.map((restaurant, index) => (
-                        <li key={index}>
-                            <span style={{ fontWeight: 700, color: "#FF7A00" }}>{restaurant.restaurantName}</span>
-                            {/* <ul>
-                                {info.tagList.map((tag, tagIndex) => (
-                                    <li key={tagIndex}>{tag}</li>
-                                ))}
-                            </ul> */}
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </li>
-    );
-};
-
 const FriendList = () => {
     const [showInput, setShowInput] = useState(true);
     const [inputValue, setInputValue] = useState('');
+    const [friendListData, setFriendListData] = useState([]);
+
     const onClickAddBtn = () => setShowInput(!showInput);
     const onInputChange = e => setInputValue(e.target.value);
 
     const onClickSearchFriend = async () => {
+        const userId = sessionStorage.getItem("userId");
         try {
             //우선 친구아이디가 존재하는지 확인, 존재하면 친구 리스트 불러오기
             const responseExistId = await axios.get("/list/isExistFriend", {
                 params: {
                     friendId: inputValue,
+                    userId: userId
                 },
             });
             switch (responseExistId.data) {
@@ -124,24 +176,18 @@ const FriendList = () => {
                             friendId: inputValue,
                         },
                     });
-                    // searchFriendList에서 받은 값에 따라 처리
-                    switch (responseSearchFriendList.data) {
-                        case 0:
-                            console.log("친구 목록을 성공적으로 가져왔습니다.");
-                            break;
-                        default:
-                            console.error("searchFriendList에서 알 수 없는 상태 코드입니다:", responseSearchFriendList.data);
-                            break;
-                    }
+                    setFriendListData(responseSearchFriendList.data);
                     break;
                 case 1:
-                    console.error("본인 아이디를 입력했습니다. 다른 아이디를 입력해주세요.");
+                    setFriendListData([]);
+                    alert("본인 아이디를 입력했습니다. 다른 아이디를 입력해주세요.");
                     break;
                 case 2:
-                    console.error("아이디가 없습니다. 다시 시도해주세요.");
+                    setFriendListData([]);
+                    alert("아이디가 없습니다. 다시 시도해주세요.");
                     break;
                 default:
-                    console.error("알 수 없는 상태 코드입니다:", responseExistId.data);
+                    alert("알 수 없는 상태 코드입니다:", responseExistId.data);
                     break;
             }
         } catch (error) {
@@ -158,8 +204,8 @@ const FriendList = () => {
                 <button onClick={onClickSearchFriend}>검색하기</button>
             </InputContainer>
             <div>
-                {FriendListData.map((friend, index) => (
-                    <ToggleList key={index} friend={friend} />
+                {friendListData.map((list, index) => (
+                    <ToggleListItems key={index} list={list} friendId={inputValue} />
                 ))}
             </div>
         </>

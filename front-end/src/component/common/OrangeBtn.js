@@ -18,10 +18,10 @@ const OrangeButton = styled.button`
     }
 `;
 
-const OrangeBtn = ({ onClick, text }) => {
+const OrangeBtn = ({ onClick, text, style }) => {
     return (
         <span>
-            <OrangeButton onClick={onClick}>{text}</OrangeButton>
+            <OrangeButton onClick={onClick} style={style}>{text}</OrangeButton>
         </span>
     );
 };

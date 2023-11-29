@@ -77,7 +77,6 @@ const ToggleList = ({ list, getMyList }) => {
     const onClickDeleteListElement = async ({ listName, restaurantName }) => {
         const userId = sessionStorage.getItem("userId");
         let body = { userId: userId, listName: listName, restaurantName: restaurantName };
-        console.log("asdfasfas", body);
         try {
             const response = await axios.post("/list/deleteListElement", body);
             switch (response.data) {
@@ -185,7 +184,8 @@ const MyList = () => {
                     userId: userId,
                 }
             });
-            console.log(response.data);
+            if (response.data.length === 0)
+                return;
             setMyListData(response.data);
         } catch (error) {
             console.error("Error fetching data:", error.response.data);
