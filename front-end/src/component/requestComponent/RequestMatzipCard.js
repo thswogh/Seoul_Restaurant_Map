@@ -26,6 +26,7 @@ const ModalWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index:1;
 `;
 
 const ModalContent = styled.div`
@@ -87,6 +88,7 @@ const RequestMatzipCard = ({ onClose }) => {
             switch (response.data) {
                 case 0:
                     alert("요청이 등록되었습니다.");
+                    onClose();
                     break;
                 case 1:
                     alert("유저 아이디 오류입니다.");
