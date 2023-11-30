@@ -52,15 +52,22 @@ const PageNumber = styled.span`
 `;
 
 const TableRow = ({ requestData, index, noticeData }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const isopenHandler = () => setIsOpen(!isOpen);
     if (noticeData) {
         // noticeData가 존재하는 경우에 반환할 JSX
         return (
-            <tr>
-                <StyledTd><SelectedTag isSelected={true} text="공지사항" /></StyledTd>
-                <StyledTd>{noticeData.title}</StyledTd>
-                <StyledTd>{noticeData.userId}</StyledTd>
-                <StyledTd>{noticeData.uploadDate}</StyledTd>
-            </tr>
+            <>
+                <tr>
+                    <StyledTd><SelectedTag isSelected={true} text="공지사항" /></StyledTd>
+                    <StyledTd style={{ cursor: "pointer" }} onClick={isopenHandler} >{noticeData.title}</StyledTd>
+                    <StyledTd>{noticeData.userId}</StyledTd>
+                    <StyledTd>{noticeData.uploadDate}</StyledTd>
+                </tr>
+                {isOpen && (
+                    <div>열렸어요</div>
+                )}
+            </>
         );
     } else if (requestData) {
         // noticeData가 존재하지 않는 경우에 반환할 JSX
