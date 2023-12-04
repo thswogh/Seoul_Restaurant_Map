@@ -54,6 +54,12 @@
     background: url('http://maps.gstatic.com/mapfiles/markers2/drag_cross_67_16.png');
 }
 
+.videoInfo {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}
+
 .close:hover {
     cursor: pointer;
 }
@@ -61,6 +67,12 @@
 .nextPrevContainer {
     display: flex;
     justify-content: space-between;
+    height: 30px;
+}
+
+.playBtnContainer {
+    display: flex;
+    justify-content: center;
     height: 30px;
 }
 

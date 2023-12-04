@@ -85,13 +85,21 @@ const Overlay = ({ marker, handleMarkerClick }) => {
                 >
                 </div>
 
-                <h3>{marker.videoData[curVideoIdx].channel} |
-                    {Math.round(marker.videoData[curVideoIdx].view / 10000 * 10) / 10}만 VIEWS</h3>
-                <div className='nextPrevContainer'>
-                    <img onClick={handlePrevVideo} src={PngLeftArrow} alt="이전" title='이전' />
-                    <img onClick={playVideo} style={{ cursor: "pointer" }} src={PlayBtn} />
-                    <img onClick={handleNextVideo} src={PngRightArrow} alt="다음" title='다음' />
-                </div>
+                <h3 style={{ margin: "4px 0px 30px 4px" }}>{marker.videoData[curVideoIdx].channel} |
+                    {Math.round(marker.videoData[curVideoIdx].view / 10000 * 10) / 10}만 VIEWS
+                </h3>
+
+                {marker.videoData.length === 1 ? (
+                    <div className='playBtnContainer'>
+                        <img onClick={playVideo} style={{ cursor: "pointer", justifyContent: "center" }} src={PlayBtn} />
+                    </div>
+                ) :
+                    <div className='nextPrevContainer'>
+                        <img onClick={handlePrevVideo} src={PngLeftArrow} alt="이전" title='이전' />
+                        <img onClick={playVideo} style={{ cursor: "pointer" }} src={PlayBtn} />
+                        <img onClick={handleNextVideo} src={PngRightArrow} alt="다음" title='다음' />
+                    </div>}
+
 
             </div>
 
