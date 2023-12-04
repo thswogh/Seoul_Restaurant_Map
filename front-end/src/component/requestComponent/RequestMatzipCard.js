@@ -33,7 +33,7 @@ const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 50vh;
+    min-height: 60vh;
     width: 50vw;
     background-color: white;
     align-items: center;
@@ -58,7 +58,7 @@ const StyleSet = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     margin-bottom: 1vh;
 `;
 
@@ -122,11 +122,21 @@ const RequestMatzipCard = ({ onClose }) => {
                     </StyleSet>
                     <StyleSet>
                         <h3 style={{ backgroundColor: "white", color: "black" }}>식당이름</h3>
-                        <StyleInput value={restaurantName} onChange={onChangeRestuarantHandler} placeholder="식당이름을 입력해주세요" type="text" />
+                        <div style={{ marginLeft: "10px" }}>
+                            <StyleInput value={restaurantName} onChange={onChangeRestuarantHandler} placeholder="식당이름을 입력해주세요" type="text" />
+                            <div style={{ fontSize: "11px", marginBottom: "1rem", marginTop: "0.1rem", color: "#FF7A00" }}>
+                                카카오 지도에서 입력되는 지 확인해주세요!
+                            </div>
+                        </div>
                     </StyleSet>
                     <StyleSet>
                         <h3 style={{ backgroundColor: "white", color: "black" }}>영상 url</h3>
-                        <StyleInput value={videoUrl} onChange={onChangeVideoUrlHandler} placeholder="영상 url을 입력해주세요" type="text" />
+                        <div>
+                            <StyleInput value={videoUrl} onChange={onChangeVideoUrlHandler} placeholder="영상 url을 입력해주세요" type="text" />
+                            <div style={{ fontSize: "11px", marginBottom: "1rem", marginTop: "0.1rem", color: "#FF7A00" }}>
+                                해당 맛집이 소개된 영상 url을 복사 후 붙여넣어 주세요!
+                            </div>
+                        </div>
                     </StyleSet>
                 </div>
                 <OrangeBtn text={"맛집 요청하기"} style={{ boxShadow: 'none', borderRadius: 0, marginTop: "3vh" }}

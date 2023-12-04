@@ -33,7 +33,7 @@ const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 50vh;
+    min-height: 50vh;
     width: 50vw;
     background-color: white;
     align-items: center;
@@ -113,21 +113,24 @@ const AddChannelBoardCard = ({ onClose }) => {
                 <CloseButton onClick={onClose}>x</CloseButton>
                 <h4 style={{ marginTop: "3vh", marginBottom: "0.4vh", fontWeight: "900" }}>게시판 글쓰기</h4>
                 <div style={{ marginTop: "2vh", marginBottom: "3vh", height: "1px", width: "95%", backgroundColor: "#BBBBBB" }}> </div>
-                <div>
-                    <label htmlFor="title">제목</label>
+                <div style={{ width: "80%" }}>
+                    <label htmlFor="title"></label>
                     <input
                         type="text"
                         id="title"
                         name="title"
-                        style={{ width: "100%", marginBottom: "1rem", padding: "0.5rem" }}
-                        placeholder="제목을 입력하세요"
+                        style={{ width: "100%", padding: "0.5rem" }}
+                        placeholder="채널명을 입력하세요"
                         onChange={onChangeTitleHandler}
                     />
-                    <label htmlFor="content">본문</label>
+                    <div style={{ fontSize: "11px", marginBottom: "1rem", marginTop: "0.1rem", color: "#FF7A00" }}>
+                        채널 페이지에 들어가서 채널 풀네임을 복사후 붙여넣어주세요!
+                    </div>
+                    <label htmlFor="content"></label>
                     <textarea
                         id="content"
                         name="content"
-                        style={{ width: "100%", height: "150px", marginBottom: "1rem", padding: "0.5rem", border: "1px solid #BBBBBB" }}
+                        style={{ width: "100%", height: "150px", padding: "0.5rem", border: "1px solid #BBBBBB" }}
                         placeholder="내용을 입력하세요"
                         onChange={onChangeContentHandler}
                     ></textarea>

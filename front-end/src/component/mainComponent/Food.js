@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import FoodTags from "./HandleFoods";
+import { useEffect, useState } from "react";
 
 const StyleFoodWrapper = styled.div`
     min-height: 20vh;
@@ -23,7 +24,6 @@ const StyleFoodWrapper = styled.div`
 `;
 
 const FoodWrapper = ({ onFoodTagsChange }) => {
-
     const handleSelectedTagsChange = (tags) => {
         onFoodTagsChange(tags);
     };

@@ -78,6 +78,7 @@ const MainSidebar = () => {
     //food
     const handleFoodTagChange = (newTagArray) => {
         setFoodTags(newTagArray);
+        console.log("food", newTagArray);
     };
     //view
     const handleViewChange = (value) => {
@@ -103,11 +104,6 @@ const MainSidebar = () => {
         }
     };
 
-    const onClickRefreshHandler = () => {
-        // Refresh 버튼 클릭 시 선택된 foodTag 초기화
-        setChannelTags([]);
-    };
-
     return (
         <SidebarWrapper>
             <StyledTItleContainer>
@@ -115,7 +111,6 @@ const MainSidebar = () => {
                 <OrangeBtn onClick={onClickSearchHandler} text="검색" />
             </StyledTItleContainer>
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>CHANNEL</StyledTitle><StyledSubTitle>채널</StyledSubTitle></StyleTitleWrapper>
-            <button onClick={onClickRefreshHandler} >Refresh</button>
             <ChannelWrapper onChannelTagsChange={handleTagArrayChange} />
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>TAG</StyledTitle><StyledSubTitle>태그</StyledSubTitle></StyleTitleWrapper>
             <FoodWrapper onFoodTagsChange={handleFoodTagChange} />
