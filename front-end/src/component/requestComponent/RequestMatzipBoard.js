@@ -1,9 +1,12 @@
 import { styled } from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import AdminRequestProcessCard from "../admin/AdminRequestProcess";
 import PreviousArrowBtn from '../../img/previousArrow.png'
 import NextArrowBtn from '../../img/nextArrow.png'
 import DeleteListElementBtn from "../common/DeleteListElementBtn";
+import processImg from '../../img/processImg.png'
+
 
 const StyledTable = styled.table`
     border-collapse: collapse;
@@ -83,6 +86,11 @@ const onClickDeleteRequest = async ({ requestId, fetchData }) => {
 
 const TableRow = ({ requestData, fetchData }) => {
     const userId = sessionStorage.getItem("userId");
+    const [isModalOpen, setModalOpen] = useState(false);
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+    const adminProcess = () => openModal();
+
     return (
         <tr>
             <StyledTd>{requestData.userId}</StyledTd>
@@ -93,20 +101,34 @@ const TableRow = ({ requestData, fetchData }) => {
                     {requestData.videoUrl}
                 </StyledLink>
             </StyledTd>
-            <StyledTd>{requestData.status}</StyledTd>
-            {console.log(requestData.isMine)}
-            {requestData.mine ? (
-                <DeleteListElementBtn
-                    onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })}
-                />
+
+            {userId !== "admin" ? (
+                < StyledTd > {requestData.status}</StyledTd>
             ) : (
-                null// isMine이 false면 빈 <td> 생성
+                <>
+                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                        <StyledTd> {requestData.status}</StyledTd>
+                        <img src={processImg} style={{ height: "25px", cursor: "pointer" }} onClick={adminProcess} />
+                    </div>
+                    {isModalOpen && <AdminRequestProcessCard onClose={closeModal} requestId={requestData.requestId} fetchData={fetchData} />}
+                </>
             )}
-        </tr>
+
+            {
+                requestData.mine ? (
+                    <DeleteListElementBtn
+                        onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })}
+                    />
+                ) : (
+                    null// isMine이 false면 빈 <td> 생성
+                )
+            }
+        </tr >
     );
 };
 
 const ITEMS_PER_PAGE = 5; // 페이지당 보여줄 아이템 수
+
 const RequestMatzipBoard = () => {
     const [requestList, setRequestList] = useState([]);
     const [totalNum, setTotalNum] = useState(0);

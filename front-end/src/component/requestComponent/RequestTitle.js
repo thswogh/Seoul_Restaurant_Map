@@ -24,10 +24,7 @@ const RequestTitle = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
-
-    const requestMatzip = async () => {
-        openModal();
-    }
+    const requestMatzip = () => openModal();
 
     return (
         <div style={{ marginBottom: "5vh" }}>
