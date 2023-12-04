@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useId } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import HeaderJoinBtn from './HeaderJoinBtn';
 import HeaderLoginBtn from './HeaderLoginBtn';
 import HeaderLogoutBtn from './HeaderLogoutBtn';
@@ -43,6 +43,7 @@ const isNavActive = ({ isActive }) =>
 const Header = () => {
     const { isLogin, setIsLogin } = useMarkers();
     const userId = sessionStorage.getItem("userId");
+    const navigate = useNavigate();
 
     // checkLoginStatus 함수를 호출하여 로그인 상태를 확인
     const checkLoginStatus = async () => {
@@ -54,6 +55,13 @@ const Header = () => {
             console.log('Axios Is logged in:', response.data);
         } catch (error) {
             console.error('Error checking login status:', error);
+        }
+    };
+    const HandleMyListClick = () => {
+        if (!isLogin) {
+            alert("로그인 후 이용 가능합니다.");
+            // <useNavigate to="/login" replace={true} />; // /list 페이지에서 로그인 페이지로 이동
+            navigate("/login", { replace: true }); // /list 페이지에서 로그인 페이지로 이동
         }
     };
     // 컴포넌트가 마운트되면 로그인 상태를 확인
@@ -71,9 +79,26 @@ const Header = () => {
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink className={isNavActive} to="/list">
-                    나의 Mat Zip
-                </NavLink>
+                {isLogin === false ? (
+                    <NavLink className={isNavActive} to="/list"
+                        onClick={() => {
+                            if (!isLogin) {
+                                alert("로그인 후 이용 가능합니다.");
+                                setTimeout(() => {
+                                    navigate("/login", { replace: true });
+                                }, 10);
+                            }
+                        }}>
+                        나의 Mat Zip
+                    </NavLink>
+                )
+                    :
+                    (
+                        <NavLink className={isNavActive} to="/list">
+                            나의 Mat Zip
+                        </NavLink>
+                    )
+                }
             </MenuItem>
             <MenuItem>
                 <NavLink className={isNavActive} to="/request">

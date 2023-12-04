@@ -1,15 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../css/overlay.css'
 import PngLeftArrow from '../../img/LeftArrow.png'
 import PngRightArrow from '../../img/RightArrow.png'
 import ShortcutBtn from '../../img/shortcutBtn.png'
 import PlayBtn from '../../img/PlayBtn.png'
 import axios from 'axios';
+import { useMarkers } from '../util/MyContext';
 
 const Overlay = ({ marker, handleMarkerClick }) => {
     const [curVideoIdx, setCurVideoIdx] = useState(0);
     const [showList, setShowList] = useState(false);
     const [findListData, setFindListData] = useState([]);
+    const { isLogin, setIsLogin } = useMarkers();
+
+    // checkLoginStatus 함수를 호출하여 로그인 상태를 확인
+    const checkLoginStatus = async () => {
+        try {
+            const response = await axios.get('/checkLoginStatus');
+            console.log("checkLoginStatus:", response);
+            // 여기서 isLoggedIn 값에 따라 로그인 여부를 확인하고 isLogin 값을 변경
+            setIsLogin(response.data);
+        } catch (error) {
+            console.error('Error checking login status:', error);
+        }
+    };
+    // 컴포넌트가 마운트되면 로그인 상태를 확인
+    useEffect(() => {
+        console.log("overlay loaded");
+        checkLoginStatus();
+    }, []); // 빈 의존성 배열을 사용하여 최초 한 번만 실행
 
     const handleNextVideo = () => {
         setCurVideoIdx((prevIdx) => (prevIdx + 1) % marker.videoData.length);
@@ -22,10 +41,14 @@ const Overlay = ({ marker, handleMarkerClick }) => {
         window.open(videoLink, '_blank');
     }
 
-    const toggleList = async ({ }) => {
+    const ToggleList = async ({ }) => {
         const userId = sessionStorage.getItem("userId");
         setShowList(!showList);
 
+        if (isLogin === false) {
+            alert("로그인이 필요한 서비스입니다");
+            return;
+        }
         try {
             const response = await axios.get("/home/findList", {
                 params: {
@@ -111,7 +134,7 @@ const Overlay = ({ marker, handleMarkerClick }) => {
                         <img src={ShortcutBtn} />
                     </a>
                 </div>
-                <span className='plusButton' onClick={toggleList} >+</span>
+                <span className='plusButton' onClick={ToggleList} >+</span>
                 {showList && (
                     <div className='toggle' >
                         {findListData.map((item) => (

@@ -33,7 +33,7 @@ const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    min-height: 50vh;
+    min-height: 60vh;
     width: 50vw;
     background-color: white;
     align-items: center;

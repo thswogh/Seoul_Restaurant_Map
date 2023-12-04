@@ -157,7 +157,7 @@ const RequestMatzipBoard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {requestList.map((requestData) => (
+                    {requestList && requestList.map((requestData) => (
                         <TableRow key={requestData.id} requestData={requestData} fetchData={fetchData} />
                     ))}
                 </tbody>
