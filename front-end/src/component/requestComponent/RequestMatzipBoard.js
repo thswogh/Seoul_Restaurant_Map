@@ -52,14 +52,10 @@ const PageNumber = styled.span`
     color: ${(props) => (props.active ? "#FF7A00" : "inherit")};
 `;
 
-const onClickDeleteRequest = async ({ requestId, fetchData, isMine }) => {
+const onClickDeleteRequest = async ({ requestId, fetchData }) => {
     const userId = sessionStorage.getItem("userId");
     let body = { userId: userId, requestId: requestId };
-    console.log("isMine", isMine);
-    if (isMine === false) {
-        alert("사용자의 게시글이 아닙니다.");
-        return;
-    }
+
     try {
         const response = await axios.post("/requestBoard/deleteMyRequestElement", body);
         switch (response.data) {
@@ -86,6 +82,7 @@ const onClickDeleteRequest = async ({ requestId, fetchData, isMine }) => {
 };
 
 const TableRow = ({ requestData, fetchData }) => {
+    const userId = sessionStorage.getItem("userId");
     return (
         <tr>
             <StyledTd>{requestData.userId}</StyledTd>
@@ -97,7 +94,14 @@ const TableRow = ({ requestData, fetchData }) => {
                 </StyledLink>
             </StyledTd>
             <StyledTd>{requestData.status}</StyledTd>
-            <DeleteListElementBtn onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData, isMine: requestData.mine })} />
+            {console.log(requestData.isMine)}
+            {requestData.mine ? (
+                <DeleteListElementBtn
+                    onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })}
+                />
+            ) : (
+                null// isMine이 false면 빈 <td> 생성
+            )}
         </tr>
     );
 };

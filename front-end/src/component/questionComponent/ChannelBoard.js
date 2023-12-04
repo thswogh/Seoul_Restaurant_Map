@@ -26,6 +26,17 @@ const StyledTd = styled.td`
     border-bottom: 1px solid #BBBBBB;
 `;
 
+const StyledDecoTd = styled.td`
+    padding: 2vh 0;
+    border-bottom: 1px solid #BBBBBB;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+        color: #FF7A00;
+        text-decoration-color:#FF7A00;
+    }
+`;
+
 const StyledLink = styled.a`
     text-decoration: none;
     color: black; /* 적절한 색상으로 변경하세요 */
@@ -57,7 +68,7 @@ const TableRow = ({ requestData, index, noticeData }) => {
         return (
             <tr>
                 <StyledTd><SelectedTag isSelected={true} text="공지사항" /></StyledTd>
-                <StyledTd>{noticeData.title}</StyledTd>
+                <StyledDecoTd>{noticeData.title}</StyledDecoTd>
                 <StyledTd>{noticeData.userId}</StyledTd>
                 <StyledTd>{noticeData.uploadDate}</StyledTd>
             </tr>
@@ -67,7 +78,7 @@ const TableRow = ({ requestData, index, noticeData }) => {
         return (
             <tr>
                 <StyledTd style={{ fontWeight: "700" }}>{index + 1}</StyledTd>
-                <StyledTd>{requestData.title}</StyledTd>
+                <StyledDecoTd>{requestData.title}</StyledDecoTd>
                 <StyledTd>{requestData.userId}</StyledTd>
                 <StyledTd>{requestData.uploadDate}</StyledTd>
             </tr>
