@@ -32,14 +32,9 @@ const SidebarWrapper = styled.div`
     }
 `;
 
-// const SidebarContent = styled.div`
-//     flex: 1;
-//     display: flex;
-//     flex-direction: column;
-// `;
-
 const StyleTitleWrapper = styled.div`
     margin-bottom: 10px;
+    min-height: 2.5vh;
 `;
 
 const StyledTitle = styled.span`
@@ -84,13 +79,13 @@ const MainSidebar = () => {
     const handleFoodTagChange = (newTagArray) => {
         setFoodTags(newTagArray);
     };
-
     //view
     const handleViewChange = (value) => {
         setViewValue(value);
     };
     //search
     const onClickSearchHandler = async () => {
+        console.log("channel", channelTags, "foodTags", foodTags, "viewValue", viewValue);
         try {
             const response = await axios.get('http://35.216.106.118:8080/home/advancedSearch', {
                 params: {
@@ -108,6 +103,11 @@ const MainSidebar = () => {
         }
     };
 
+    const onClickRefreshHandler = () => {
+        // Refresh 버튼 클릭 시 선택된 foodTag 초기화
+        setChannelTags([]);
+    };
+
     return (
         <SidebarWrapper>
             <StyledTItleContainer>
@@ -115,6 +115,7 @@ const MainSidebar = () => {
                 <OrangeBtn onClick={onClickSearchHandler} text="검색" />
             </StyledTItleContainer>
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>CHANNEL</StyledTitle><StyledSubTitle>채널</StyledSubTitle></StyleTitleWrapper>
+            <button onClick={onClickRefreshHandler} >Refresh</button>
             <ChannelWrapper onChannelTagsChange={handleTagArrayChange} />
             <StyleTitleWrapper> <OrangeCircle /><StyledTitle>TAG</StyledTitle><StyledSubTitle>태그</StyledSubTitle></StyleTitleWrapper>
             <FoodWrapper onFoodTagsChange={handleFoodTagChange} />

@@ -53,11 +53,11 @@ const BasicMap = () => {
         if (triggerEffect) {
             if (markers.length > 0) {
                 const firstMarker = markers[0];
-                setMapInfo({
-                    lat: firstMarker.latlng.lat,
-                    lng: firstMarker.latlng.lng,
-                    level: 5,
-                });
+                // setMapInfo({
+                //     lat: firstMarker.latlng.lat,
+                //     lng: firstMarker.latlng.lng,
+                //     level: 5,
+                // });
             }
         }
         setTriggerEffect(true);
