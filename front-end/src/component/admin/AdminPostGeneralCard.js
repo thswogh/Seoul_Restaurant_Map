@@ -54,15 +54,7 @@ const CloseButton = styled.button`
     outline: none;
 `;
 
-const StyleSet = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1vh;
-`;
-
-const AddGeneralBoardCard = ({ onClose }) => {
+const AdminPostGeneralCard = ({ onClose }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
@@ -84,17 +76,20 @@ const AddGeneralBoardCard = ({ onClose }) => {
             return;
         }
         try {
-            const response = await axios.post('/board/addPost', body2);
+            const response = await axios.post('/board/addAdminNotice', body2);
             switch (response.data) {
                 case 0:
-                    alert("요청이 등록되었습니다.");
+                    alert("공지사항이 등록되었습니다.");
                     onClose();
                     break;
                 case 1:
-                    alert("유저 아이디 오류입니다.");
+                    alert("admin 계정이 아닙니다.");
                     break;
                 case 2:
-                    alert("세션이 만료되었습니다. 다시 로그인을 시도하세요");
+                    alert("admin 계정이 없습니다.");
+                    break;
+                case 3:
+                    alert("유효하지 않은 세션입니다.");
                     break;
                 default:
                     alert("알 수 없는 상태 코드입니다.");
@@ -139,4 +134,4 @@ const AddGeneralBoardCard = ({ onClose }) => {
     )
 }
 
-export default AddGeneralBoardCard;
+export default AdminPostGeneralCard;

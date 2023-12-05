@@ -3,7 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import PreviousArrowBtn from '../../img/previousArrow.png'
 import NextArrowBtn from '../../img/nextArrow.png'
+import processImg from '../../img/processImg.png'
 import SelectedTag from "../common/SelectedTag";
+import AdminCommentGeneralCard from "../admin/AdminCommentGeneralCard";
 
 const StyledTable = styled.table`
     border-collapse: collapse;
@@ -35,12 +37,6 @@ const StyledDecoTd = styled.td`
         text-decoration-color:#FF7A00;
     }
 `;
-const StyledLink = styled.a`
-    text-decoration: none;
-    color: black; /* 적절한 색상으로 변경하세요 */
-    opacity: 0.8;
-    cursor: pointer; /* 링크 포인터로 변경 */
-`;
 
 const PaginationContainer = styled.div`
     display: flex;
@@ -59,34 +55,64 @@ const PageNumber = styled.span`
     font-weight: ${(props) => (props.active ? "bold" : "normal")};
     color: ${(props) => (props.active ? "#FF7A00" : "inherit")};
 `;
+const AnswerTr = styled.tr`
+    background-color: #D9D9D9;
+`;
 
 const TableRow = ({ requestData, index, noticeData }) => {
     const [isOpen, setIsOpen] = useState(false);
     const isopenHandler = () => setIsOpen(!isOpen);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+    const userId = sessionStorage.getItem("userId");
+
     if (noticeData) {
         // noticeData가 존재하는 경우에 반환할 JSX
         return (
             <>
                 <tr>
                     <StyledTd><SelectedTag isSelected={true} text="공지사항" /></StyledTd>
-                    <StyledDecoTd onClick={isopenHandler} >{noticeData.title}</StyledDecoTd>
+                    <StyledDecoTd>{noticeData.title}</StyledDecoTd>
                     <StyledTd>{noticeData.userId}</StyledTd>
                     <StyledTd>{noticeData.uploadDate}</StyledTd>
                 </tr>
-                {isOpen && (
-                    <div>열렸어요</div>
-                )}
             </>
         );
     } else if (requestData) {
         // noticeData가 존재하지 않는 경우에 반환할 JSX
         return (
-            <tr>
-                <StyledTd style={{ fontWeight: "700" }}>{index + 1}</StyledTd>
-                <StyledDecoTd>{requestData.title}</StyledDecoTd>
-                <StyledTd>{requestData.userId}</StyledTd>
-                <StyledTd>{requestData.uploadDate}</StyledTd>
-            </tr>
+            <>
+                <tr>
+                    <StyledTd style={{ fontWeight: "700" }}>{index + 1}</StyledTd>
+                    <StyledDecoTd onClick={isopenHandler}>{requestData.title}</StyledDecoTd>
+                    <StyledTd>{requestData.userId}</StyledTd>
+                    <StyledTd>{requestData.uploadDate}</StyledTd>
+                    {userId === "admin" ? (
+                        <>
+                            <img src={processImg} onClick={openModal}
+                                style={{ height: "25px", cursor: "pointer", marginTop: "2vh" }}
+                            />
+                            {isModalOpen && <AdminCommentGeneralCard onClose={closeModal} postId={requestData.postId} />}
+                        </>
+                    ) : (
+                        null
+                    )}
+                </tr>
+                {isOpen && requestData.adminAnswer && (
+                    <AnswerTr>
+                        <StyledTd></StyledTd>
+                        <StyledTd>
+                            {requestData.body}
+                            <br />
+                            <br />
+                            ㄴ{requestData.adminAnswer}
+                        </StyledTd>
+                        <StyledTd style={{ color: "#BBBBBB" }}>운영자</StyledTd>
+                        <StyledTd style={{ color: "#BBBBBB" }}>{requestData.answerDate}</StyledTd>
+                    </AnswerTr>
+                )}
+            </>
         );
     }
 };

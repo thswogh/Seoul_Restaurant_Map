@@ -5,6 +5,7 @@ import { styled } from "styled-components";
 import OrangeBtn from "../common/OrangeBtn";
 import AddGeneralBoardCard from "./AddGeneralBoardCard";
 import AddChannelBoardCard from "./AddChannelBoardCard";
+import AdminPostGeneralCard from "../admin/AdminPostGeneralCard";
 
 const BoardListWrapper = styled.div`
     width: 100%;
@@ -13,16 +14,11 @@ const BoardListWrapper = styled.div`
 `;
 
 const NavigationBar = ({ selectedTab, onTabChange, buttonStyle }) => {
-    const handleClick = (tab) => {
-        onTabChange(tab);
-    };
+    const userId = sessionStorage.getItem("userId");
+    const handleClick = (tab) => onTabChange(tab);
     const [isModalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
-
-    const requestMatzip = async () => {
-        openModal();
-    }
 
     return (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -48,10 +44,20 @@ const NavigationBar = ({ selectedTab, onTabChange, buttonStyle }) => {
                     채널 요청 게시판
                 </button>
             </div>
-            <OrangeBtn text={"글 작성하기"} style={{ boxShadow: 'none', borderRadius: 0 }} onClick={requestMatzip} />
-            {/* 모달 표시 여부에 따라 컴포넌트를 렌더링 */}
-            {selectedTab === 'generalBoard' && isModalOpen && <AddGeneralBoardCard onClose={closeModal} />}
-            {selectedTab === 'channelBoard' && isModalOpen && <AddChannelBoardCard onClose={closeModal} />}
+            {userId !== "admin" ? (
+                <>
+                    <OrangeBtn text={"글 작성하기"} style={{ boxShadow: 'none', borderRadius: 0 }} onClick={openModal} />
+                    {/* 모달 표시 여부에 따라 컴포넌트를 렌더링 */}
+                    {selectedTab === 'generalBoard' && isModalOpen && <AddGeneralBoardCard onClose={closeModal} />}
+                    {selectedTab === 'channelBoard' && isModalOpen && <AddChannelBoardCard onClose={closeModal} />}
+                </>
+            ) : (
+                <>
+                    <OrangeBtn text={"공지사항 등록하기"} style={{ boxShadow: 'none', borderRadius: 0 }} onClick={openModal} />
+                    {isModalOpen && <AdminPostGeneralCard onClose={closeModal} />}
+                </>
+            )}
+
         </div>
     );
 };

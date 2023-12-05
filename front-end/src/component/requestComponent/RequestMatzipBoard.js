@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import AdminRequestProcessCard from "../admin/AdminRequestProcess";
+import AdminRequestProcessCard from "../admin/AdminRequestProcessCard";
 import PreviousArrowBtn from '../../img/previousArrow.png'
 import NextArrowBtn from '../../img/nextArrow.png'
 import DeleteListElementBtn from "../common/DeleteListElementBtn";
-import processImg from '../../img/processImg.png'
+import processImg from '../../img/processImg.png';
 
 
 const StyledTable = styled.table`
@@ -29,7 +29,16 @@ const StyledTd = styled.td`
     padding: 2vh 0;
     border-bottom: 1px solid #BBBBBB;
 `;
-
+const StyledDecoTd = styled.td`
+    padding: 2vh 0;
+    border-bottom: 1px solid #BBBBBB;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+        color: #FF7A00;
+        text-decoration-color:#FF7A00;
+    }
+`;
 const StyledLink = styled.a`
     text-decoration: none;
     color: black; /* 적절한 색상으로 변경하세요 */
@@ -53,6 +62,9 @@ const PageNumber = styled.span`
     margin: 0 1vw;
     font-weight: ${(props) => (props.active ? "bold" : "normal")};
     color: ${(props) => (props.active ? "#FF7A00" : "inherit")};
+`;
+const AnswerTr = styled.tr`
+    background-color: #D9D9D9;
 `;
 
 const onClickDeleteRequest = async ({ requestId, fetchData }) => {
@@ -86,44 +98,55 @@ const onClickDeleteRequest = async ({ requestId, fetchData }) => {
 
 const TableRow = ({ requestData, fetchData }) => {
     const userId = sessionStorage.getItem("userId");
+    const [isOpen, setIsOpen] = useState(false);
+    const isopenHandler = () => setIsOpen(!isOpen);
     const [isModalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
     const adminProcess = () => openModal();
 
     return (
-        <tr>
-            <StyledTd>{requestData.userId}</StyledTd>
-            <StyledTd>{requestData.channelName}</StyledTd>
-            <StyledTd>{requestData.restaurantName}</StyledTd>
-            <StyledTd>
-                <StyledLink href={requestData.videoUrl} target="_blank" rel="noopener noreferrer">
-                    {requestData.videoUrl}
-                </StyledLink>
-            </StyledTd>
+        <>
+            <tr>
+                <StyledDecoTd onClick={isopenHandler}>{requestData.userId}</StyledDecoTd>
+                <StyledTd>{requestData.channelName}</StyledTd>
+                <StyledTd>{requestData.restaurantName}</StyledTd>
+                <StyledTd>
+                    <StyledLink href={requestData.videoUrl} target="_blank" rel="noopener noreferrer">
+                        {requestData.videoUrl}
+                    </StyledLink>
+                </StyledTd>
 
-            {userId !== "admin" ? (
-                < StyledTd > {requestData.status}</StyledTd>
-            ) : (
-                <>
-                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                        <StyledTd> {requestData.status}</StyledTd>
-                        <img src={processImg} style={{ height: "25px", cursor: "pointer" }} onClick={adminProcess} />
-                    </div>
-                    {isModalOpen && <AdminRequestProcessCard onClose={closeModal} requestId={requestData.requestId} fetchData={fetchData} />}
-                </>
-            )}
-
-            {
-                requestData.mine ? (
-                    <DeleteListElementBtn
-                        onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })}
-                    />
+                {userId !== "admin" ? (
+                    < StyledTd > {requestData.status}</StyledTd>
                 ) : (
-                    null// isMine이 false면 빈 <td> 생성
-                )
-            }
-        </tr >
+                    <>
+                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                            <StyledTd> {requestData.status}</StyledTd>
+                            <img src={processImg} style={{ height: "25px", cursor: "pointer", marginLeft: "1vw" }} onClick={adminProcess} />
+                        </div>
+                        {isModalOpen && <AdminRequestProcessCard onClose={closeModal} requestId={requestData.requestId} fetchData={fetchData} />}
+                    </>
+                )}
+
+                {
+                    requestData.mine ? (
+                        <DeleteListElementBtn
+                            onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })}
+                        />
+                    ) : (
+                        null// isMine이 false면 빈 <td> 생성
+                    )
+                }
+            </tr >
+            {isOpen && requestData.adminAnswer && (
+                <AnswerTr>
+                    <StyledTd style={{ color: "#BBBBBB" }}>운영자</StyledTd>
+                    <StyledTd colSpan="4" style={{ color: "#FF7A00" }}>ㄴ{requestData.adminAnswer}</StyledTd>
+                </AnswerTr>
+            )}
+        </>
+
     );
 };
 
