@@ -7,6 +7,7 @@ import ListFoodTag from "../common/ListFoodTag";
 import DeleteListBtn from "../common/DeleteListBtn";
 import DeleteListElementBtn from "../common/DeleteListElementBtn";
 import { useMarkers } from "../util/MyContext";
+import DotToggleImg from "../../img/DotToggle.png"
 
 const AddBtn = styled.div`
     font-size: 1.1rem;
@@ -42,12 +43,23 @@ const InputContainer = styled.div`
     }
 `;
 
+const H3 = styled.h3`
+    display: flex;
+    align-items: center;
+    color: black;
+    background-color: white;
+`;
+
 
 const ToggleList = ({ list, getMyList }) => {
     const [isListOpen, setIsListOpen] = useState(false);
+    const [isListDeleteOpen, setIsListDeleteOpen] = useState(false);
+    const [isEleDeleteOpen, setIsEleDeleteOpen] = useState(false);
     const { markers, setMarkers, mapInfo, setMapInfo } = useMarkers();
 
     const handleToggle = () => { setIsListOpen(!isListOpen) };
+    const handleListDelToggle = (e) => { setIsListDeleteOpen(!isListDeleteOpen); e.stopPropagation(); };
+    const handleEleDelToggle = (e) => { setIsEleDeleteOpen(!isEleDeleteOpen); e.stopPropagation(); };
 
     const onClickDeleteList = async ({ listName }) => {
         const userId = sessionStorage.getItem("userId");
@@ -125,11 +137,14 @@ const ToggleList = ({ list, getMyList }) => {
     };
     return (
         <div>
-            <h3 onClick={handleToggle} style={{ display: 'flex', alignItems: 'center', color: "black", backgroundColor: "white" }}>
+            <H3 onClick={handleToggle} >
                 {isListOpen ? <OrangeTriangle /> : <InvertedOrangeTriangle />}
                 {list.listName}
-                <DeleteListBtn onClick={() => onClickDeleteList({ listName: list.listName })} />
-            </h3>
+                {isListDeleteOpen ?
+                    <DeleteListBtn onClick={() => onClickDeleteList({ listName: list.listName })} />
+                    : <img src={DotToggleImg} style={{ width: "10%", marginLeft: "20px" }} onClick={(e) => handleListDelToggle(e)} />
+                }
+            </H3>
             {isListOpen && (
                 <ul style={{ listStyleType: "none" }}>
                     {list.restaurantInfo.map((info, index) => (
@@ -139,7 +154,10 @@ const ToggleList = ({ list, getMyList }) => {
                                     style={{ fontWeight: 700, color: "#FF7A00", fontSize: "1.1rem", cursor: "pointer" }}>
                                     {info.restaurantName}
                                 </span>
-                                <DeleteListElementBtn onClick={() => onClickDeleteListElement({ listName: list.listName, restaurantName: info.restaurantName })} />
+                                {isEleDeleteOpen ?
+                                    <DeleteListElementBtn onClick={() => onClickDeleteListElement({ listName: list.listName, restaurantName: info.restaurantName })} />
+                                    : <img src={DotToggleImg} style={{ width: "10%", marginLeft: "20px" }} onClick={(e) => handleEleDelToggle(e)} />
+                                }
                             </div>
                             {info.tagList.map((tag, tagIndex) => (
                                 // <li key={tagIndex}>{tag}</li>

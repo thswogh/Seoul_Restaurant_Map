@@ -6,7 +6,7 @@ const StyledTag = styled.div`
     color: red;
     font-size: 0.8rem;
     border: red 1px solid;
-    margin-left: 10px;
+    margin-left: 20px;
     width: fit-content;
     display: inline-block;
     align-items: center;

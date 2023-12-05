@@ -8,7 +8,6 @@ import MapMarkerContainer from "./Markers";
 
 
 const BasicMap = () => {
-    const [coordinates, setCoordinates] = useState(null); // 현재 위치의 좌표값을 저장할 상태
     const mapRef = useRef();
     const { markers, setMarkers, mapInfo, setMapInfo } = useMarkers();
     const [triggerEffect, setTriggerEffect] = useState(true);

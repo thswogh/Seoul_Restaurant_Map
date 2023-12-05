@@ -5,6 +5,7 @@ import InvertedOrangeTriangle from "../common/InvertedOrangeTrianlge";
 import ListFoodTag from "../common/ListFoodTag";
 import CopyListBtn from "../common/CopyListBtn";
 import PngSearch from '../../img/Search.png'
+import DotToggleImg from "../../img/DotToggle.png"
 import axios from "axios";
 
 const AddBtn = styled.div`
@@ -68,9 +69,11 @@ const SmallInvertedOrangeTriangle = () => (
 const ToggleListItems = ({ list, friendId }) => {
     const [isListOpen, setIsListOpen] = useState(false);
     const [isCopyInputOpen, setIsCopyInputOpen] = useState(false);
+    const [isListCopyOpen, setIsListCopyOpen] = useState(false);
     const [newListName, setNewListName] = useState('');
 
     const handleListToggle = () => setIsListOpen(!isListOpen);
+    const handleListCopyToggle = (e) => { setIsListCopyOpen(!isListCopyOpen); e.stopPropagation(); };
     const handleCopyInput = (e) => {
         setIsCopyInputOpen(!isCopyInputOpen)
         // 클릭 이벤트의 전파 막기
@@ -117,7 +120,10 @@ const ToggleListItems = ({ list, friendId }) => {
                 <h3 onClick={handleListToggle} style={{ display: 'flex', alignItems: 'center', color: "black", backgroundColor: "white" }}>
                     {isListOpen ? <OrangeTriangle /> : <InvertedOrangeTriangle />}
                     {list.listName}
-                    <CopyListBtn onClick={(e) => { handleCopyInput(e) }} />
+                    {isListCopyOpen ?
+                        <CopyListBtn onClick={(e) => { handleCopyInput(e) }} />
+                        : <img src={DotToggleImg} style={{ width: "10%", marginLeft: "20px" }} onClick={(e) => handleListCopyToggle(e)} />
+                    }
                 </h3>
                 {isCopyInputOpen && (
                     <div>

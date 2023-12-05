@@ -7,6 +7,11 @@ const StyleRequestWrapper = styled.div`
     flex-direction: column;
     height: 100vh;
     padding:5vh 15vw;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+    display: none; 
+    width: 0px;
+    } 
 `;
 
 

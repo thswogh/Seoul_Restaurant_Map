@@ -18,13 +18,12 @@ const SidebarWrapper = styled.div`
     overflow-y: scroll;
     flex-direction: column;
     padding: 40px;
-
+    
     &::-webkit-scrollbar {
     width: 12px;
     }
     &::-webkit-scrollbar-thumb {
         background-color: black;
-        height: auto;
     }
     &::-webkit-scrollbar-track {
         background-color: white;

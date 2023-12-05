@@ -10,14 +10,15 @@ const SidebarWrapper = styled.div`
     background-color: white;
     display: flex;
     overflow-y: scroll;
+    overflow-x: hidden;
     flex-direction: column;
     padding: 20px 40px 40px 40px;
+
     &::-webkit-scrollbar {
     width: 12px;
     }
     &::-webkit-scrollbar-thumb {
         background-color: black;
-        height: auto;
     }
     &::-webkit-scrollbar-track {
         background-color: white;
