@@ -120,7 +120,7 @@ const JoinForm = () => {
         }
         try {
             const emailData = { email: email };
-            const response = await axios.post('http://35.216.106.118:8080/join/validEmail', emailData, config);
+            const response = await axios.post('/join/validEmail', emailData, config);
             if (response.data === true) {
                 setEmailError('사용 가능한 이메일입니다.');
                 setIsEmailAvailable(true);
@@ -155,7 +155,7 @@ const JoinForm = () => {
                 id: id,
             }
 
-            const response = await axios.post('http://35.216.106.118:8080/join/validId', idData, config);
+            const response = await axios.post('/join/validId', idData, config);
             if (response.data === true) {
                 setIdError('사용 가능한 아이디입니다.');
                 setIsIdAvailable(true);
@@ -212,7 +212,7 @@ const JoinForm = () => {
         }
         if (finalValidation() === true) {
             await axios
-                .post("http://35.216.106.118:8080/join/joinNewUser", joinData, config)
+                .post("/join/joinNewUser", joinData, config)
                 .then((response) => {
                     if (response.data === true) {
                         alert("회원가입에 성공하셨습니다.");

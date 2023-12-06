@@ -30,7 +30,7 @@ const BasicMap = () => {
         let y_end = neLatLng.getLat();
 
         try {
-            const response = await axios.get('http://35.216.106.118:8080/home/search', {
+            const response = await axios.get('/home/search', {
                 params: {
                     x_start: x_start,
                     x_end: x_end,
