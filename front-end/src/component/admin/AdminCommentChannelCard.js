@@ -29,7 +29,6 @@ const ModalContent = styled.div`
     align-items: center;
     border-radius:8px;
 `;
-
 const StyleInput = styled.input`
     width: 320px;
     height:44px;
@@ -43,7 +42,6 @@ const StyleInput = styled.input`
         opacity: 0.8;
     }
 `;
-
 const CloseButton = styled.button`
     position: absolute;
     top: 10px; 
@@ -57,7 +55,6 @@ const CloseButton = styled.button`
     margin: 0;
     outline: none;
 `;
-
 const ImgContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -65,42 +62,46 @@ const ImgContainer = styled.div`
     width: 90%;
 `;
 
-const AdminRequestProcessCard = ({ onClose, requestId, fetchData }) => {
+const AdminCommentChannelCard = ({ onClose, postId }) => {
     const [processState, setProcessState] = useState("");
+    const [processComment, setProcessComment] = useState('');
     const [applyImgShadow, setApplyImgShadow] = useState("");
     const [rejectImgShadow, setRejectImgShadow] = useState("");
 
-    const [processComment, setProcessComment] = useState('');
     const onChangeProcessCommentHandler = (e) => setProcessComment(e.target.value);
 
-    const onClickAdminProcess = async ({ requestId, fetchData }) => {
+    const onClickAdminComment = async ({ postId }) => {
         const userId = sessionStorage.getItem("userId");
-        if (!processState || !processComment) {
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+        if (!processComment) {
             alert("요청칸을 채워주세요.");
             return;
         }
         let body = {
             userId: userId,
-            requestId: requestId,
-            comment: processComment,
+            postId: postId,
+            adminAnswer: processComment,
+            answerDate: formattedDate,
         };
 
         try {
-            const response = await axios.post("/requestBoard/addComment", body);
-            console.log(response.data);
+            const response = await axios.post("/channelRequestBoard/addAdminComment", body);
             switch (response.data) {
                 case 0:
                     alert("처리 성공");
-                    fetchData();
                     onClose();
                     break;
                 case 1:
                     alert("관리자 계정이 아닙니다.");
                     break;
                 case 2:
-                    alert("유효하지 않은 requestId입니다.");
+                    alert("관리자 계정이 없습니다.");
                     break;
                 case 3:
+                    alert("postId가 없습니다.");
+                    break;
+                case 4:
                     alert("세션이 만료되었습니다.");
                     break;
                 default:
@@ -112,34 +113,35 @@ const AdminRequestProcessCard = ({ onClose, requestId, fetchData }) => {
         }
     };
 
-    const handleButtonClick = async () => {
+    const handleState = async ({ postId }) => {
         const userId = sessionStorage.getItem("userId");
-        if (!processState || !processComment) {
+        if (!processComment) {
             alert("요청칸을 채워주세요.");
             return;
         }
         let body = {
             userId: userId,
-            requestId: requestId,
-            status: processState,
+            postId: postId,
+            state: processState,
         };
 
         try {
-            const response = await axios.post("/requestBoard/updateRequestStatus", body);
-            console.log(response.data);
+            const response = await axios.post("/channelRequestBoard/updateStateByAdmin", body);
             switch (response.data) {
                 case 0:
                     alert("처리 성공");
-                    fetchData();
                     onClose();
                     break;
                 case 1:
                     alert("관리자 계정이 아닙니다.");
                     break;
                 case 2:
-                    alert("유효하지 않은 requestId입니다.");
+                    alert("관리자 계정이 없습니다.");
                     break;
                 case 3:
+                    alert("postId가 없습니다.");
+                    break;
+                case 4:
                     alert("세션이 만료되었습니다.");
                     break;
                 default:
@@ -162,7 +164,6 @@ const AdminRequestProcessCard = ({ onClose, requestId, fetchData }) => {
         setRejectImgShadow("0 0 10px 5px rgba(0, 0, 0, 0.5)");
         setApplyImgShadow("");
     }
-
     return (
         <ModalWrapper>
             <ModalContent>
@@ -181,8 +182,8 @@ const AdminRequestProcessCard = ({ onClose, requestId, fetchData }) => {
                 <StyleInput value={processComment} onChange={onChangeProcessCommentHandler} placeholder="반려 사유 혹은 적용되었습니다를 써주세요" type="text" />
                 <OrangeBtn text={"확인"} style={{ boxShadow: 'none', borderRadius: 0, marginBottom: "2vh" }}
                     onClick={() => {
-                        onClickAdminProcess({ requestId: requestId, fetchData: fetchData });
-                        handleButtonClick();
+                        onClickAdminComment({ postId: postId });
+                        handleState({ postId: postId });
                     }}
                 />
             </ModalContent>
@@ -190,4 +191,4 @@ const AdminRequestProcessCard = ({ onClose, requestId, fetchData }) => {
     )
 }
 
-export default AdminRequestProcessCard;
+export default AdminCommentChannelCard;

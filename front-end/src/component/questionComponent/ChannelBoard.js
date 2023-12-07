@@ -5,7 +5,7 @@ import PreviousArrowBtn from '../../img/previousArrow.png'
 import NextArrowBtn from '../../img/nextArrow.png'
 import processImg from '../../img/processImg.png'
 import SelectedTag from "../common/SelectedTag";
-import AdminRequestProcessCard from "../admin/AdminRequestProcessCard";
+import AdminCommentChannelCard from "../admin/AdminCommentChannelCard";
 
 const StyledTable = styled.table`
     border-collapse: collapse;
@@ -109,7 +109,7 @@ const TableRow = ({ requestData, index, noticeData }) => {
                                 <StyledTd> {requestData.state}</StyledTd>
                                 <img src={processImg} style={{ height: "25px", cursor: "pointer", marginLeft: "1vw" }} onClick={adminProcess} />
                             </div>
-                            {isModalOpen && <AdminRequestProcessCard onClose={closeModal} requestId={requestData.requestId} />}
+                            {isModalOpen && <AdminCommentChannelCard onClose={closeModal} postId={requestData.postId} />}
                         </>
                     )}
                 </tr>

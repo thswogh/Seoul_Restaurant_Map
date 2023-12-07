@@ -62,12 +62,12 @@ const AdminCommentGeneralCard = ({ onClose, postId }) => {
             answerDate: formattedDate,
         };
 
-        console.log(body);
         try {
             const response = await axios.post("/board/addAdminComment", body);
             switch (response.data) {
                 case 0:
                     alert("처리 성공");
+                    onClose();
                     break;
                 case 1:
                     alert("관리자 계정이 아닙니다.");
