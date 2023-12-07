@@ -17,8 +17,8 @@ const StyledTh = styled.th`
     color: #BBBBBB;
     border-bottom: 2px solid black;
     text-align: left;
-    &:first-child {width: 6%};
-    &:nth-child(2) {width: 60%};
+    &:first-child {width: 12%};
+    &:nth-child(2) {width: 54%};
     &:nth-child(3) {width: 12%;}
     &:nth-child(4) {width: 12%;}
     &:nth-child(5) {width: 10%;}
@@ -64,6 +64,8 @@ const TableRow = ({ requestData, index, noticeData }) => {
     const userId = sessionStorage.getItem("userId");
     const [isOpen, setIsOpen] = useState(false);
     const isopenHandler = () => setIsOpen(!isOpen);
+    const [isNoticeOpen, setIsNoticeOpen] = useState(false);
+    const noticeOpenHandler = () => setIsNoticeOpen(!isNoticeOpen);
     const [isModalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -71,13 +73,24 @@ const TableRow = ({ requestData, index, noticeData }) => {
     if (noticeData) {
         // noticeData가 존재하는 경우에 반환할 JSX
         return (
-            <tr>
-                <StyledTd><SelectedTag isSelected={true} text="공지사항" /></StyledTd>
-                <StyledDecoTd>{noticeData.title}</StyledDecoTd>
-                <StyledTd>{noticeData.userId}</StyledTd>
-                <StyledTd>{noticeData.uploadDate}</StyledTd>
-                <StyledTd></StyledTd>
-            </tr>
+            <>
+                <tr>
+                    <StyledTd><SelectedTag isSelected={true} text="공지사항" /></StyledTd>
+                    <StyledDecoTd onClick={noticeOpenHandler}>{noticeData.title}</StyledDecoTd>
+                    <StyledTd>{noticeData.userId}</StyledTd>
+                    <StyledTd>{noticeData.uploadDate}</StyledTd>
+                    <StyledTd></StyledTd>
+                </tr>
+                {isNoticeOpen && (
+                    <AnswerTr>
+                        <StyledTd></StyledTd>
+                        <StyledTd>{noticeData.body}</StyledTd>
+                        <StyledTd></StyledTd>
+                        <StyledTd></StyledTd>
+                        <StyledTd></StyledTd>
+                    </AnswerTr>
+                )}
+            </>
         );
     } else if (requestData) {
         // noticeData가 존재하지 않는 경우에 반환할 JSX

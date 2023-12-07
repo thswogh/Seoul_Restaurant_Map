@@ -6,6 +6,7 @@ import OrangeBtn from "../common/OrangeBtn";
 import AddGeneralBoardCard from "./AddGeneralBoardCard";
 import AddChannelBoardCard from "./AddChannelBoardCard";
 import AdminPostGeneralCard from "../admin/AdminPostGeneralCard";
+import AdminPostChannelCard from "../admin/AdminPostChannelCard";
 
 const BoardListWrapper = styled.div`
     width: 100%;
@@ -53,8 +54,12 @@ const NavigationBar = ({ selectedTab, onTabChange, buttonStyle }) => {
                 </>
             ) : (
                 <>
+                    {/* {selectedTab === 'generalBoard' ? (
+                        <OrangeBtn text={"공지사항 등록하기"} style={{ boxShadow: 'none', borderRadius: 0 }} onClick={openModal} />
+                    ) : null} */}
                     <OrangeBtn text={"공지사항 등록하기"} style={{ boxShadow: 'none', borderRadius: 0 }} onClick={openModal} />
-                    {isModalOpen && <AdminPostGeneralCard onClose={closeModal} />}
+                    {isModalOpen && selectedTab === 'generalBoard' && <AdminPostGeneralCard onClose={closeModal} />}
+                    {isModalOpen && selectedTab === 'channelBoard' && <AdminPostChannelCard onClose={closeModal} />}
                 </>
             )}
 

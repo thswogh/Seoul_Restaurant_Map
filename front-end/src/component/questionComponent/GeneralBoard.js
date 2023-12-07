@@ -62,6 +62,8 @@ const AnswerTr = styled.tr`
 const TableRow = ({ requestData, index, noticeData }) => {
     const [isOpen, setIsOpen] = useState(false);
     const isopenHandler = () => setIsOpen(!isOpen);
+    const [isNoticeOpen, setIsNoticeOpen] = useState(false);
+    const noticeOpenHandler = () => setIsNoticeOpen(!isNoticeOpen);
     const [isModalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -73,10 +75,19 @@ const TableRow = ({ requestData, index, noticeData }) => {
             <>
                 <tr>
                     <StyledTd><SelectedTag isSelected={true} text="공지사항" /></StyledTd>
-                    <StyledDecoTd>{noticeData.title}</StyledDecoTd>
+                    <StyledDecoTd onClick={noticeOpenHandler}>{noticeData.title}</StyledDecoTd>
                     <StyledTd>{noticeData.userId}</StyledTd>
                     <StyledTd>{noticeData.uploadDate}</StyledTd>
                 </tr>
+                {isNoticeOpen && (
+                    <AnswerTr>
+                        <StyledTd></StyledTd>
+                        <StyledTd>{noticeData.body}</StyledTd>
+                        <StyledTd></StyledTd>
+                        <StyledTd></StyledTd>
+                        <StyledTd></StyledTd>
+                    </AnswerTr>
+                )}
             </>
         );
     } else if (requestData) {
@@ -99,16 +110,24 @@ const TableRow = ({ requestData, index, noticeData }) => {
                         null
                     )}
                 </tr>
-                {isOpen && requestData.adminAnswer && (
+                {isOpen && (
                     <AnswerTr>
                         <StyledTd></StyledTd>
                         <StyledTd>
                             {requestData.body}
-                            <br />
-                            <br />
-                            ㄴ{requestData.adminAnswer}
+                            {requestData.adminAnswer ? (
+                                <>
+                                    <br />
+                                    <br />
+                                    ㄴ{requestData.adminAnswer}
+                                </>
+                            ) : null}
                         </StyledTd>
-                        <StyledTd style={{ color: "#BBBBBB" }}>운영자</StyledTd>
+                        <StyledTd style={{ color: "#BBBBBB" }}>
+                            {requestData.adminAnswer ? (
+                                <>운영자  </>
+                            ) : <>{requestData.userId} </>}
+                        </StyledTd>
                         <StyledTd style={{ color: "#BBBBBB" }}>{requestData.answerDate}</StyledTd>
                     </AnswerTr>
                 )}
