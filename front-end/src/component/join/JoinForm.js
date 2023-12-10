@@ -120,7 +120,7 @@ const JoinForm = () => {
         }
         try {
             const emailData = { email: email };
-            const response = await axios.post('/join/validEmail', emailData, config);
+            const response = await axios.post('https://35.216.106.118:8443/join/validEmail', emailData, config);
             if (response.data === true) {
                 setEmailError('사용 가능한 이메일입니다.');
                 setIsEmailAvailable(true);
@@ -155,7 +155,7 @@ const JoinForm = () => {
                 id: id,
             }
 
-            const response = await axios.post('/join/validId', idData, config);
+            const response = await axios.post('https://35.216.106.118:8443/join/validId', idData, config);
             if (response.data === true) {
                 setIdError('사용 가능한 아이디입니다.');
                 setIsIdAvailable(true);

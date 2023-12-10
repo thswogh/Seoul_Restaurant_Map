@@ -84,7 +84,7 @@ const AddChannelBoardCard = ({ onClose }) => {
             return;
         }
         try {
-            const response = await axios.post('/channelRequestBoard/addPost', body2);
+            const response = await axios.post('https://35.216.106.118:8443/channelRequestBoard/addPost', body2);
             switch (response.data) {
                 case 0:
                     alert("요청이 등록되었습니다.");

@@ -63,7 +63,7 @@ const AdminCommentGeneralCard = ({ onClose, postId }) => {
         };
 
         try {
-            const response = await axios.post("/board/addAdminComment", body);
+            const response = await axios.post("https://35.216.106.118:8443/board/addAdminComment", body);
             switch (response.data) {
                 case 0:
                     alert("처리 성공");

@@ -160,7 +160,7 @@ const RequestMatzipBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get("/requestBoard/searchRequestList", {
+            const response = await axios.get("https://35.216.106.118:8443/requestBoard/searchRequestList", {
                 params: {
                     userId: userId,
                 },

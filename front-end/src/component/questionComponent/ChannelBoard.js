@@ -138,7 +138,7 @@ const ChannelBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get("/channelRequestBoard/searchPost", {
+            const response = await axios.get("https://35.216.106.118:8443/channelRequestBoard/searchPost", {
                 params: {
                     userId: userId,
                 },

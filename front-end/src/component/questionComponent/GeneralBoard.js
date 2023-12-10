@@ -147,7 +147,7 @@ const GeneralBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get("/board/searchPost", {
+            const response = await axios.get("https://35.216.106.118:8443/board/searchPost", {
                 params: {
                     userId: userId,
                 },
