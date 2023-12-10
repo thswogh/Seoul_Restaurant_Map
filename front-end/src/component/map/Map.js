@@ -15,6 +15,7 @@ const BasicMap = () => {
         headers: {
             "Content-Type": "application/json", // 예시로 Content-Type 헤더를 추가했습니다.
         },
+        withCredentials: true,
     };
 
     //현재 지도 영역 얻어와서, 서버에 보내 지도 내에 marker 찍는 함수

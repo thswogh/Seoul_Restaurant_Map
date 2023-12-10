@@ -48,6 +48,7 @@ const LoginForm = () => {
         headers: {
             'Content-Type': 'application/json', // 예시로 Content-Type 헤더를 추가했습니다.
         },
+        withCredentials: true,
     };
 
     const onChangeIdHandler = (e) => {
