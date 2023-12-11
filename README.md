@@ -138,16 +138,24 @@ $ npm install axios
         <td align="center">리스트페이지</td>
     </tr>
     <tr>
-        <td align="center"><span><img width="300px" src= alt="메인페이지"></span></td>
-        <td align="center"><span><img width="300px" src= alt="리스트페이지"></span></td>
+        <td align="center"><span><img width="300px" src="![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5e86049b-0b56-4efa-a341-cec796be147c/b448c73a-6d55-4763-bb4a-be265afd89a5/Untitled.png)" alt="메인페이지"></span></td>
+        <td align="center"><span><img width="300px" src="![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5e86049b-0b56-4efa-a341-cec796be147c/1a5d8902-e669-463c-a3da-297556e15bb9/Untitled.png)" alt="리스트페이지"></span></td>
     </tr>
     <tr>
         <td align="center">요청페이지</td>
         <td align="center">건의사항페이지</td>
     </tr>
     <tr>
-        <td align="center"><span><img width="300px" src= alt="요청페이지"></span></td>
-        <td align="center"><span><img width="300px" src= alt="건의사항페이지"></span></td>
+        <td align="center"><span><img width="300px" src="![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5e86049b-0b56-4efa-a341-cec796be147c/9b7ce0dc-dbf2-404a-ad12-720b87021a29/Untitled.png)" alt="요청페이지"></span></td>
+        <td align="center"><span><img width="300px" src="![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5e86049b-0b56-4efa-a341-cec796be147c/bb033e7c-46d3-4286-aa42-98ac08201408/Untitled.png)" alt="건의사항페이지"></span></td>
+    </tr>
+  <tr>
+        <td align="center">관리자페이지1</td>
+        <td align="center">관리자페이지2</td>
+    </tr>
+    <tr>
+        <td align="center"><span><img width="300px" src="![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5e86049b-0b56-4efa-a341-cec796be147c/c26f7362-f068-40a7-b318-4b9a7d4a323c/Untitled.png)" alt="메인페이지"></span></td>
+        <td align="center"><span><img width="300px" src="![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/5e86049b-0b56-4efa-a341-cec796be147c/eeef174d-48c5-48bf-a4bc-e93ae0ff6e96/Untitled.png)" alt="리스트페이지"></span></td>
     </tr>
 </table>
 
