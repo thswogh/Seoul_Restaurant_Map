@@ -6,6 +6,7 @@ import NextArrowBtn from '../../img/nextArrow.png'
 import processImg from '../../img/processImg.png'
 import SelectedTag from "../common/SelectedTag";
 import AdminCommentChannelCard from "../admin/AdminCommentChannelCard";
+import DeleteListElementBtn from "../common/DeleteListElementBtn";
 
 const StyledTable = styled.table`
     border-collapse: collapse;
@@ -60,6 +61,60 @@ const AnswerTr = styled.tr`
     background-color: #D9D9D9;
 `;
 
+
+const onClickDeleteGeneralNotice = async ({ userId, postId }) => {
+    let body = { userId: userId, postId: postId };
+    try {
+        const response = await axios.post("/channelRequestBoard/deletePost", body);
+        switch (response.data) {
+            case 0:
+                alert("삭제가 성공적으로 이루어졌습니다.");
+                break;
+            case 1:
+                alert("postId가 없습니다.");
+                break;
+            case 2:
+                alert("userId가 없습니다.");
+                break;
+            case 3:
+                alert("세션이 만료되었습니다.");
+                break;
+            default:
+                alert("알 수 없는 상태 코드입니다:", response.data);
+                break;
+        }
+    } catch (error) {
+        alert("Error fetching data:", error.response.data);
+    }
+};
+
+
+const onClickDeleteGeneralRequest = async ({ userId, postId }) => {
+    let body = { userId: userId, postId: postId };
+    try {
+        const response = await axios.post("/channelRequestBoard/deletePost", body);
+        switch (response.data) {
+            case 0:
+                alert("삭제가 성공적으로 이루어졌습니다.");
+                break;
+            case 1:
+                alert("postId가 없습니다.");
+                break;
+            case 2:
+                alert("userId가 없습니다.");
+                break;
+            case 3:
+                alert("세션이 만료되었습니다.");
+                break;
+            default:
+                alert("알 수 없는 상태 코드입니다:", response.data);
+                break;
+        }
+    } catch (error) {
+        alert("Error fetching data:", error.response.data);
+    }
+};
+
 const TableRow = ({ requestData, index, noticeData }) => {
     const userId = sessionStorage.getItem("userId");
     const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +134,17 @@ const TableRow = ({ requestData, index, noticeData }) => {
                     <StyledDecoTd onClick={noticeOpenHandler}>{noticeData.title}</StyledDecoTd>
                     <StyledTd>{noticeData.userId}</StyledTd>
                     <StyledTd>{noticeData.uploadDate}</StyledTd>
-                    <StyledTd></StyledTd>
+                    <StyledTd>
+                        {
+                            noticeData.deleteAuth ? (
+                                <DeleteListElementBtn
+                                    onClick={() => onClickDeleteGeneralNotice({ userId: userId, postId: noticeData.postId })}
+                                />
+                            ) : (
+                                null// isMine이 false면 빈 <td> 생성
+                            )
+                        }
+                    </StyledTd>
                 </tr>
                 {isNoticeOpen && (
                     <AnswerTr>
@@ -102,16 +167,37 @@ const TableRow = ({ requestData, index, noticeData }) => {
                     <StyledTd>{requestData.userId}</StyledTd>
                     <StyledTd>{requestData.uploadDate}</StyledTd>
                     {userId !== "admin" ? (
-                        < StyledTd > {requestData.state}</StyledTd>
+                        < StyledTd style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
+                            {requestData.state}
+                            {
+                                requestData.deleteAuth ? (
+                                    <DeleteListElementBtn
+                                        onClick={() => onClickDeleteGeneralRequest({ userId: userId, postId: requestData.postId })}
+                                    />
+                                ) : (
+                                    null// isMine이 false면 빈 <td> 생성
+                                )
+                            }
+                        </StyledTd>
                     ) : (
                         <>
-                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                                <StyledTd> {requestData.state}</StyledTd>
-                                <img src={processImg} style={{ height: "25px", cursor: "pointer", marginLeft: "1vw" }} onClick={adminProcess} />
-                            </div>
+                            <StyledTd>
+                                {requestData.state}
+                                {
+                                    requestData.deleteAuth ? (
+                                        <DeleteListElementBtn
+                                            onClick={() => onClickDeleteGeneralRequest({ userId: userId, postId: requestData.postId })}
+                                        />
+                                    ) : (
+                                        null// isMine이 false면 빈 <td> 생성
+                                    )
+                                }
+                            </StyledTd>
+                            <img src={processImg} style={{ height: "25px", cursor: "pointer", marginLeft: "1vw" }} onClick={adminProcess} />
                             {isModalOpen && <AdminCommentChannelCard onClose={closeModal} postId={requestData.postId} />}
                         </>
                     )}
+
                 </tr>
                 {isOpen && requestData.adminAnswer && (
                     <AnswerTr>
@@ -138,7 +224,7 @@ const ChannelBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get("https://35.216.106.118:8443/channelRequestBoard/searchPost", {
+            const response = await axios.get("/channelRequestBoard/searchPost", {
                 params: {
                     userId: userId,
                 },

@@ -86,7 +86,7 @@ const AdminCommentChannelCard = ({ onClose, postId }) => {
         };
 
         try {
-            const response = await axios.post("https://35.216.106.118:8443/channelRequestBoard/addAdminComment", body);
+            const response = await axios.post("channelRequestBoard/addAdminComment", body);
             switch (response.data) {
                 case 0:
                     alert("처리 성공");

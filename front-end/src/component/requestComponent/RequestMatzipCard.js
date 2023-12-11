@@ -84,7 +84,7 @@ const RequestMatzipCard = ({ onClose }) => {
             return;
         }
         try {
-            const response = await axios.post('https://35.216.106.118:8443/requestBoard/requestRestaurant', body);
+            const response = await axios.post('/requestBoard/requestRestaurant', body);
             switch (response.data) {
                 case 0:
                     alert("요청이 등록되었습니다.");

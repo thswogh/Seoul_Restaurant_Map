@@ -118,26 +118,37 @@ const TableRow = ({ requestData, fetchData }) => {
                 </StyledTd>
 
                 {userId !== "admin" ? (
-                    < StyledTd > {requestData.status}</StyledTd>
+                    < StyledTd > {requestData.status}
+                        {
+                            requestData.mine ? (
+                                <DeleteListElementBtn
+                                    onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })}
+                                />
+                            ) : (
+                                null// isMine이 false면 빈 <td> 생성
+                            )
+                        }
+                    </StyledTd>
                 ) : (
                     <>
-                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                            <StyledTd> {requestData.status}</StyledTd>
-                            <img src={processImg} style={{ height: "25px", cursor: "pointer", marginLeft: "1vw" }} onClick={adminProcess} />
+                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                            <StyledTd style={{ padding: "1vh 0" }}> {requestData.status}
+                                <img src={processImg} style={{ height: "25px", cursor: "pointer", marginLeft: "1vw" }} onClick={adminProcess} />
+                                {
+                                    requestData.mine ? (
+                                        <DeleteListElementBtn
+                                            onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })}
+                                        />
+                                    ) : (
+                                        null// isMine이 false면 빈 <td> 생성
+                                    )
+                                }
+                            </StyledTd>
                         </div>
                         {isModalOpen && <AdminRequestProcessCard onClose={closeModal} requestId={requestData.requestId} fetchData={fetchData} />}
                     </>
                 )}
 
-                {
-                    requestData.mine ? (
-                        <DeleteListElementBtn
-                            onClick={() => onClickDeleteRequest({ requestId: requestData.requestId, fetchData: fetchData })}
-                        />
-                    ) : (
-                        null// isMine이 false면 빈 <td> 생성
-                    )
-                }
             </tr >
             {isOpen && requestData.adminAnswer && (
                 <AnswerTr>
@@ -160,7 +171,7 @@ const RequestMatzipBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get("https://35.216.106.118:8443/requestBoard/searchRequestList", {
+            const response = await axios.get("/requestBoard/searchRequestList", {
                 params: {
                     userId: userId,
                 },

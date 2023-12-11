@@ -6,6 +6,7 @@ import NextArrowBtn from '../../img/nextArrow.png'
 import processImg from '../../img/processImg.png'
 import SelectedTag from "../common/SelectedTag";
 import AdminCommentGeneralCard from "../admin/AdminCommentGeneralCard";
+import DeleteListElementBtn from "../common/DeleteListElementBtn";
 
 const StyledTable = styled.table`
     border-collapse: collapse;
@@ -59,6 +60,60 @@ const AnswerTr = styled.tr`
     background-color: #D9D9D9;
 `;
 
+
+const onClickDeleteGeneralNotice = async ({ userId, postId }) => {
+    let body = { userId: userId, postId: postId };
+    try {
+        const response = await axios.post("/board/deletePost", body);
+        switch (response.data) {
+            case 0:
+                alert("삭제가 성공적으로 이루어졌습니다.");
+                break;
+            case 1:
+                alert("postId가 없습니다.");
+                break;
+            case 2:
+                alert("userId가 없습니다.");
+                break;
+            case 3:
+                alert("세션이 만료되었습니다.");
+                break;
+            default:
+                alert("알 수 없는 상태 코드입니다:", response.data);
+                break;
+        }
+    } catch (error) {
+        alert("Error fetching data:", error.response.data);
+    }
+};
+
+
+const onClickDeleteGeneralRequest = async ({ userId, postId }) => {
+    let body = { userId: userId, postId: postId };
+    try {
+        const response = await axios.post("/board/deletePost", body);
+        switch (response.data) {
+            case 0:
+                alert("삭제가 성공적으로 이루어졌습니다.");
+                break;
+            case 1:
+                alert("postId가 없습니다.");
+                break;
+            case 2:
+                alert("userId가 없습니다.");
+                break;
+            case 3:
+                alert("세션이 만료되었습니다.");
+                break;
+            default:
+                alert("알 수 없는 상태 코드입니다:", response.data);
+                break;
+        }
+    } catch (error) {
+        alert("Error fetching data:", error.response.data);
+    }
+};
+
 const TableRow = ({ requestData, index, noticeData }) => {
     const [isOpen, setIsOpen] = useState(false);
     const isopenHandler = () => setIsOpen(!isOpen);
@@ -77,7 +132,17 @@ const TableRow = ({ requestData, index, noticeData }) => {
                     <StyledTd><SelectedTag isSelected={true} text="공지사항" /></StyledTd>
                     <StyledDecoTd onClick={noticeOpenHandler}>{noticeData.title}</StyledDecoTd>
                     <StyledTd>{noticeData.userId}</StyledTd>
-                    <StyledTd>{noticeData.uploadDate}</StyledTd>
+                    <StyledTd>{noticeData.uploadDate}
+                        {
+                            noticeData.deleteAuth ? (
+                                <DeleteListElementBtn
+                                    onClick={() => onClickDeleteGeneralNotice({ userId: userId, postId: noticeData.postId })}
+                                />
+                            ) : (
+                                null// isMine이 false면 빈 <td> 생성
+                            )
+                        }
+                    </StyledTd>
                 </tr>
                 {isNoticeOpen && (
                     <AnswerTr>
@@ -98,11 +163,22 @@ const TableRow = ({ requestData, index, noticeData }) => {
                     <StyledTd style={{ fontWeight: "700" }}>{index + 1}</StyledTd>
                     <StyledDecoTd onClick={isopenHandler}>{requestData.title}</StyledDecoTd>
                     <StyledTd>{requestData.userId}</StyledTd>
-                    <StyledTd>{requestData.uploadDate}</StyledTd>
+                    <StyledTd>
+                        {requestData.uploadDate}
+                        {
+                            requestData.deleteAuth ? (
+                                <DeleteListElementBtn
+                                    onClick={() => onClickDeleteGeneralRequest({ userId: userId, postId: requestData.postId })}
+                                />
+                            ) : (
+                                null// isMine이 false면 빈 <td> 생성
+                            )
+                        }
+                    </StyledTd>
                     {userId === "admin" ? (
                         <>
                             <img src={processImg} onClick={openModal}
-                                style={{ height: "25px", cursor: "pointer", marginTop: "2vh" }}
+                                style={{ height: "25px", cursor: "pointer", marginTop: "2vh", marginLeft: "1vw" }}
                             />
                             {isModalOpen && <AdminCommentGeneralCard onClose={closeModal} postId={requestData.postId} />}
                         </>
@@ -110,6 +186,7 @@ const TableRow = ({ requestData, index, noticeData }) => {
                         null
                     )}
                 </tr>
+
                 {isOpen && (
                     <AnswerTr>
                         <StyledTd></StyledTd>
@@ -147,7 +224,7 @@ const GeneralBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get("https://35.216.106.118:8443/board/searchPost", {
+            const response = await axios.get("/board/searchPost", {
                 params: {
                     userId: userId,
                 },

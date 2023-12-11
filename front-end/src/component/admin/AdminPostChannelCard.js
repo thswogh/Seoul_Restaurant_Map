@@ -76,7 +76,7 @@ const AdminPostChannelCard = ({ onClose }) => {
             return;
         }
         try {
-            const response = await axios.post('https://35.216.106.118:8443/channelRequestBoard/addAdminNotice', body2);
+            const response = await axios.post('/channelRequestBoard/addAdminNotice', body2);
             switch (response.data) {
                 case 0:
                     alert("공지사항이 등록되었습니다.");
