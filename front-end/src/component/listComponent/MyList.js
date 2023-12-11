@@ -56,6 +56,12 @@ const ToggleList = ({ list, getMyList }) => {
     const [isListDeleteOpen, setIsListDeleteOpen] = useState(false);
     const [isEleDeleteOpen, setIsEleDeleteOpen] = useState(false);
     const { setMarkers, setMapInfo } = useMarkers();
+    const config = {
+        headers: {
+            'Content-Type': 'application/json', // 예시로 Content-Type 헤더를 추가했습니다.
+        },
+        withCredentials: true,
+    };
 
     const handleToggle = () => { setIsListOpen(!isListOpen) };
     const handleListDelToggle = (e) => { setIsListDeleteOpen(!isListDeleteOpen); e.stopPropagation(); };
@@ -65,7 +71,7 @@ const ToggleList = ({ list, getMyList }) => {
         const userId = sessionStorage.getItem("userId");
         let body = { userId: userId, listName: listName };
         try {
-            const response = await axios.post("https://35.216.106.118:8443/list/deleteList", body);
+            const response = await axios.post("https://35.216.106.118:8443/list/deleteList", body, config);
             switch (response.data) {
                 case 0:
                     console.log("삭제가 성공적으로 이루어졌습니다.");
@@ -92,7 +98,7 @@ const ToggleList = ({ list, getMyList }) => {
         const userId = sessionStorage.getItem("userId");
         let body = { userId: userId, listName: listName, restaurantName: restaurantName };
         try {
-            const response = await axios.post("https://35.216.106.118:8443/list/deleteListElement", body);
+            const response = await axios.post("https://35.216.106.118:8443/list/deleteListElement", body, config);
             switch (response.data) {
                 case 0:
                     console.log("삭제가 성공적으로 이루어졌습니다.");
@@ -128,7 +134,7 @@ const ToggleList = ({ list, getMyList }) => {
                 params: {
                     restaurantName: restaurantName,
                 }
-            });
+            }, config);
             console.log(response.data);
             setMarkers(convertObjectToArray(response.data));
             setMapInfo(response.data.latlng);
@@ -179,6 +185,12 @@ const MyList = () => {
     const [myListData, setMyListData] = useState([]);
     const onClickAddBtn = () => setShowInput(!showInput);
     const onInputChange = e => setInputValue(e.target.value);
+    const config = {
+        headers: {
+            'Content-Type': 'application/json', // 예시로 Content-Type 헤더를 추가했습니다.
+        },
+        withCredentials: true,
+    };
 
     const onSubmitCreateList = async () => {
         const userId = sessionStorage.getItem("userId");
@@ -188,7 +200,7 @@ const MyList = () => {
         }
         let body = { userId: userId, listName: inputValue };
         try {
-            const response = await axios.post("https://35.216.106.118:8443/list/createList", body);
+            const response = await axios.post("https://35.216.106.118:8443/list/createList", body, config);
             const resultCode = response.data; // 서버에서 전달받은 상태 코드
             switch (resultCode) {
                 case 0:
@@ -224,7 +236,7 @@ const MyList = () => {
                 params: {
                     userId: userId,
                 }
-            });
+            }, config);
             if (response.data.length === 0)
                 return;
             setMyListData(response.data);
