@@ -227,7 +227,7 @@ const FriendList = () => {
     return (
         <>
             <AddBtn onClick={onClickAddBtn}>친구 아이디 검색하기</AddBtn>
-            <InputContainer showinput={showInput}>
+            <InputContainer showinput={showInput ? 1 : 0}>
                 <input type="text" value={inputValue} onChange={onInputChange} placeholder="친구 아이디를 입력해주세요" />
                 <button onClick={onClickSearchFriend}>검색하기</button>
             </InputContainer>

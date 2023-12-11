@@ -18,7 +18,7 @@ const AddBtn = styled.div`
 `
 
 const InputContainer = styled.div`
-    display: ${props => (props.showinput ? 'flex' : 'none')}; // showInput이 true일 때만 flex로 설정
+    display: ${(props) => (props.showinput ? 'flex' : 'none')}; // showInput이 true일 때만 flex로 설정
 
     input {
         caret-color: #FF7A00;
@@ -240,7 +240,7 @@ const MyList = () => {
     return (
         <>
             <AddBtn onClick={onClickAddBtn}>새로운 리스트 추가하기</AddBtn>
-            <InputContainer showinput={showInput}>
+            <InputContainer showinput={showInput ? 1 : 0}>
                 <input type="text" value={inputValue} onChange={onInputChange} placeholder="리스트명을 입력해주세요" />
                 <button onClick={onSubmitCreateList}>추가하기</button>
             </InputContainer>
