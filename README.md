@@ -31,7 +31,7 @@
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/jiseop121">@jiseop121</a></td>
-        <td align="center"><a href={주소넣어주세요}>@자신의아이디</a></td>
+        <td align="center"><a href="https://github.com/dh5252">@dh5252</a></td>
       <td align="center"><a href="https://github.com/thswogh">@thswogh</a></td>
     </tr>
     <tr>
@@ -59,9 +59,8 @@ For building and running the application you need:
 - Front-end
   - {서비스 최소 조건을 기입해주세요}
 - Back-end
-  - {서비스 최소 조건을 기입해주세요}
-  - Node.js 18.6.0
-  - Npm 9.5.1
+  - jdk 11.0.21
+  - spring boot 3.1.3
 - database
   - {서비스 최소 조건을 기입해주세요}
 
