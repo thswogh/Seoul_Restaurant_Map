@@ -31,8 +31,8 @@
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/jiseop121">@jiseop121</a></td>
-        <td align="center"><a href="https://github.com/dh5252">@dh5252</a></td>
-      <td align="center"><a href="https://github.com/thswogh">@thswogh</a></td>
+        <td align="center"><a href="https://github.com/thswogh">@thswogh</a></td>
+      <td align="center"><a href="https://github.com/dh5252">@dh5252</a></td>
     </tr>
     <tr>
         <td>&middot; 팀장<br>&middot; 아이디어 제안자<br>&middot; 데이터베이스 구축 담당<br>&middot; 기획 담당</td>
