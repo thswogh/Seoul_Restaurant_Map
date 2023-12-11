@@ -65,7 +65,7 @@ const AnswerTr = styled.tr`
 const onClickDeleteGeneralNotice = async ({ userId, postId }) => {
     let body = { userId: userId, postId: postId };
     try {
-        const response = await axios.post("/channelRequestBoard/deletePost", body);
+        const response = await axios.post("https://35.216.106.118:8443/channelRequestBoard/deletePost", body);
         switch (response.data) {
             case 0:
                 alert("삭제가 성공적으로 이루어졌습니다.");
@@ -92,7 +92,7 @@ const onClickDeleteGeneralNotice = async ({ userId, postId }) => {
 const onClickDeleteGeneralRequest = async ({ userId, postId }) => {
     let body = { userId: userId, postId: postId };
     try {
-        const response = await axios.post("/channelRequestBoard/deletePost", body);
+        const response = await axios.post("https://35.216.106.118:8443/channelRequestBoard/deletePost", body);
         switch (response.data) {
             case 0:
                 alert("삭제가 성공적으로 이루어졌습니다.");
@@ -224,7 +224,7 @@ const ChannelBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get("/channelRequestBoard/searchPost", {
+            const response = await axios.get("https://35.216.106.118:8443/channelRequestBoard/searchPost", {
                 params: {
                     userId: userId,
                 },

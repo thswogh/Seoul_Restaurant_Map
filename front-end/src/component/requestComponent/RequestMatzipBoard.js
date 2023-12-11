@@ -72,7 +72,7 @@ const onClickDeleteRequest = async ({ requestId, fetchData }) => {
     let body = { userId: userId, requestId: requestId };
 
     try {
-        const response = await axios.post("/requestBoard/deleteMyRequestElement", body);
+        const response = await axios.post("https://35.216.106.118:8443/requestBoard/deleteMyRequestElement", body);
         switch (response.data) {
             case 0:
                 alert("삭제가 성공적으로 이루어졌습니다.");
@@ -171,7 +171,7 @@ const RequestMatzipBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get("/requestBoard/searchRequestList", {
+            const response = await axios.get("https://35.216.106.118:8443/requestBoard/searchRequestList", {
                 params: {
                     userId: userId,
                 },

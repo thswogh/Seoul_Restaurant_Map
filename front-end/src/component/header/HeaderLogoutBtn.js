@@ -17,7 +17,7 @@ const HeaderLogoutBtn = () => {
     const { isLogin, setIsLogin } = useMarkers();
     const onClickLogout = async () => {
         try {
-            const response = await axios.post('/logout');
+            const response = await axios.post('https://35.216.106.118:8443/logout');
             console.log("logout respons", response);
             // 여기서 isLoggedIn 값에 따라 로그인 여부를 확인하고 isLogin 값을 변경
             //setIsLogin(response.data);

@@ -77,7 +77,7 @@ const LoginForm = () => {
         const [id, password] = event.target;
         let body = { id: id.value, password: password.value };
         await axios
-            .post("/login", body, config)
+            .post("https://35.216.106.118:8443/login", body, config)
             .then((response) => {
                 if (response.data === 'ID_ERROR') {
                     alert("일치하는 아이디가 없습니다.");
