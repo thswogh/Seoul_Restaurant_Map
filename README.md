@@ -66,16 +66,6 @@ For building and running the application you need:
 
 ### Installation
 
-#### WEB
-```
-{방법을 기입해주세요}
-$ npm install dotenv
-$ npm install cryptojs
-$ npm install express
-$ npm install crypto
-$ npm install --save @sentry/node
-$ npm install axios
-```
 #### DATABASE
 1. create .env file
     ```
@@ -137,24 +127,24 @@ $ npm install axios
         <td align="center">리스트페이지</td>
     </tr>
     <tr>
-        <td align="center"><span><img width="300px" src="https://ifh.cc/g/kcBdYq.jpg" alt="메인페이지"></span></td>
-        <td align="center"><span><img width="300px" src="https://ifh.cc/g/S9dZt6.jpg" alt="리스트페이지"></span></td>
+        <td align="center"><span><img height="100%" src="https://ifh.cc/g/kcBdYq.jpg" alt="메인페이지"></span></td>
+        <td align="center"><span><img height="100%" src="https://ifh.cc/g/S9dZt6.jpg" alt="리스트페이지"></span></td>
     </tr>
     <tr>
         <td align="center">요청페이지</td>
         <td align="center">건의사항페이지</td>
     </tr>
     <tr>
-        <td align="center"><span><img width="300px" src="https://ifh.cc/g/oOm5d3.jpg" alt="요청페이지"></span></td>
-        <td align="center"><span><img width="300px" src="https://ifh.cc/g/NQ2jd9.jpg" alt="건의사항페이지"></span></td>
+        <td align="center"><span><img height="100%" src="https://ifh.cc/g/oOm5d3.jpg" alt="요청페이지"></span></td>
+        <td align="center"><span><img height="100%" src="https://ifh.cc/g/NQ2jd9.jpg" alt="건의사항페이지"></span></td>
     </tr>
   <tr>
         <td align="center">관리자페이지1</td>
         <td align="center">관리자페이지2</td>
     </tr>
     <tr>
-        <td align="center"><span><img width="300px" src="https://ifh.cc/g/Mz31WL.jpg" alt="관리자페이지1"></span></td>
-        <td align="center"><span><img width="300px" src="https://ifh.cc/g/ttsfxT.jpg" alt="관리자페이지2"></span></td>
+        <td align="center"><span><img height="100%" src="https://ifh.cc/g/Mz31WL.jpg" alt="관리자페이지1"></span></td>
+        <td align="center"><span><img height="100%" src="https://ifh.cc/g/ttsfxT.jpg" alt="관리자페이지2"></span></td>
     </tr>
 </table>
 
