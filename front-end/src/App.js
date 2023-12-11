@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { MapProvider } from "./component/util/MyContext";
 import Home from "./page/HomePage";
 import JoinPage from "./page/JoinPage";
@@ -11,17 +11,17 @@ import Header from "./component/header/Header";
 function App() {
   return (
     <MapProvider>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <div>
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/list" Component={List} />
-          <Route exact path="/request" Component={Request} />
-          <Route exact path="/question" Component={Question} />
-          <Route exact path="/login" Component={Login} />
-          <Route exact path="/join" Component={JoinPage} />
+          <Route exact path="/list" element={<List />} />
+          <Route exact path="/request" element={<Request />} />
+          <Route exact path="/question" element={<Question />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/join" element={<JoinPage />} />
         </Routes>
-      </BrowserRouter>
+      </div>
     </MapProvider>
   )
 }
