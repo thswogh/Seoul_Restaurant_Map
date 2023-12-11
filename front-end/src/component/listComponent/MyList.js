@@ -55,7 +55,7 @@ const ToggleList = ({ list, getMyList }) => {
     const [isListOpen, setIsListOpen] = useState(false);
     const [isListDeleteOpen, setIsListDeleteOpen] = useState(false);
     const [isEleDeleteOpen, setIsEleDeleteOpen] = useState(false);
-    const { markers, setMarkers, mapInfo, setMapInfo } = useMarkers();
+    const { setMarkers, setMapInfo } = useMarkers();
 
     const handleToggle = () => { setIsListOpen(!isListOpen) };
     const handleListDelToggle = (e) => { setIsListDeleteOpen(!isListDeleteOpen); e.stopPropagation(); };
@@ -129,12 +129,14 @@ const ToggleList = ({ list, getMyList }) => {
                     restaurantName: restaurantName,
                 }
             });
-            console.log("asdf", response.data);
+            console.log(response.data);
             setMarkers(convertObjectToArray(response.data));
+            setMapInfo(response.data.latlng);
         } catch (error) {
             alert("Error fetching data:", error.response.data);
         }
     };
+
     return (
         <div>
             <H3 onClick={handleToggle} >

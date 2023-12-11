@@ -6,6 +6,7 @@ import ListFoodTag from "../common/ListFoodTag";
 import CopyListBtn from "../common/CopyListBtn";
 import PngSearch from '../../img/Search.png'
 import DotToggleImg from "../../img/DotToggle.png"
+import { useMarkers } from "../util/MyContext";
 import axios from "axios";
 
 const AddBtn = styled.div`
@@ -71,6 +72,7 @@ const ToggleListItems = ({ list, friendId }) => {
     const [isCopyInputOpen, setIsCopyInputOpen] = useState(false);
     const [isListCopyOpen, setIsListCopyOpen] = useState(false);
     const [newListName, setNewListName] = useState('');
+    const { setMarkers, setMapInfo } = useMarkers();
 
     const handleListToggle = () => setIsListOpen(!isListOpen);
     const handleListCopyToggle = (e) => { setIsListCopyOpen(!isListCopyOpen); e.stopPropagation(); };
@@ -113,6 +115,23 @@ const ToggleListItems = ({ list, friendId }) => {
             alert("Error fetching data:", error.response.data);
         }
     }
+    const OnClickShowToMap = async ({ restaurantName }) => {
+        function convertObjectToArray(obj) {
+            return [obj];
+        }
+        try {
+            const response = await axios.get("/list/returnListElement", {
+                params: {
+                    restaurantName: restaurantName,
+                }
+            });
+            console.log(response.data);
+            setMarkers(convertObjectToArray(response.data));
+            setMapInfo(response.data.latlng);
+        } catch (error) {
+            alert("Error fetching data:", error.response.data);
+        }
+    };
 
     return (
         <div>
@@ -142,7 +161,10 @@ const ToggleListItems = ({ list, friendId }) => {
                     {list.restaurantInfo.map((info, index) => (
                         <li key={index}>
                             <div style={{ marginTop: "1vh", marginBottom: "0.4vh" }}>
-                                <span style={{ fontWeight: 700, color: "#FF7A00", fontSize: "1.1rem" }}>{info.restaurantName}</span>
+                                <span onClick={() => OnClickShowToMap({ restaurantName: info.restaurantName })}
+                                    style={{ fontWeight: 700, color: "#FF7A00", fontSize: "1.1rem", cursor: "pointer" }}>
+                                    {info.restaurantName}
+                                </span>
                             </div>
                             {info.tagList.map((tag, tagIndex) => (
                                 // <li key={tagIndex}>{tag}</li>
