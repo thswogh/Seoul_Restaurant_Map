@@ -176,7 +176,8 @@ const RequestMatzipBoard = () => {
                     userId: userId,
                 },
             }, { withCredentials: true });
-            setTotalNum(response.data.length);
+            if (response.data.length)
+                setTotalNum(response.data.length);
             console.log("response", response);
 
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
