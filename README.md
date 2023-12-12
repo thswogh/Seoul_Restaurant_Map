@@ -94,7 +94,7 @@ For building and running the application you need:
 ## 🐸 Stacks
 
 ### Enviornment
-<img src="https://img.shields.io/badge/VISUAL STUDIO CODE-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white"> <img src="https://img.shields.io/badge/GIT-F05032?style=flat-square&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/GITHUB-181717?style=flat-square&logo=github&logoColor=white"><img src="https://img.shields.io/badge/PyCharm-181717?style=flat-square&logo=pycharm&logoColor=white">
+<img src="https://img.shields.io/badge/VISUAL STUDIO CODE-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white">  <img src="https://img.shields.io/badge/GIT-F05032?style=flat-square&logo=git&logoColor=white">  <img src="https://img.shields.io/badge/GITHUB-181717?style=flat-square&logo=github&logoColor=white">  <img src="https://img.shields.io/badge/PyCharm-181717?style=flat-square&logo=pycharm&logoColor=white">
 
 ### Config
 {추가 수정 부탁}
@@ -102,10 +102,10 @@ For building and running the application you need:
 <img src="https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white">
 
 ### Development
-<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white"><img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"><img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white">  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white">  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">
 
 ### Communication
-<img src="https://img.shields.io/badge/NOTION-000000?style=flat-square&logo=notion&logoColor=white"><img src="https://img.shields.io/badge/GITHUB-181717?style=flat-square&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/NOTION-000000?style=flat-square&logo=notion&logoColor=white">  <img src="https://img.shields.io/badge/GITHUB-181717?style=flat-square&logo=github&logoColor=white">
 
 <hr style="border:0; height:2px; background:gray;">
 
