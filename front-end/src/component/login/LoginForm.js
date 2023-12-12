@@ -80,7 +80,7 @@ const LoginForm = () => {
         const [id, password] = event.target;
         let body = { id: id.value, password: password.value };
         await axios
-            .post("https://35.216.106.118:8443/login", body, { withCredentials: true })
+            .post(`${process.env.REACT_APP_API_URL}/login`, body, { withCredentials: true })
             .then((response) => {
                 console.log("login: ", response);
                 if (response.data === 'ID_ERROR') {
