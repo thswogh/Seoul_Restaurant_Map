@@ -8,7 +8,6 @@ import DeleteListBtn from "../common/DeleteListBtn";
 import DeleteListElementBtn from "../common/DeleteListElementBtn";
 import { useMarkers } from "../util/MyContext";
 import DotToggleImg from "../../img/DotToggle.png"
-import Cookies from 'js-cookie';
 
 
 const AddBtn = styled.div`
@@ -190,16 +189,12 @@ const MyList = () => {
     const onClickAddBtn = () => setShowInput(!showInput);
     const onInputChange = e => setInputValue(e.target.value);
 
-    console.log(document.cookie);
-
     const config = {
         headers: {
             'Content-Type': 'application/json', // 예시로 Content-Type 헤더를 추가했습니다.
         },
         withCredentials: 'include',
     };
-
-    console.log("hello world");
 
     const onSubmitCreateList = async () => {
         const userId = sessionStorage.getItem("userId");

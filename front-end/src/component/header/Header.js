@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useId } from 'react';
+import React, { useEffect, } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import HeaderJoinBtn from './HeaderJoinBtn';
 import HeaderLoginBtn from './HeaderLoginBtn';
@@ -51,18 +51,13 @@ const Header = () => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/checkLoginStatus`, { withCredentials: true });
             console.log("checkLoginStatus:", response);
             // 여기서 isLoggedIn 값에 따라 로그인 여부를 확인하고 isLogin 값을 변경
-            // setIsLogin(response.data);
+            setIsLogin(response.data);
             console.log('Axios Is logged in:', response.data);
         } catch (error) {
             console.error('Error checking login status:', error);
         }
     };
-    const HandleMyListClick = () => {
-        if (!isLogin) {
-            alert("로그인 후 이용 가능합니다.");
-            navigate("/login", { replace: true }); // /list 페이지에서 로그인 페이지로 이동
-        }
-    };
+
     // 컴포넌트가 마운트되면 로그인 상태를 확인
     useEffect(() => {
         console.log("header loaded");
@@ -123,12 +118,9 @@ const Header = () => {
                             <span style={{ fontWeight: 'bold' }}> Mat Zip</span>과 좋은 하루 보내세요!
                             <HeaderLogoutBtn />
                         </span>
-
                     </>
-
                 )
             }
-
         </HeaderContainer>
     );
 };
