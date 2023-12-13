@@ -95,12 +95,28 @@ const Header = () => {
                 }
             </MenuItem>
             <MenuItem>
-                <NavLink className={isNavActive} to="/request">
+                <NavLink className={isNavActive} to="/request"
+                    onClick={() => {
+                        if (!isLogin) {
+                            alert("로그인 후 이용 가능합니다.");
+                            setTimeout(() => {
+                                navigate("/login", { replace: true });
+                            }, 10);
+                        }
+                    }}>
                     Mat Zip 요청
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink className={isNavActive} to="/question">
+                <NavLink className={isNavActive} to="/question"
+                    onClick={() => {
+                        if (!isLogin) {
+                            alert("로그인 후 이용 가능합니다.");
+                            setTimeout(() => {
+                                navigate("/login", { replace: true });
+                            }, 10);
+                        }
+                    }}>
                     건의사항
                 </NavLink>
             </MenuItem>
