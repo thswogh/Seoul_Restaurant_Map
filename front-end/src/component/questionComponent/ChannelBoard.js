@@ -227,7 +227,8 @@ const ChannelBoard = () => {
                 params: {
                     userId: userId,
                 },
-            }, { withCredentials: true });
+                withCredentials: true,
+            });
             setTotalNum(response.data.normal.length);
             setNoticeList(response.data.notice);
 

@@ -53,8 +53,9 @@ const Overlay = ({ marker, handleMarkerClick }) => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/home/findList`, {
                 params: {
                     userId: userId
-                }
-            }, { withCredentials: true });
+                },
+                withCredentials: true,
+            });
             console.log(response);
             setFindListData(response.data);
         } catch (error) {

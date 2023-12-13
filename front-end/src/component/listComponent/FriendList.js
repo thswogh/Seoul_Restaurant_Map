@@ -123,8 +123,9 @@ const ToggleListItems = ({ list, friendId }) => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/returnListElement`, {
                 params: {
                     restaurantName: restaurantName,
-                }
-            }, { withCredentials: true });
+                },
+                withCredentials: true
+            });
             console.log(response.data);
             setMarkers(convertObjectToArray(response.data));
             setMapInfo(response.data.latlng);
@@ -195,7 +196,8 @@ const FriendList = () => {
                     friendId: inputValue,
                     userId: userId
                 },
-            }, { withCredentials: true });
+                withCredentials: true,
+            });
             switch (responseExistId.data) {
                 case 0:
                     console.log("친구를 찾았습니다!");
@@ -203,7 +205,8 @@ const FriendList = () => {
                         params: {
                             friendId: inputValue,
                         },
-                    }, { withCredentials: true });
+                        withCredentials: true,
+                    });
                     setFriendListData(responseSearchFriendList.data);
                     break;
                 case 1:

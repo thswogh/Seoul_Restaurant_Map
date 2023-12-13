@@ -8,7 +8,8 @@ import DeleteListBtn from "../common/DeleteListBtn";
 import DeleteListElementBtn from "../common/DeleteListElementBtn";
 import { useMarkers } from "../util/MyContext";
 import DotToggleImg from "../../img/DotToggle.png"
-import { Cookies } from 'react-cookie';
+import Cookies from 'js-cookie';
+
 
 const AddBtn = styled.div`
     font-size: 1.1rem;
@@ -134,8 +135,9 @@ const ToggleList = ({ list, getMyList }) => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/returnListElement`, {
                 params: {
                     restaurantName: restaurantName,
-                }
-            }, config);
+                },
+                withCredentials: true
+            });
             console.log(response.data);
             setMarkers(convertObjectToArray(response.data));
             setMapInfo(response.data.latlng);
@@ -181,20 +183,23 @@ const ToggleList = ({ list, getMyList }) => {
 };
 
 const MyList = () => {
+
     const [showInput, setShowInput] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [myListData, setMyListData] = useState([]);
     const onClickAddBtn = () => setShowInput(!showInput);
     const onInputChange = e => setInputValue(e.target.value);
-    const cookies = new Cookies();
+
+    console.log(document.cookie);
 
     const config = {
         headers: {
-            'Cookie': cookies.get('JSESSIONID'),
             'Content-Type': 'application/json', // 예시로 Content-Type 헤더를 추가했습니다.
         },
-        withCredentials: true,
+        withCredentials: 'include',
     };
+
+    console.log("hello world");
 
     const onSubmitCreateList = async () => {
         const userId = sessionStorage.getItem("userId");
@@ -236,14 +241,9 @@ const MyList = () => {
     const getMyList = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/searchMyList`, {
-                headers: {
-
-                },
-                params: {
-                    userId: userId,
-                }
-            }, config);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/searchMyList?userId=${userId}`, {
+                withCredentials: true,
+            });
             if (response.data.length === 0)
                 return;
             setMyListData(response.data);

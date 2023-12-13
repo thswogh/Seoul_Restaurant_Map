@@ -92,8 +92,9 @@ const MainSidebar = () => {
                     channel: channelTags.join(','),
                     tag: foodTags.join(','),
                     views: viewValue,
-                }
-            }, config);
+                },
+                withCredentials: true
+            });
             setMarkers(response.data);
             console.log(response.data);
         } catch (error) {

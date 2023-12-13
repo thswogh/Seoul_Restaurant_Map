@@ -175,7 +175,8 @@ const RequestMatzipBoard = () => {
                 params: {
                     userId: userId,
                 },
-            }, { withCredentials: true });
+                withCredentials: true,
+            });
             if (response.data.length)
                 setTotalNum(response.data.length);
             console.log("response", response);

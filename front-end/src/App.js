@@ -7,14 +7,13 @@ import Login from "./page/LoginPage";
 import Request from "./page/RequestPage";
 import Question from "./page/QuestionPage";
 import Header from "./component/header/Header";
-
 function App() {
   return (
     <MapProvider>
       <div>
         <Header />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/" Component={Home} />
           <Route exact path="/list" Component={List} />
           <Route exact path="/reqeust" Component={Request} />
           <Route exact path="/question" Component={Question} />

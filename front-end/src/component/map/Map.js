@@ -37,8 +37,9 @@ const BasicMap = () => {
                     x_end: x_end,
                     y_start: y_start,
                     y_end: y_end,
-                }
-            }, config);
+                },
+                withCredentials: true
+            });
             setMarkers(response.data);
             setTriggerEffect(false);
         } catch (error) {
