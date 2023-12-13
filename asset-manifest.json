@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Seoul_Restaurant_Map/static/css/main.396934af.css",
-    "main.js": "/Seoul_Restaurant_Map/static/js/main.2ca7a794.js",
+    "main.js": "/Seoul_Restaurant_Map/static/js/main.7e32cfdd.js",
     "static/media/applyImg.png": "/Seoul_Restaurant_Map/static/media/applyImg.cbabc7d993ab9328986a.png",
     "static/media/rejectImg.png": "/Seoul_Restaurant_Map/static/media/rejectImg.b6a8c42e14d9e9a02ae2.png",
     "index.html": "/Seoul_Restaurant_Map/index.html",
     "main.396934af.css.map": "/Seoul_Restaurant_Map/static/css/main.396934af.css.map",
-    "main.2ca7a794.js.map": "/Seoul_Restaurant_Map/static/js/main.2ca7a794.js.map"
+    "main.7e32cfdd.js.map": "/Seoul_Restaurant_Map/static/js/main.7e32cfdd.js.map"
   },
   "entrypoints": [
     "static/css/main.396934af.css",
-    "static/js/main.2ca7a794.js"
+    "static/js/main.7e32cfdd.js"
   ]
 }
