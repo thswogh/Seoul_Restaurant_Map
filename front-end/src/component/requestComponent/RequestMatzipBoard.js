@@ -72,7 +72,7 @@ const onClickDeleteRequest = async ({ requestId, fetchData }) => {
     let body = { userId: userId, requestId: requestId };
 
     try {
-        const response = await axios.post(`/requestBoard/deleteMyRequestElement`, body, { withCredentials: true });
+        const response = await axios.post(`${REACT_APP_API_URL}/requestBoard/deleteMyRequestElement`, body, { withCredentials: true });
         switch (response.data) {
             case 0:
                 alert("삭제가 성공적으로 이루어졌습니다.");
@@ -171,7 +171,7 @@ const RequestMatzipBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get('/requestBoard/searchRequestList', {
+            const response = await axios.get(`${REACT_APP_API_URL}/requestBoard/searchRequestList`, {
                 params: {
                     userId: userId,
                 },

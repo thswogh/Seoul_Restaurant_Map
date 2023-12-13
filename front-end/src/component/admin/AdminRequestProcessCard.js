@@ -86,7 +86,7 @@ const AdminRequestProcessCard = ({ onClose, requestId, fetchData }) => {
         };
 
         try {
-            const response = await axios.post('/requestBoard/addComment', body, { withCredentials: true });
+            const response = await axios.post(`${REACT_APP_API_URL}/requestBoard/addComment`, body, { withCredentials: true });
             console.log(response.data);
             switch (response.data) {
                 case 0:
@@ -125,7 +125,7 @@ const AdminRequestProcessCard = ({ onClose, requestId, fetchData }) => {
         };
 
         try {
-            const response = await axios.post(`/requestBoard/updateRequestStatus`, body, { withCredentials: true });
+            const response = await axios.post(`${REACT_APP_API_URL}/requestBoard/updateRequestStatus`, body, { withCredentials: true });
             console.log(response.data);
             switch (response.data) {
                 case 0:

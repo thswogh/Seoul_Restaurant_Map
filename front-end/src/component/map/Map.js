@@ -31,7 +31,7 @@ const BasicMap = () => {
         let y_end = neLatLng.getLat();
 
         try {
-            const response = await axios.get(`/home/search`, {
+            const response = await axios.get(`${REACT_APP_API_URL}/home/search`, {
                 params: {
                     x_start: x_start,
                     x_end: x_end,
