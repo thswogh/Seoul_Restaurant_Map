@@ -13,12 +13,12 @@ function App() {
       <div>
         <Header />
         <Routes>
-          <Route exact path="/" Component={Home} />
-          <Route exact path="/list" Component={List} />
-          <Route exact path="/request" Component={Request} />
-          <Route exact path="/question" Component={Question} />
-          <Route exact path="/login" Component={Login} />
-          <Route exact path="/join" Componentt={JoinPage} />
+          <Route path="/" element={<Home />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/request" element={<Request />} />
+          <Route path="/question" element={<Question />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/join" element={<JoinPage />} />
         </Routes>
       </div>
     </MapProvider>
