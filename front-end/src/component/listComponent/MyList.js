@@ -72,7 +72,7 @@ const ToggleList = ({ list, getMyList }) => {
         const userId = sessionStorage.getItem("userId");
         let body = { userId: userId, listName: listName };
         try {
-            const response = await axios.post(`${REACT_APP_API_URL}/list/deleteList`, body, config);
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/list/deleteList`, body, config);
             switch (response.data) {
                 case 0:
                     console.log("삭제가 성공적으로 이루어졌습니다.");
@@ -99,7 +99,7 @@ const ToggleList = ({ list, getMyList }) => {
         const userId = sessionStorage.getItem("userId");
         let body = { userId: userId, listName: listName, restaurantName: restaurantName };
         try {
-            const response = await axios.post(`${REACT_APP_API_URL}/list/deleteListElement`, body, config);
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/list/deleteListElement`, body, config);
             switch (response.data) {
                 case 0:
                     console.log("삭제가 성공적으로 이루어졌습니다.");
@@ -131,7 +131,7 @@ const ToggleList = ({ list, getMyList }) => {
             return [obj];
         }
         try {
-            const response = await axios.get(`${REACT_APP_API_URL}/list/returnListElement`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/returnListElement`, {
                 params: {
                     restaurantName: restaurantName,
                 }
@@ -204,7 +204,7 @@ const MyList = () => {
         }
         let body = { userId: userId, listName: inputValue };
         try {
-            const response = await axios.post(`${REACT_APP_API_URL}/list/createList`, body, config);
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/list/createList`, body, config);
             const resultCode = response.data; // 서버에서 전달받은 상태 코드
             switch (resultCode) {
                 case 0:
@@ -236,7 +236,7 @@ const MyList = () => {
     const getMyList = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get(`${REACT_APP_API_URL}/list/searchMyList`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/searchMyList`, {
                 headers: {
 
                 },

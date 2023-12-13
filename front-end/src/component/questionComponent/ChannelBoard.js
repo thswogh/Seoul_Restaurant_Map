@@ -64,7 +64,7 @@ const AnswerTr = styled.tr`
 const onClickDeleteGeneralNotice = async ({ userId, postId }) => {
     let body = { userId: userId, postId: postId };
     try {
-        const response = await axios.post(`${REACT_APP_API_URL}/channelRequestBoard/deletePost`, body, { withCredentials: true });
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/channelRequestBoard/deletePost`, body, { withCredentials: true });
         switch (response.data) {
             case 0:
                 alert("삭제가 성공적으로 이루어졌습니다.");
@@ -91,7 +91,7 @@ const onClickDeleteGeneralNotice = async ({ userId, postId }) => {
 const onClickDeleteGeneralRequest = async ({ userId, postId }) => {
     let body = { userId: userId, postId: postId };
     try {
-        const response = await axios.post(`${REACT_APP_API_URL}/channelRequestBoard/deletePost`, body, { withCredentials: true });
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/channelRequestBoard/deletePost`, body, { withCredentials: true });
         switch (response.data) {
             case 0:
                 alert("삭제가 성공적으로 이루어졌습니다.");
@@ -223,7 +223,7 @@ const ChannelBoard = () => {
     const fetchData = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get(`${REACT_APP_API_URL}/channelRequestBoard/searchPost`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/channelRequestBoard/searchPost`, {
                 params: {
                     userId: userId,
                 },

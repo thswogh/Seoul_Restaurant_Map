@@ -90,7 +90,7 @@ const ToggleListItems = ({ list, friendId }) => {
             destListName: newListName,
         }
         try {
-            const response = await axios.post(`${REACT_APP_API_URL}/list/copyFriendList`, body, { withCredentials: true });
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/list/copyFriendList`, body, { withCredentials: true });
             switch (response.data) {
                 case 0:
                     alert("등록 성공");
@@ -120,7 +120,7 @@ const ToggleListItems = ({ list, friendId }) => {
             return [obj];
         }
         try {
-            const response = await axios.get(`${REACT_APP_API_URL}/list/returnListElement`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/returnListElement`, {
                 params: {
                     restaurantName: restaurantName,
                 }
@@ -190,7 +190,7 @@ const FriendList = () => {
         const userId = sessionStorage.getItem("userId");
         try {
             //우선 친구아이디가 존재하는지 확인, 존재하면 친구 리스트 불러오기
-            const responseExistId = await axios.get(`${REACT_APP_API_URL}/list/isExistFriend`, {
+            const responseExistId = await axios.get(`${process.env.REACT_APP_API_URL}/list/isExistFriend`, {
                 params: {
                     friendId: inputValue,
                     userId: userId
@@ -199,7 +199,7 @@ const FriendList = () => {
             switch (responseExistId.data) {
                 case 0:
                     console.log("친구를 찾았습니다!");
-                    const responseSearchFriendList = await axios.get(`${REACT_APP_API_URL}/list/searchFriendList`, {
+                    const responseSearchFriendList = await axios.get(`${process.env.REACT_APP_API_URL}/list/searchFriendList`, {
                         params: {
                             friendId: inputValue,
                         },

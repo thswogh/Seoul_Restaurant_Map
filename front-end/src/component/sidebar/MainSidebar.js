@@ -87,7 +87,7 @@ const MainSidebar = () => {
     const onClickSearchHandler = async () => {
         console.log("channel", channelTags, "foodTags", foodTags, "viewValue", viewValue);
         try {
-            const response = await axios.get(`${REACT_APP_API_URL}/home/advancedSearch`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/home/advancedSearch`, {
                 params: {
                     channel: channelTags.join(','),
                     tag: foodTags.join(','),
