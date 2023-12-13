@@ -14,12 +14,12 @@ function App() {
       <div>
         <Header />
         <Routes>
-          <Route exact path={"/"} element={<Home />} />
-          <Route exact path={"/list"} Component={List} />
-          <Route exact path={"/reqeust"} Component={Request} />
-          <Route exact path={"/question"} Component={Question} />
-          <Route exact path={"/login"} Component={Login} />
-          <Route exact path={"/join"} Componentt={JoinPage} />
+          <Route exact path={process.env.REACT_APP_PUBLIC_URL + "/"} element={<Home />} />
+          <Route exact path={process.env.REACT_APP_PUBLIC_URL + "/list"} Component={List} />
+          <Route exact path={process.env.REACT_APP_PUBLIC_URL + "/reqeust"} Component={Request} />
+          <Route exact path={process.env.REACT_APP_PUBLIC_URL + "/question"} Component={Question} />
+          <Route exact path={process.env.REACT_APP_PUBLIC_URL + "/login"} Component={Login} />
+          <Route exact path={process.env.REACT_APP_PUBLIC_URL + "/join"} Componentt={JoinPage} />
         </Routes>
       </div>
     </MapProvider>

@@ -74,13 +74,13 @@ const Header = () => {
         <HeaderContainer>
             <Logo>Mat Zip</Logo>
             <MenuItem>
-                <NavLink className={isNavActive} to="/">
+                <NavLink className={isNavActive} to={process.env.REACT_APP_PUBLIC_URL + "/"}>
                     지도 홈
                 </NavLink>
             </MenuItem>
             <MenuItem>
                 {isLogin === false ? (
-                    <NavLink className={isNavActive} to="/list"
+                    <NavLink className={isNavActive} to={process.env.REACT_APP_PUBLIC_URL + "/list"}
                         onClick={() => {
                             if (!isLogin) {
                                 alert("로그인 후 이용 가능합니다.");
@@ -94,19 +94,19 @@ const Header = () => {
                 )
                     :
                     (
-                        <NavLink className={isNavActive} to="/list">
+                        <NavLink className={isNavActive} to={process.env.REACT_APP_PUBLIC_URL + "/list"}>
                             나의 Mat Zip
                         </NavLink>
                     )
                 }
             </MenuItem>
             <MenuItem>
-                <NavLink className={isNavActive} to="/request">
+                <NavLink className={isNavActive} to={process.env.REACT_APP_PUBLIC_URL + "/request"}>
                     Mat Zip 요청
                 </NavLink>
             </MenuItem>
             <MenuItem>
-                <NavLink className={isNavActive} to="/question">
+                <NavLink className={isNavActive} to={process.env.REACT_APP_PUBLIC_URL + "/question"}>
                     건의사항
                 </NavLink>
             </MenuItem>
