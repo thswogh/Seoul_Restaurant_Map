@@ -60,7 +60,6 @@ const Header = () => {
     const HandleMyListClick = () => {
         if (!isLogin) {
             alert("로그인 후 이용 가능합니다.");
-            // <useNavigate to="/login" replace={true} />; // /list 페이지에서 로그인 페이지로 이동
             navigate("/login", { replace: true }); // /list 페이지에서 로그인 페이지로 이동
         }
     };
