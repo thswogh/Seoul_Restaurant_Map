@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route exact path="/" Component={Home} />
           <Route exact path="/list" Component={List} />
-          <Route exact path="/reqeust" Component={Request} />
+          <Route exact path="/request" Component={Request} />
           <Route exact path="/question" Component={Question} />
           <Route exact path="/login" Component={Login} />
           <Route exact path="/join" Componentt={JoinPage} />
