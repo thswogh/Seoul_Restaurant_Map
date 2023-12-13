@@ -8,6 +8,7 @@ import DeleteListBtn from "../common/DeleteListBtn";
 import DeleteListElementBtn from "../common/DeleteListElementBtn";
 import { useMarkers } from "../util/MyContext";
 import DotToggleImg from "../../img/DotToggle.png"
+import { Cookies } from 'react-cookie';
 
 const AddBtn = styled.div`
     font-size: 1.1rem;
@@ -71,7 +72,7 @@ const ToggleList = ({ list, getMyList }) => {
         const userId = sessionStorage.getItem("userId");
         let body = { userId: userId, listName: listName };
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/list/deleteList`, body, config);
+            const response = await axios.post(`/list/deleteList`, body, config);
             switch (response.data) {
                 case 0:
                     console.log("삭제가 성공적으로 이루어졌습니다.");
@@ -98,7 +99,7 @@ const ToggleList = ({ list, getMyList }) => {
         const userId = sessionStorage.getItem("userId");
         let body = { userId: userId, listName: listName, restaurantName: restaurantName };
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/list/deleteListElement`, body, config);
+            const response = await axios.post('/list/deleteListElement', body, config);
             switch (response.data) {
                 case 0:
                     console.log("삭제가 성공적으로 이루어졌습니다.");
@@ -130,7 +131,7 @@ const ToggleList = ({ list, getMyList }) => {
             return [obj];
         }
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/returnListElement`, {
+            const response = await axios.get('/list/returnListElement', {
                 params: {
                     restaurantName: restaurantName,
                 }
@@ -185,8 +186,11 @@ const MyList = () => {
     const [myListData, setMyListData] = useState([]);
     const onClickAddBtn = () => setShowInput(!showInput);
     const onInputChange = e => setInputValue(e.target.value);
+    const cookies = new Cookies();
+
     const config = {
         headers: {
+            'Cookie': cookies.get('JSESSIONID'),
             'Content-Type': 'application/json', // 예시로 Content-Type 헤더를 추가했습니다.
         },
         withCredentials: true,
@@ -200,7 +204,7 @@ const MyList = () => {
         }
         let body = { userId: userId, listName: inputValue };
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/list/createList`, body, config);
+            const response = await axios.post('/list/createList', body, config);
             const resultCode = response.data; // 서버에서 전달받은 상태 코드
             switch (resultCode) {
                 case 0:
@@ -232,7 +236,10 @@ const MyList = () => {
     const getMyList = async () => {
         const userId = sessionStorage.getItem("userId");
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/list/searchMyList`, {
+            const response = await axios.get('/list/searchMyList', {
+                headers: {
+
+                },
                 params: {
                     userId: userId,
                 }

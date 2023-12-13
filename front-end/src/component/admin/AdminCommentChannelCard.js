@@ -86,7 +86,7 @@ const AdminCommentChannelCard = ({ onClose, postId }) => {
         };
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/channelRequestBoard/addAdminComment`, body, { withCredentials: true });
+            const response = await axios.post(`/channelRequestBoard/addAdminComment`, body, { withCredentials: true });
             switch (response.data) {
                 case 0:
                     alert("처리 성공");
@@ -126,7 +126,7 @@ const AdminCommentChannelCard = ({ onClose, postId }) => {
         };
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/channelRequestBoard/updateStateByAdmin`, body, { withCredentials: true });
+            const response = await axios.post('/channelRequestBoard/updateStateByAdmin', body, { withCredentials: true });
             switch (response.data) {
                 case 0:
                     alert("처리 성공");
