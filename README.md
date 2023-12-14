@@ -15,7 +15,7 @@
 
 ## 💻 배포 주소
 
-> <p style="color:gray; font-weight:bold;"><a href={주소삽입}>배포 사이트</a><p>
+> <p style="color:gray; font-weight:bold;"><a href="https://thswogh.github.io/Seoul_Restaurant_Map/">배포 사이트</a><p>
 > <p style="color:gray; font-weight:bold;"><a href="https://docs.google.com/presentation/d/1fYYMSaQyoykspMV_Ud-pYuITTyNAPKUc/edit?usp=sharing&ouid=110693294229754667378&rtpof=true&sd=true">시현 영상 및 소개 자료</a></p>
 
 <br>
@@ -69,7 +69,7 @@ For building and running the application you need:
   - jdk 11.0.21
   - spring boot 3.1.3
 - database
-  - {서비스 최소 조건을 기입해주세요}
+  - python 3.9
 
 ### Installation
 
