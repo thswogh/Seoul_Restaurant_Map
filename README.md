@@ -64,7 +64,11 @@ For building and running the application you need:
 <a href="https://github.com/InterfaceProject-Seoul-aRestaurant-Map/Seoul_Restaurant_Map/tree/database">database</a></td>
 <br>
 - Front-end
-  - {서비스 최소 조건을 기입해주세요}
+  1. 브라우저 호환성:
+      - Google Chrome, Firefox, Safari, 또는 Microsoft Edge와 호환되는 최신 버전의 브라우저.
+  2. Node.js 및 패키지 매니저:
+      - Node.js: React 애플리케이션을 실행하기 위한 Node.js 환경. (권장 버전: 확인 필요)
+      - 패키지 매니저: npm 또는 yarn과 같은 패키지 매니저를 통한 필요한 라이브러리 및 의존성 관리.
 - Back-end
   - jdk 11.0.21
   - spring boot 3.1.3
